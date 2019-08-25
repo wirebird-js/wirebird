@@ -8,7 +8,8 @@
     },
     "files": [
         "server-dist",
-        ".next"
+        ".next",
+        "bin"
     ],
     "scripts": {
         "dev": "nodemon --inspect",
