@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "bin": {
-        "http-inspector-ui": "http-inspector-ui.js"
+        "http-inspector-ui": "./bin/http-inspector-ui.js"
     },
     "files": [
         "server-dist",
