@@ -1,4 +1,3 @@
 #!/usr/bin/env node
 
-process.env.NODE_ENV = 'production';
-require('../server-dist');
+require('../server-dist').default({ production: true });
