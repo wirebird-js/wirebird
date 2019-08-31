@@ -23,7 +23,7 @@ export default class SocketServer {
             //     console.log('received: %s', message);
             // });
             console.log('connected');
-            ws.send('online');
+            ws.send(JSON.stringify({ type: 'ONLINE' }));
         });
     }
 
