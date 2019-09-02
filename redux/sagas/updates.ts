@@ -1,7 +1,8 @@
 import UpdatesService from '../../services/updates';
 import { SagaIterator, eventChannel, END } from 'redux-saga';
-import { call, take } from 'redux-saga/effects';
+import { call, take, put } from 'redux-saga/effects';
 import { LoggerEvent } from 'http-inspector';
+import { loggerEventReceivedAction } from '../ducks/updates';
 
 function createUpdatesChannel(updatesService: UpdatesService) {
     return eventChannel<LoggerEvent>(emitter => {
@@ -18,6 +19,6 @@ export default function* updates(): SagaIterator {
     const chan = yield call(createUpdatesChannel, updatesService);
     while (true) {
         const loggerEvent = yield take(chan);
-        console.log('[LoggerEvent]', loggerEvent);
+        yield put(loggerEventReceivedAction(loggerEvent));
     }
 }
