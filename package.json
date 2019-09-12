@@ -30,7 +30,7 @@
         "@types/react-redux": "^7.1.2",
         "@types/redux-actions": "^2.6.1",
         "@types/ws": "^6.0.3",
-        "http-inspector": "0.0.9",
+        "http-inspector": "0.0.12",
         "material-table": "^1.50.0",
         "next": "^9.0.5",
         "react": "^16.9.0",

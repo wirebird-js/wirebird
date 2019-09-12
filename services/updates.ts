@@ -1,4 +1,8 @@
-import { SerializedLoggerEvent, LoggerEvent } from 'http-inspector';
+import {
+    SerializedLoggerEvent,
+    LoggerEvent,
+    MonitorEvent
+} from 'http-inspector';
 import { EventEmitter } from 'events';
 
 export interface UpdatesServiceEvents {
@@ -26,7 +30,7 @@ export default class UpdatesService extends EventEmitter
         }
         return Buffer.from(input, 'base64');
     }
-    private unserialiseLoggerEvent(event: SerializedLoggerEvent): LoggerEvent {
+    private unserialiseLoggerEvent(event: SerializedLoggerEvent): MonitorEvent {
         if (event.response) {
             return {
                 request: {
@@ -37,7 +41,8 @@ export default class UpdatesService extends EventEmitter
                     ...event.response,
                     body: this.unserializeBase64(event.response.body)
                 },
-                error: null
+                error: null,
+                processData: event.processData
             };
         }
 
@@ -48,7 +53,8 @@ export default class UpdatesService extends EventEmitter
                     body: this.unserializeBase64(event.request.body)
                 },
                 response: null,
-                error: event.error
+                error: event.error,
+                processData: event.processData
             };
         }
         throw new Error('Error unserializing LoggerEvent');
