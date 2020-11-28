@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { LoggerEvent } from 'http-inspector';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import RequestsTableRow from './RequestTableRow';
 
 interface IRequestsTableProps {
@@ -18,6 +18,12 @@ const RequestsTable: FC<IRequestsTableProps> = ({
     onRowClick,
     current,
 }) => {
+    const handleRowClick = useCallback((id) => onRowClick && onRowClick(id), [
+        onRowClick,
+    ]);
+
+    console.log('render table');
+
     return (
         <Table size="small">
             <TableHead>
@@ -38,7 +44,7 @@ const RequestsTable: FC<IRequestsTableProps> = ({
                         shrunk={!!current}
                         selected={item.request.id === current}
                         key={item.request.id}
-                        onClick={(id) => onRowClick && onRowClick(id)}
+                        onClick={handleRowClick}
                     />
                 ))}
             </TableBody>

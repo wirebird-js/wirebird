@@ -1,5 +1,9 @@
-import { reducer as updtaesReducer } from './ducks/updates';
+import { reducer as updatesReducer, UpdatesState } from './ducks/updates';
 
 export default {
-    updates: updtaesReducer
+    updates: updatesReducer,
 };
+
+export interface State {
+    updates: UpdatesState;
+}

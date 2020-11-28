@@ -70,6 +70,7 @@ const RequestsTableRow: FC<IRequestsTableRowProps> = ({
         },
         classes.root
     );
+    console.log('render row');
     return (
         <TableRow
             onClick={() => onClick && onClick(item.request.id)}
@@ -89,4 +90,4 @@ const RequestsTableRow: FC<IRequestsTableRowProps> = ({
     );
 };
 
-export default RequestsTableRow;
+export default React.memo(RequestsTableRow);
