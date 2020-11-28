@@ -23,9 +23,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@material-ui/core": "^4.3.3",
-    "@material-ui/icons": "^4.2.1",
-    "@material-ui/styles": "^4.3.3",
+    "@material-ui/core": "^4.11.1",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.11.1",
     "@types/react-no-ssr": "^1.1.1",
     "@types/react-redux": "^7.1.2",
     "@types/redux-actions": "^2.6.1",

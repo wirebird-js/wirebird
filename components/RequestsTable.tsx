@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { LoggerEvent } from 'http-inspector';
-import React, { SFC } from 'react';
+import React, { FC } from 'react';
 import RequestsTableRow from './RequestTableRow';
 
 interface IRequestsTableProps {
@@ -13,10 +13,10 @@ interface IRequestsTableProps {
     onRowClick?: (rowId: string) => void;
 }
 
-const RequestsTable: SFC<IRequestsTableProps> = ({
+const RequestsTable: FC<IRequestsTableProps> = ({
     items,
     onRowClick,
-    current
+    current,
 }) => (
     <Table size="small">
         <TableHead>
@@ -31,12 +31,13 @@ const RequestsTable: SFC<IRequestsTableProps> = ({
             </TableRow>
         </TableHead>
         <TableBody>
-            {items.map(item => (
+            {items.map((item) => (
                 <RequestsTableRow
                     item={item}
                     shrunk={!!current}
+                    selected={item.request.id === current}
                     key={item.request.id}
-                    onClick={id => onRowClick && onRowClick(id)}
+                    onClick={(id) => onRowClick && onRowClick(id)}
                 />
             ))}
         </TableBody>

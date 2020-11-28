@@ -5,7 +5,7 @@ import RequestsTable from '../components/RequestsTable';
 import loggerEvents from './data/loggerEvents';
 
 export default {
-    title: 'Requests Table'
+    title: 'Requests Table',
 };
 
 export const main = () => (
@@ -21,7 +21,7 @@ export const expandable = () => {
         <RequestsTable
             items={loggerEvents}
             current={currentRowId}
-            onRowClick={id => setCurrentRowId(id)}
+            onRowClick={(id) => setCurrentRowId(id)}
         />
     );
 };
