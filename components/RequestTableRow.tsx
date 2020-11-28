@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 
-    erraneous: {
+    withError: {
         '& td': {
             color: theme.palette.error.main,
         },
@@ -32,6 +32,19 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: theme.palette.error.main,
             '& td': {
                 color: theme.palette.getContrastText(theme.palette.error.main),
+            },
+        },
+    },
+    withWarning: {
+        '& td': {
+            color: theme.palette.warning.main,
+        },
+        '&$selected': {
+            backgroundColor: theme.palette.warning.main,
+            '& td': {
+                color: theme.palette.getContrastText(
+                    theme.palette.warning.main
+                ),
             },
         },
     },
@@ -48,7 +61,12 @@ const RequestsTableRow: FC<IRequestsTableRowProps> = ({
     const rowClasses = classnames(
         {
             [classes.selected]: selected,
-            [classes.erraneous]: !!item.error,
+            [classes.withError]:
+                !!item.error || (item.response && item.response.status >= 400),
+            [classes.withWarning]:
+                item.response &&
+                item.response.status >= 300 &&
+                item.response.status < 400,
         },
         classes.root
     );
