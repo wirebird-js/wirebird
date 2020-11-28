@@ -73,7 +73,7 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
             </Grid>
 
             {currentItem && (
-                <Grid item xs={6} md={9} className={classes.rightPanel}>
+                <Grid item xs={9} className={classes.rightPanel}>
                     <EventDetailsView
                         event={currentItem}
                         onClose={handleDetailsClose}

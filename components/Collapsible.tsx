@@ -4,15 +4,31 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import React, { FC } from 'react';
 
-const useStyles = makeStyles((theme) => ({
-    noMargins: {
-        margin: '0 !important',
+const useStyles = makeStyles(
+    (theme) => {
+        const summaryColor = 'rgb(200,200,200)';
+        return {
+            force: {},
+            root: {
+                '&$force': {
+                    margin: 0,
+                },
+            },
+            summary: {
+                '$force &': {
+                    minHeight: 33,
+                },
+                backgroundColor: summaryColor,
+            },
+            summaryContent: {
+                '$force &': {
+                    margin: 0,
+                },
+            },
+        };
     },
-    summary: {
-        marginTop: 0,
-        marginBottom: 0,
-    },
-}));
+    { name: 'Collapsible' }
+);
 
 export interface ICollapsibleProps {
     title?: string;
@@ -23,15 +39,15 @@ export const Collapsible: FC<ICollapsibleProps> = ({ title, children }) => {
     return (
         <Accordion
             defaultExpanded
+            className={classes.force}
             classes={{
-                root: classes.noMargins,
-                expanded: classes.noMargins,
+                root: classes.root,
             }}
         >
             <AccordionSummary
                 classes={{
-                    expanded: classes.summary,
-                    content: classes.summary,
+                    root: classes.summary,
+                    content: classes.summaryContent,
                 }}
             >
                 <Typography>{title}</Typography>
