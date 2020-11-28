@@ -68,7 +68,7 @@ const items: Array<LoggerEvent> = [
             headers: {
                 'content-type': 'application/json',
             },
-            id: 'id2',
+            id: 'id3',
             method: 'POST',
             timeStart: 2000,
             url: 'https://non-existing-asdhfsdiufhsd.com',
