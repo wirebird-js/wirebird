@@ -6,10 +6,7 @@ import React, { FC } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     noMargins: {
-        '&,&:last-child,&:first-child': {
-            marginTop: 0,
-            marginBottom: 0,
-        },
+        margin: '0 !important',
     },
     summary: {
         marginTop: 0,
