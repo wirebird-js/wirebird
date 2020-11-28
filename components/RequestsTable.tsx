@@ -17,31 +17,33 @@ const RequestsTable: FC<IRequestsTableProps> = ({
     items,
     onRowClick,
     current,
-}) => (
-    <Table size="small">
-        <TableHead>
-            <TableRow>
-                <TableCell>Name</TableCell>
-                {current ? null : (
-                    <>
-                        <TableCell>Method</TableCell>
-                        <TableCell>Status</TableCell>
-                    </>
-                )}
-            </TableRow>
-        </TableHead>
-        <TableBody>
-            {items.map((item) => (
-                <RequestsTableRow
-                    item={item}
-                    shrunk={!!current}
-                    selected={item.request.id === current}
-                    key={item.request.id}
-                    onClick={(id) => onRowClick && onRowClick(id)}
-                />
-            ))}
-        </TableBody>
-    </Table>
-);
+}) => {
+    return (
+        <Table size="small">
+            <TableHead>
+                <TableRow>
+                    <TableCell>Name</TableCell>
+                    {current ? null : (
+                        <>
+                            <TableCell>Method</TableCell>
+                            <TableCell>Status</TableCell>
+                        </>
+                    )}
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {items.map((item) => (
+                    <RequestsTableRow
+                        item={item}
+                        shrunk={!!current}
+                        selected={item.request.id === current}
+                        key={item.request.id}
+                        onClick={(id) => onRowClick && onRowClick(id)}
+                    />
+                ))}
+            </TableBody>
+        </Table>
+    );
+};
 
 export default RequestsTable;

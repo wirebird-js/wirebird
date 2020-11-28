@@ -8,8 +8,7 @@ import RequestsTable from './RequestsTable';
 const SIZES_LEFT_PANEL_SHRUNK: Partial<
     Record<Breakpoint, boolean | GridSize>
 > = {
-    xs: 6,
-    md: 3,
+    xs: 3,
 };
 const SIZES_LEFT_PANEL_WIDE: Partial<Record<Breakpoint, boolean | GridSize>> = {
     xs: 12,
