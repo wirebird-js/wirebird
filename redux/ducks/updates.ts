@@ -18,14 +18,11 @@ const slice = createSlice({
     name: 'updates',
     initialState,
     reducers: {
-        loggerEventReceivedAction: (
-            state,
-            { payload }: PayloadAction<LoggerEvent>
-        ) => ({
+        addLoggerEvent: (state, { payload }: PayloadAction<LoggerEvent>) => ({
             ...state,
             eventsList: state.eventsList.push(payload),
         }),
-        setCurrentEventIDAction: (
+        setCurrentEventID: (
             state,
             { payload }: PayloadAction<string | null>
         ) => ({
@@ -36,7 +33,4 @@ const slice = createSlice({
 });
 
 export const { reducer } = slice;
-export const {
-    loggerEventReceivedAction,
-    setCurrentEventIDAction,
-} = slice.actions;
+export const { addLoggerEvent, setCurrentEventID } = slice.actions;

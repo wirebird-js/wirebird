@@ -4,13 +4,13 @@ import { useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MasterDetailsView } from '../components/MasterDetailsView';
-import { setCurrentEventIDAction } from '../redux/ducks/updates';
+import { setCurrentEventID } from '../redux/ducks/updates';
 import { getCurrentLoggerEvent, getLoggerEvents } from '../redux/selectors';
 import { State } from '../redux/store';
 
 interface Props {
     loggerEvents: LoggerEvent[];
-    setCurrentEventID: typeof setCurrentEventIDAction;
+    setCurrentEventID: typeof setCurrentEventID;
     currentEvent: LoggerEvent | null;
 }
 
@@ -40,7 +40,7 @@ export default connect(
     (dispatch) =>
         bindActionCreators(
             {
-                setCurrentEventID: setCurrentEventIDAction,
+                setCurrentEventID: setCurrentEventID,
             },
             dispatch
         )
