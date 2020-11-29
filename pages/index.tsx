@@ -1,12 +1,12 @@
-import { Component, useCallback, useState } from 'react';
-import { NextPage } from 'next';
-import { MasterDetailsView } from '../components/MasterDetailsView';
-import { connect } from 'react-redux';
-import { getCurrentLoggerEvent, getLoggerEvents } from '../redux/ducks/updates';
 import { LoggerEvent } from 'http-inspector';
-import { State } from '../redux/reducers';
+import { NextPage } from 'next';
+import { useCallback } from 'react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { MasterDetailsView } from '../components/MasterDetailsView';
 import { setCurrentEventIDAction } from '../redux/ducks/updates';
+import { getCurrentLoggerEvent, getLoggerEvents } from '../redux/selectors';
+import { State } from '../redux/store';
 
 interface Props {
     loggerEvents: LoggerEvent[];
