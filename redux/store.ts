@@ -1,27 +1,23 @@
-import { applyMiddleware, createStore, compose, combineReducers } from 'redux';
-
-import rootSaga from './sagas';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
+import rootSaga from './sagas';
 
-import middleware, { sagaMiddleware } from './middleware';
+const sagaMiddleware = createSagaMiddleware();
 
-const reducer = combineReducers({ ...rootReducer });
+const store = configureStore({
+    reducer: combineReducers({ ...rootReducer }),
+    middleware: [
+        ...getDefaultMiddleware({
+            serializableCheck: false,
+            immutableCheck: false,
+            thunk: false,
+        }),
+        sagaMiddleware,
+    ],
+});
 
-const composeEnhancer =
-    (process.browser && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-    compose;
-
-const configStore = () => {
-    const store = createStore(
-        reducer,
-        composeEnhancer(applyMiddleware(...middleware))
-    );
-
-    process.browser && sagaMiddleware.run(rootSaga);
-
-    return store;
-};
-
-const store = configStore();
+process.browser && sagaMiddleware.run(rootSaga);
 
 export default store;
