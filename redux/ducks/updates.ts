@@ -1,43 +1,52 @@
 import { LoggerEvent } from 'http-inspector';
-import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
+import { IndexedList } from '../../utils/IndexedList';
+import { createAction, createReducer } from '@reduxjs/toolkit';
 
 export interface UpdatesState {
-    eventsById: {
-        [id: string]: LoggerEvent;
-    };
-    eventsSequence: Array<string>;
+    eventsList: IndexedList<LoggerEvent>;
+    currentEventID: string | null;
 }
 
-const defaultState: UpdatesState = {
-    eventsById: {},
-    eventsSequence: [],
-};
-
-const LOGGER_EVENT_RECEIVED = 'loggerEventReceived';
-
 export const loggerEventReceivedAction = createAction<LoggerEvent>(
-    LOGGER_EVENT_RECEIVED
+    'updates/loggerEventReceived'
+);
+export const setCurrentEventIDAction = createAction<string | null>(
+    'updates/setCurrentEventID'
 );
 
-export const getBranch = (state: { updates: UpdatesState }): UpdatesState =>
+export const reducer = createReducer<UpdatesState>(
+    {
+        eventsList: new IndexedList<LoggerEvent>(
+            (event: LoggerEvent): string => event.request.id
+        ),
+        currentEventID: null,
+    },
+    (builder) => {
+        builder
+            .addCase(loggerEventReceivedAction, (state, { payload }) => ({
+                ...state,
+                eventsList: state.eventsList.push(payload),
+            }))
+            .addCase(setCurrentEventIDAction, (state, { payload }) => ({
+                ...state,
+                currentEventID: payload,
+            }));
+    }
+);
+
+const getCurrentSliceState = (state: { updates: UpdatesState }): UpdatesState =>
     state.updates;
 
 export const getLoggerEvents = createSelector(
-    getBranch,
-    (state) => state.eventsSequence.map((reqID) => state.eventsById[reqID])
+    getCurrentSliceState,
+    (state) => state.eventsList
 );
 
-export const reducer = handleActions<UpdatesState, LoggerEvent>(
-    {
-        [LOGGER_EVENT_RECEIVED]: (state, { payload }) => ({
-            ...state,
-            eventsById: {
-                ...state.eventsById,
-                [payload.request.id]: payload,
-            },
-            eventsSequence: [...state.eventsSequence, payload.request.id], //TODO: order should be based on the time
-        }),
-    },
-    defaultState
+export const getCurrentLoggerEvent = createSelector(
+    getCurrentSliceState,
+    (state) =>
+        state.currentEventID
+            ? state.eventsList.get(state.currentEventID) || null
+            : null
 );

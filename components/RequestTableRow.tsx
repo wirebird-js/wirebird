@@ -8,7 +8,6 @@ import React, { FC } from 'react';
 interface IRequestsTableRowProps {
     item: LoggerEvent;
     onClick?: (rowId: string) => void;
-    shrunk?: boolean;
     selected?: boolean;
 }
 
@@ -53,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 const RequestsTableRow: FC<IRequestsTableRowProps> = ({
     item,
     onClick,
-    shrunk,
     selected,
 }) => {
     const classes = useStyles();
@@ -70,22 +68,18 @@ const RequestsTableRow: FC<IRequestsTableRowProps> = ({
         },
         classes.root
     );
-    console.log('render row');
+
     return (
         <TableRow
             onClick={() => onClick && onClick(item.request.id)}
             className={rowClasses}
         >
             <TableCell>{item.request.url}</TableCell>
-            {shrunk ? null : (
-                <>
-                    <TableCell>{item.request.method}</TableCell>
-                    <TableCell>
-                        {item.response ? item.response.status : ''}
-                        {item.error ? `(failed) ${item.error.code}` : ''}
-                    </TableCell>
-                </>
-            )}
+            <TableCell>{item.request.method}</TableCell>
+            <TableCell>
+                {item.response ? item.response.status : ''}
+                {item.error ? `(failed) ${item.error.code}` : ''}
+            </TableCell>
         </TableRow>
     );
 };

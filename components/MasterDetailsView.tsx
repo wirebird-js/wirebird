@@ -30,14 +30,14 @@ const useStyles = makeStyles((theme) => ({
 
 export interface IMasterDetailsViewProps {
     items: Array<LoggerEvent>;
-    current?: string | null;
+    currentItem?: LoggerEvent | null;
     onItemSelect?: (rowId: string) => void;
     onItemDeselect?: () => void;
 }
 
 export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
     items,
-    current,
+    currentItem,
     onItemSelect,
     onItemDeselect,
 }) => {
@@ -51,11 +51,6 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
         onItemDeselect && onItemDeselect();
     }, [onItemDeselect]);
 
-    const currentItem = useMemo(
-        () => items.find((item) => item.request.id === current),
-        [items, current]
-    );
-
     const leftPanelSizes: Partial<
         Record<Breakpoint, boolean | GridSize>
     > = currentItem ? SIZES_LEFT_PANEL_SHRUNK : SIZES_LEFT_PANEL_WIDE;
@@ -67,7 +62,7 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
             <Grid item {...leftPanelSizes} className={classes.leftPanel}>
                 <RequestsTable
                     items={items}
-                    current={current}
+                    current={currentItem ? currentItem.request.id : null}
                     onRowClick={handleRowClick}
                 />
             </Grid>

@@ -2,29 +2,46 @@ import { Component, useCallback, useState } from 'react';
 import { NextPage } from 'next';
 import { MasterDetailsView } from '../components/MasterDetailsView';
 import { connect } from 'react-redux';
-import { getLoggerEvents } from '../redux/ducks/updates';
+import { getCurrentLoggerEvent, getLoggerEvents } from '../redux/ducks/updates';
 import { LoggerEvent } from 'http-inspector';
 import { State } from '../redux/reducers';
+import { bindActionCreators } from 'redux';
+import { setCurrentEventIDAction } from '../redux/ducks/updates';
 
 interface Props {
     loggerEvents: LoggerEvent[];
+    setCurrentEventID: typeof setCurrentEventIDAction;
+    currentEvent: LoggerEvent | null;
 }
 
-const IndexPage: NextPage<Props> = ({ loggerEvents }) => {
-    const [currentRowId, setCurrentRowId] = useState<string | null>(null);
-    const handleItemSelect = useCallback((id) => setCurrentRowId(id), []);
-    const handleItemDeselect = useCallback(() => setCurrentRowId(null), []);
+const IndexPage: NextPage<Props> = ({
+    loggerEvents,
+    setCurrentEventID,
+    currentEvent,
+}) => {
+    const handleItemSelect = useCallback((id) => setCurrentEventID(id), []);
+    const handleItemDeselect = useCallback(() => setCurrentEventID(null), []);
 
     return (
         <MasterDetailsView
             items={loggerEvents}
-            current={currentRowId}
+            currentItem={currentEvent}
             onItemSelect={handleItemSelect}
             onItemDeselect={handleItemDeselect}
         />
     );
 };
 
-export default connect((state: State) => ({
-    loggerEvents: getLoggerEvents(state),
-}))(IndexPage);
+export default connect(
+    (state: State) => ({
+        loggerEvents: getLoggerEvents(state).items,
+        currentEvent: getCurrentLoggerEvent(state),
+    }),
+    (dispatch) =>
+        bindActionCreators(
+            {
+                setCurrentEventID: setCurrentEventIDAction,
+            },
+            dispatch
+        )
+)(IndexPage);

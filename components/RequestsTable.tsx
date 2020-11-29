@@ -22,26 +22,19 @@ const RequestsTable: FC<IRequestsTableProps> = ({
         onRowClick,
     ]);
 
-    console.log('render table');
-
     return (
         <Table size="small">
             <TableHead>
                 <TableRow>
                     <TableCell>Name</TableCell>
-                    {current ? null : (
-                        <>
-                            <TableCell>Method</TableCell>
-                            <TableCell>Status</TableCell>
-                        </>
-                    )}
+                    <TableCell>Method</TableCell>
+                    <TableCell>Status</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {items.map((item) => (
                     <RequestsTableRow
                         item={item}
-                        shrunk={!!current}
                         selected={item.request.id === current}
                         key={item.request.id}
                         onClick={handleRowClick}
