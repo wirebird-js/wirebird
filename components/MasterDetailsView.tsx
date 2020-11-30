@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     rightPanel: {
         height: '100%',
         overflowY: 'auto',
+        borderLeftWidth: 1,
+        borderLeftStyle: 'solid',
+        borderLeftColor: theme.palette.divider,
     },
 }));
 

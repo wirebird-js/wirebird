@@ -6,6 +6,8 @@ const requests = [
     ['post', 'https://example.com', {}],
     ['get', 'https://example.com/does-not-exist'],
     ['get', 'https://iueugfroiruthgi-does-not-exist.com'],
+    ['get', 'https://www.fillmurray.com/25/25'],
+    ['get', 'https://jsonplaceholder.typicode.com/todos'],
 ];
 
 let currentRequest = 0;

@@ -1,18 +1,13 @@
-import {
-    Button,
-    Grid,
-    IconButton,
-    makeStyles,
-    Tab,
-    Tabs,
-} from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Tab } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { MonitorEvent } from 'http-inspector';
-import React, { FC, useCallback, useState } from 'react';
-import { HeadersView } from './HeadersView';
-import TabPanel from '@material-ui/lab/TabPanel';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
+import TabPanel from '@material-ui/lab/TabPanel';
+import { MonitorEvent } from 'http-inspector';
+import React, { FC, useCallback, useState } from 'react';
+import { Headers } from '../utils/Headers';
+import { ContentView } from './ContentView';
+import { HeadersView } from './HeadersView';
 
 const useStyles = makeStyles((theme) => ({
     tabs: {
@@ -29,6 +24,51 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+type TabID = 'headers' | 'request' | 'response';
+
+const createTabs = (
+    event: MonitorEvent,
+    classes: ReturnType<typeof useStyles>,
+    currentTab: TabID
+) => {
+    const tabDefs = {
+        headers: {
+            condition: true,
+            tab: (
+                <Tab
+                    key="headers"
+                    value="headers"
+                    classes={{ root: classes.tab }}
+                    label="Main"
+                ></Tab>
+            ),
+        },
+        response: {
+            condition: !!(event.response && event.response.body),
+            tab: (
+                <Tab
+                    key="response"
+                    value="response"
+                    classes={{ root: classes.tab }}
+                    label="Response"
+                ></Tab>
+            ),
+        },
+    };
+
+    const tabs = [];
+
+    for (const [tabID, tabDef] of Object.entries(tabDefs)) {
+        if (tabDef.condition) {
+            tabs.push(tabDef.tab);
+        } else if (currentTab === tabID) {
+            currentTab = 'headers';
+        }
+    }
+
+    return { tabs, currentTab };
+};
+
 export interface IEventDetailsViewProps {
     event: MonitorEvent;
     onClose?: () => void;
@@ -40,16 +80,23 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
 }) => {
     const handleCloseClick = useCallback(() => onClose && onClose(), [onClose]);
     const classes = useStyles();
-    const [currentTab, setCurrentTab] = useState<
-        'headers' | 'request' | 'response'
-    >('headers');
+    const [currentTab, setCurrentTab] = useState<TabID>('headers');
     const handleTabsChange = useCallback(
         (event, tabValue) => setCurrentTab(tabValue),
         []
     );
+    const normalizedRequestHeaders = new Headers(event.request.headers);
+    const normalizedResponseHeaders = event.response
+        ? new Headers(event.response.headers)
+        : null;
+    const responseContentType = normalizedResponseHeaders
+        ? normalizedResponseHeaders.get('content-type')
+        : null;
+
+    const tabs = createTabs(event, classes, currentTab);
 
     return (
-        <TabContext value={currentTab}>
+        <TabContext value={tabs.currentTab}>
             <div>
                 <Grid container>
                     <Grid item>
@@ -63,21 +110,7 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
                             classes={{ root: classes.tabs }}
                             onChange={handleTabsChange}
                         >
-                            <Tab
-                                value="headers"
-                                classes={{ root: classes.tab }}
-                                label="Main"
-                            ></Tab>
-                            {/* <Tab
-                                value="request"
-                                classes={{ root: classes.tab }}
-                                label="Request"
-                            ></Tab>
-                            <Tab
-                                value="response"
-                                classes={{ root: classes.tab }}
-                                label="Response"
-                            ></Tab> */}
+                            {tabs.tabs}
                         </TabList>
                     </Grid>
                 </Grid>
@@ -85,6 +118,14 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
 
             <TabPanel value="headers" className={classes.tabPanel}>
                 <HeadersView event={event} />
+            </TabPanel>
+            <TabPanel value="response" className={classes.tabPanel}>
+                {event.response && event.response.body && (
+                    <ContentView
+                        contentType={responseContentType}
+                        data={event.response.body}
+                    />
+                )}
             </TabPanel>
         </TabContext>
     );
