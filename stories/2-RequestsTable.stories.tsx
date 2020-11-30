@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions';
-import { LoggerEvent } from 'http-inspector';
+import { MonitorEvent } from 'http-inspector';
 import React, { useState } from 'react';
 import RequestsTable from '../components/RequestsTable';
 import loggerEvents from './data/loggerEvents';

@@ -1,7 +1,12 @@
-import { LoggerEvent } from 'http-inspector';
+import { MonitorEvent } from 'http-inspector';
 
-const items: Array<LoggerEvent> = [
+const items: Array<MonitorEvent> = [
     {
+        processData: {
+            mainModule: '/app/index.js',
+            pid: 100,
+            title: 'node',
+        },
         request: {
             body: null,
             headers: {
@@ -44,6 +49,11 @@ const items: Array<LoggerEvent> = [
         error: null,
     },
     {
+        processData: {
+            mainModule: '/app/index.js',
+            pid: 100,
+            title: 'node',
+        },
         request: {
             body: new Buffer('{"hello":"world"}', 'utf8'),
             headers: {
@@ -63,6 +73,11 @@ const items: Array<LoggerEvent> = [
         error: null,
     },
     {
+        processData: {
+            mainModule: '/app/index.js',
+            pid: 100,
+            title: 'node',
+        },
         request: {
             body: new Buffer('{"hello":"world"}', 'utf8'),
             headers: {

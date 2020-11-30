@@ -1,17 +1,13 @@
-import {
-    SerializedLoggerEvent,
-    LoggerEvent,
-    MonitorEvent
-} from 'http-inspector';
+import { SerializedLoggerEvent, MonitorEvent } from 'http-inspector';
 import { EventEmitter } from 'events';
 
 export interface UpdatesServiceEvents {
     on(
         eventName: 'LOGGER_EVENT',
-        eventHandler: (event: LoggerEvent) => void
+        eventHandler: (event: MonitorEvent) => void
     ): void;
     on(eventName: 'ONLINE', eventHandler: () => void): void;
-    emit(eventName: 'LOGGER_EVENT', event: LoggerEvent): void;
+    emit(eventName: 'LOGGER_EVENT', event: MonitorEvent): void;
     emit(eventName: 'ONLINE'): void;
 }
 
@@ -35,14 +31,14 @@ export default class UpdatesService extends EventEmitter
             return {
                 request: {
                     ...event.request,
-                    body: this.unserializeBase64(event.request.body)
+                    body: this.unserializeBase64(event.request.body),
                 },
                 response: {
                     ...event.response,
-                    body: this.unserializeBase64(event.response.body)
+                    body: this.unserializeBase64(event.response.body),
                 },
                 error: null,
-                processData: event.processData
+                processData: event.processData,
             };
         }
 
@@ -50,14 +46,14 @@ export default class UpdatesService extends EventEmitter
             return {
                 request: {
                     ...event.request,
-                    body: this.unserializeBase64(event.request.body)
+                    body: this.unserializeBase64(event.request.body),
                 },
                 response: null,
                 error: event.error,
-                processData: event.processData
+                processData: event.processData,
             };
         }
-        throw new Error('Error unserializing LoggerEvent');
+        throw new Error('Error unserializing MonitorEvent');
     }
 
     constructor() {
@@ -67,7 +63,7 @@ export default class UpdatesService extends EventEmitter
     }
 
     start() {
-        this.sock.addEventListener('message', messageEvent => {
+        this.sock.addEventListener('message', (messageEvent) => {
             try {
                 const messageData = JSON.parse(
                     messageEvent.data

@@ -3,12 +3,12 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { LoggerEvent } from 'http-inspector';
+import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback } from 'react';
 import RequestsTableRow from './RequestTableRow';
 
 interface IRequestsTableProps {
-    items: Array<LoggerEvent>;
+    items: Array<MonitorEvent>;
     current?: string | null;
     onRowClick?: (rowId: string) => void;
 }

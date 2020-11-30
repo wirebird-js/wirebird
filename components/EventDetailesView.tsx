@@ -7,7 +7,7 @@ import {
     Tabs,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { LoggerEvent } from 'http-inspector';
+import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback, useState } from 'react';
 import { HeadersView } from './HeadersView';
 import TabPanel from '@material-ui/lab/TabPanel';
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface IEventDetailsViewProps {
-    event: LoggerEvent;
+    event: MonitorEvent;
     onClose?: () => void;
 }
 
@@ -66,7 +66,7 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
                             <Tab
                                 value="headers"
                                 classes={{ root: classes.tab }}
-                                label="Headers"
+                                label="Main"
                             ></Tab>
                             {/* <Tab
                                 value="request"

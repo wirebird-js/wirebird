@@ -1,4 +1,4 @@
-import { LoggerEvent } from 'http-inspector';
+import { MonitorEvent } from 'http-inspector';
 import { NextPage } from 'next';
 import { useCallback } from 'react';
 import { connect } from 'react-redux';
@@ -9,9 +9,9 @@ import { getCurrentLoggerEvent, getLoggerEvents } from '../redux/selectors';
 import { State } from '../redux/store';
 
 interface Props {
-    loggerEvents: LoggerEvent[];
+    loggerEvents: MonitorEvent[];
     setCurrentEventID: typeof setCurrentEventID;
-    currentEvent: LoggerEvent | null;
+    currentEvent: MonitorEvent | null;
 }
 
 const IndexPage: NextPage<Props> = ({

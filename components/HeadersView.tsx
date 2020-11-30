@@ -1,4 +1,7 @@
-import { LoggerEvent, LoggerHeaders } from 'http-inspector/lib/src/SharedTypes';
+import {
+    MonitorEvent,
+    LoggerHeaders,
+} from 'http-inspector/lib/src/SharedTypes';
 import React, { FC } from 'react';
 import { Collapsible } from './Collapsible';
 import { KeyValue, KeyValueView } from './KeyValueView';
@@ -9,7 +12,7 @@ const headersToKeyValue = (headers: LoggerHeaders): KeyValue[] =>
         value,
     }));
 
-const getGeneralInfo = (event: LoggerEvent): KeyValue[] => {
+const getGeneralInfo = (event: MonitorEvent): KeyValue[] => {
     const info: KeyValue[] = [];
     info.push({
         key: 'URL',
@@ -29,12 +32,12 @@ const getGeneralInfo = (event: LoggerEvent): KeyValue[] => {
 };
 
 export interface IHeadersViewProps {
-    event: LoggerEvent;
+    event: MonitorEvent;
 }
 
 export const HeadersView: FC<IHeadersViewProps> = ({
     event,
-    event: { error, request, response },
+    event: { error, request, response, processData },
 }) => {
     return (
         <div>
@@ -64,6 +67,15 @@ export const HeadersView: FC<IHeadersViewProps> = ({
                     ></KeyValueView>
                 </Collapsible>
             )}
+            <Collapsible title="Process:">
+                <KeyValueView
+                    items={[
+                        { key: 'PID', value: `${processData.pid}` },
+                        { key: 'Module', value: `${processData.mainModule}` },
+                        { key: 'Title', value: `${processData.title}` },
+                    ]}
+                ></KeyValueView>
+            </Collapsible>
         </div>
     );
 };

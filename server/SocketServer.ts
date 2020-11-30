@@ -1,6 +1,6 @@
 import { Server } from 'http';
 import WebSocket from 'ws';
-import { LoggerEvent } from 'http-inspector';
+import { MonitorEvent } from 'http-inspector';
 
 export interface SocketServerOptions {
     server: Server;
@@ -10,7 +10,7 @@ export default class SocketServer {
     private wss: WebSocket.Server;
 
     private broadcast(data: any) {
-        this.wss.clients.forEach(ws => {
+        this.wss.clients.forEach((ws) => {
             if (ws.readyState === WebSocket.OPEN) {
                 ws.send(JSON.stringify(data));
             }
@@ -32,10 +32,10 @@ export default class SocketServer {
         this.subscribe();
     }
 
-    broadcastLoggerEvent(event: LoggerEvent) {
+    broadcastLoggerEvent(event: MonitorEvent) {
         this.broadcast({
             type: 'LOGGER_EVENT',
-            payload: event
+            payload: event,
         });
     }
 }

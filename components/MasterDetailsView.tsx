@@ -1,6 +1,6 @@
 import { Grid, GridSize, makeStyles } from '@material-ui/core';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import { LoggerEvent } from 'http-inspector';
+import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback, useMemo } from 'react';
 import { EventDetailsView } from './EventDetailesView';
 import RequestsTable from './RequestsTable';
@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface IMasterDetailsViewProps {
-    items: Array<LoggerEvent>;
-    currentItem?: LoggerEvent | null;
+    items: Array<MonitorEvent>;
+    currentItem?: MonitorEvent | null;
     onItemSelect?: (rowId: string) => void;
     onItemDeselect?: () => void;
 }

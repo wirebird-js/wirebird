@@ -2,11 +2,11 @@ import { makeStyles } from '@material-ui/core';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import classnames from 'classnames';
-import { LoggerEvent } from 'http-inspector';
+import { MonitorEvent } from 'http-inspector';
 import React, { FC } from 'react';
 
 interface IRequestsTableRowProps {
-    item: LoggerEvent;
+    item: MonitorEvent;
     onClick?: (rowId: string) => void;
     selected?: boolean;
 }
