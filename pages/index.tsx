@@ -34,7 +34,7 @@ const IndexPage: NextPage<Props> = ({
 
 export default connect(
     (state: State) => ({
-        loggerEvents: selectors.updates.getLoggerEvents(state).items,
+        loggerEvents: selectors.updates.getLoggerEvents(state),
         currentEvent: selectors.updates.getCurrentLoggerEvent(state),
     }),
     (dispatch) =>

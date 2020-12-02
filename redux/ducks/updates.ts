@@ -37,7 +37,8 @@ const slice = createSlice({
 export const { reducer } = slice;
 export const { addLoggerEvent, setCurrentEventID } = slice.actions;
 
-export const getLoggerEvents = (state: UpdatesState) => state.eventsList;
+export const getLoggerEvents = (state: UpdatesState) =>
+    indexedList.getAll(state.eventsList);
 
 export const getCurrentLoggerEvent = (state: UpdatesState) =>
     state.currentEventID

@@ -1,3 +1,4 @@
+import assert from 'assert';
 import { Draft } from '@reduxjs/toolkit';
 
 type KeyExtractorFn<V> = (item: V) => string;
@@ -9,8 +10,12 @@ function undraft<T>(value: MaybeDraft<T>): T {
 }
 
 export interface IIndexedListStore<T> {
-    readonly items: T[];
+    readonly itemsKeys: string[];
     readonly itemsByKey: { [key: string]: T };
+}
+
+function isNotNull<T>(v: T | null): v is T {
+    return v !== null;
 }
 
 export class IndexedList<T> {
@@ -20,7 +25,7 @@ export class IndexedList<T> {
     ): IIndexedListStore<T> {
         return {
             ...store,
-            items: [],
+            itemsKeys: [],
             itemsByKey: {},
         };
     }
@@ -32,7 +37,7 @@ export class IndexedList<T> {
         store = undraft(store);
         return {
             ...store,
-            items: [...store.items, item],
+            itemsKeys: [...store.itemsKeys, key],
             itemsByKey: {
                 ...store.itemsByKey,
                 [key]: item,
@@ -43,5 +48,8 @@ export class IndexedList<T> {
         return Object.prototype.hasOwnProperty.call(store.itemsByKey, key)
             ? store.itemsByKey[key]
             : null;
+    }
+    getAll(store: IIndexedListStore<T>): T[] {
+        return store.itemsKeys.map((k) => this.get(store, k)).filter(isNotNull);
     }
 }
