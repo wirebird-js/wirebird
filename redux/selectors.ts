@@ -1,17 +1,20 @@
 import { createSelector } from 'reselect';
+import { getCurrentLoggerEvent, getLoggerEvents } from './ducks/updates';
 import { State } from './store';
 
 const getUpdates = (state: State) => state.updates;
 
-export const getLoggerEvents = createSelector(
-    getUpdates,
-    (state) => state.eventsList
-);
+export const selectors = {
+    updates: {
+        getLoggerEvents: createSelector(
+            getUpdates,
+            getLoggerEvents
+        ),
+        getCurrentLoggerEvent: createSelector(
+            getUpdates,
+            getCurrentLoggerEvent
+        ),
+    },
+};
 
-export const getCurrentLoggerEvent = createSelector(
-    getUpdates,
-    (state) =>
-        state.currentEventID
-            ? state.eventsList.get(state.currentEventID) || null
-            : null
-);
+selectors.updates;

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MasterDetailsView } from '../components/MasterDetailsView';
 import { setCurrentEventID } from '../redux/ducks/updates';
-import { getCurrentLoggerEvent, getLoggerEvents } from '../redux/selectors';
+import { selectors } from '../redux/selectors';
 import { State } from '../redux/store';
 
 interface Props {
@@ -34,8 +34,8 @@ const IndexPage: NextPage<Props> = ({
 
 export default connect(
     (state: State) => ({
-        loggerEvents: getLoggerEvents(state).items,
-        currentEvent: getCurrentLoggerEvent(state),
+        loggerEvents: selectors.updates.getLoggerEvents(state).items,
+        currentEvent: selectors.updates.getCurrentLoggerEvent(state),
     }),
     (dispatch) =>
         bindActionCreators(

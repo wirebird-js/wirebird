@@ -1,6 +1,18 @@
-import { Grid, MenuItem, Select, TextField } from '@material-ui/core';
+import {
+    Grid,
+    makeStyles,
+    MenuItem,
+    Select,
+    TextField,
+} from '@material-ui/core';
 import { FC, useState } from 'react';
 import { ObjectInspector } from 'react-inspector';
+
+const useStyles = makeStyles((theme) => ({
+    contentArea: {
+        padding: theme.spacing(2),
+    },
+}));
 
 const viewModes = {
     plain: 'Plain Text',
@@ -29,6 +41,7 @@ export interface IContentViewProps {
 
 export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
     const [viewMode, setViewMode] = useState<ViewMode>('plain');
+    const classes = useStyles();
 
     return (
         <Grid container>
@@ -53,13 +66,17 @@ export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.contentArea}>
                 {viewMode === 'plain' && <pre>{data.toString('utf8')}</pre>}
                 {viewMode === 'json' && (
                     <ObjectInspector data={tryParseJSON(data)} />
                 )}
                 {viewMode === 'image' && contentType && (
-                    <img src={bufferToDataURL(contentType, data)} />
+                    <Grid container alignItems="center" justify="center">
+                        <Grid item>
+                            <img src={bufferToDataURL(contentType, data)} />
+                        </Grid>
+                    </Grid>
                 )}
             </Grid>
         </Grid>
