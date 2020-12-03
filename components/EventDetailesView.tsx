@@ -43,6 +43,17 @@ const createTabs = (
                 ></Tab>
             ),
         },
+        request: {
+            condition: !!(event.request && event.request.body),
+            tab: (
+                <Tab
+                    key="request"
+                    value="request"
+                    classes={{ root: classes.tab }}
+                    label="Request"
+                ></Tab>
+            ),
+        },
         response: {
             condition: !!(event.response && event.response.body),
             tab: (
@@ -92,6 +103,9 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
     const responseContentType = normalizedResponseHeaders
         ? normalizedResponseHeaders.get('content-type')
         : null;
+    const requestContentType = normalizedRequestHeaders
+        ? normalizedRequestHeaders.get('content-type')
+        : null;
 
     const tabs = createTabs(event, classes, currentTab);
 
@@ -118,6 +132,14 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
 
             <TabPanel value="headers" className={classes.tabPanel}>
                 <HeadersView event={event} />
+            </TabPanel>
+            <TabPanel value="request" className={classes.tabPanel}>
+                {event.request && event.request.body && (
+                    <ContentView
+                        contentType={requestContentType}
+                        data={event.request.body}
+                    />
+                )}
             </TabPanel>
             <TabPanel value="response" className={classes.tabPanel}>
                 {event.response && event.response.body && (

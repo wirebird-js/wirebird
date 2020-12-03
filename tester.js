@@ -8,6 +8,7 @@ const requests = [
     ['get', 'https://iueugfroiruthgi-does-not-exist.com'],
     ['get', 'https://www.fillmurray.com/250/250'],
     ['get', 'https://jsonplaceholder.typicode.com/todos'],
+    ['post', 'https://httpbin.org/post', { hello: 'world' }],
 ];
 
 let currentRequest = 0;
