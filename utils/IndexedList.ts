@@ -1,4 +1,3 @@
-import assert from 'assert';
 import { Draft } from '@reduxjs/toolkit';
 
 type KeyExtractorFn<V> = (item: V) => string;

@@ -1,12 +1,9 @@
-import {
-    Grid,
-    makeStyles,
-    MenuItem,
-    Select,
-    TextField,
-} from '@material-ui/core';
-import { FC, useState } from 'react';
-import { ObjectInspector } from 'react-inspector';
+import { Grid, makeStyles, MenuItem, TextField } from '@material-ui/core';
+import { FC, useEffect, useState } from 'react';
+import { detectType } from './content-view/detectType';
+import { ImageView } from './content-view/ImageView';
+import { JSONView } from './content-view/JSONView';
+import { TextView } from './content-view/TextView';
 
 const useStyles = makeStyles((theme) => ({
     contentArea: {
@@ -21,26 +18,16 @@ const viewModes = {
 };
 type ViewMode = keyof typeof viewModes;
 
-const bufferToDataURL = (mimeType: string, buffer: Buffer): string => {
-    return `data:${mimeType};base64,${buffer.toString('base64')}`;
-};
-
-const tryParseJSON = (buf: Buffer): any => {
-    const str = buf.toString('utf8');
-    try {
-        return JSON.parse(str);
-    } catch (e) {
-        return str;
-    }
-};
-
 export interface IContentViewProps {
     contentType: string | null;
     data: Buffer;
 }
 
 export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
-    const [viewMode, setViewMode] = useState<ViewMode>('plain');
+    const [viewMode, setViewMode] = useState<ViewMode>(detectType(contentType));
+    useEffect(() => {
+        setViewMode(detectType(contentType));
+    }, [contentType]);
     const classes = useStyles();
 
     return (
@@ -67,16 +54,10 @@ export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
                 </Grid>
             </Grid>
             <Grid item xs={12} className={classes.contentArea}>
-                {viewMode === 'plain' && <pre>{data.toString('utf8')}</pre>}
-                {viewMode === 'json' && (
-                    <ObjectInspector data={tryParseJSON(data)} />
-                )}
+                {viewMode === 'plain' && <TextView data={data} />}
+                {viewMode === 'json' && <JSONView data={data} />}
                 {viewMode === 'image' && contentType && (
-                    <Grid container alignItems="center" justify="center">
-                        <Grid item>
-                            <img src={bufferToDataURL(contentType, data)} />
-                        </Grid>
-                    </Grid>
+                    <ImageView contentType={contentType} data={data} />
                 )}
             </Grid>
         </Grid>
