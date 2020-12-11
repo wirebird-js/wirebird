@@ -1,8 +1,9 @@
 import { Draft } from '@reduxjs/toolkit';
 import produce from 'immer';
+import _ from 'lodash';
 
 type KeyExtractorFn<T> = (item: T) => string;
-type IndexKey<T> = keyof T;
+type keypath = string;
 
 type MaybeDraft<T> = T | Draft<T>;
 
@@ -25,7 +26,7 @@ function isNotNull<T>(v: T | null): v is T {
 export class IndexedList<T> {
     constructor(
         private readonly keyExtractor: KeyExtractorFn<T>,
-        private readonly indexNames: IndexKey<T>[] = []
+        private readonly indexers: { [name: string]: keypath } = {}
     ) {}
     init(
         store: MaybeDraft<Partial<IIndexedListStore<T>>> = {}
@@ -64,35 +65,18 @@ export class IndexedList<T> {
             .map(k => this.getByKey(store, k))
             .filter(isNotNull);
     }
-    where(
-        store: IIndexedListStore<T>,
-        property: keyof T,
-        value: T[typeof property]
-    ): T[] {
-        const indexName = this.propertyToIndexName(property);
+    where(store: IIndexedListStore<T>, indexName: string, value: any): T[] {
         const index = store.indices[indexName] || {};
-        const indexKey = this.valueToIndexKey(value);
-        const keys = index[indexKey] || [];
+        const indexValue = `${value}`;
+        const keys = index[indexValue] || [];
         return this.getByKeys(store, keys);
     }
-    getUniqueValues(store: IIndexedListStore<T>, property: keyof T): string[] {
-        const index = store.indices[this.propertyToIndexName(property)] || {};
+    getUniqueValues(store: IIndexedListStore<T>, indexName: string): string[] {
+        const index = store.indices[indexName] || {};
         return Object.keys(index);
     }
     private getByKeys(store: IIndexedListStore<T>, keys: string[]) {
         return keys.map(k => this.getByKey(store, k)).filter(isNotNull);
-    }
-    private propertyToIndexName(property: keyof T): string {
-        if (typeof property !== 'string') {
-            throw new Error('typeof property !== string');
-        }
-        return property;
-    }
-    private valueToIndexKey(value: any) {
-        return `${value}`;
-    }
-    private getIndexValue(item: T, indexKey: IndexKey<T>): string {
-        return `${item[indexKey]}`;
     }
     private addToIndices(
         store: IIndexedListStore<T>,
@@ -100,13 +84,12 @@ export class IndexedList<T> {
         item: T
     ): IIndexedListStore<T> {
         return produce(store, store => {
-            for (const indexName of this.indexNames) {
-                const indexNameAsString = `${indexName}`;
-                if (!store.indices[indexNameAsString]) {
-                    store.indices[indexNameAsString] = {};
+            for (const [name, path] of Object.entries(this.indexers)) {
+                if (!store.indices[name]) {
+                    store.indices[name] = {};
                 }
-                const index = store.indices[indexNameAsString];
-                const indexValue = this.getIndexValue(item, indexName);
+                const index = store.indices[name];
+                const indexValue = `${_.get(item, path)}`;
                 if (!index[indexValue]) {
                     index[indexValue] = [];
                 }

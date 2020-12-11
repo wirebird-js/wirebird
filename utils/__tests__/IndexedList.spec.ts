@@ -6,14 +6,18 @@ describe('IndexedList', () => {
         foo?: string;
         bar?: number;
         baz?: boolean;
+        meta?: {
+            pid: number;
+        };
     }
 
     const simpleList = new IndexedList<FooBarBaz>(_ => _.id);
-    const multipleIndexList = new IndexedList<FooBarBaz>(_ => _.id, [
-        'foo',
-        'bar',
-        'baz'
-    ]);
+    const multipleIndexList = new IndexedList<FooBarBaz>(_ => _.id, {
+        foo: 'foo',
+        bar: 'bar',
+        baz: 'baz',
+        pid: 'meta.pid'
+    });
 
     it('should init', () => {
         const store = simpleList.init();
@@ -98,5 +102,36 @@ describe('IndexedList', () => {
             }
         ]);
         expect(multipleIndexList.where(store, 'bar', 103)).toEqual([]);
+    });
+    it('should select by deep index', () => {
+        let store = multipleIndexList.init();
+        store = multipleIndexList.push(store, {
+            id: '1',
+            meta: { pid: 1000 }
+        });
+        store = multipleIndexList.push(store, {
+            id: '2',
+            meta: { pid: 2000 }
+        });
+        expect(multipleIndexList.where(store, 'pid', 1000)).toEqual([
+            {
+                id: '1',
+                meta: {
+                    pid: 1000
+                }
+            }
+        ]);
+        expect(multipleIndexList.where(store, 'pid', 2000)).toEqual([
+            {
+                id: '2',
+                meta: {
+                    pid: 2000
+                }
+            }
+        ]);
+        expect(multipleIndexList.getUniqueValues(store, 'pid')).toEqual([
+            '1000',
+            '2000'
+        ]);
     });
 });
