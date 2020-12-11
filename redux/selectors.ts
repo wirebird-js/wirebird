@@ -1,20 +1,14 @@
-import { createSelector } from 'reselect';
+import { combineSelectors } from 'comsel';
 import { getCurrentLoggerEvent, getLoggerEvents } from './ducks/updates';
 import { State } from './store';
 
-const getUpdates = (state: State) => state.updates;
-
-export const selectors = {
+const selectorsMap = {
     updates: {
-        getLoggerEvents: createSelector(
-            getUpdates,
-            getLoggerEvents
-        ),
-        getCurrentLoggerEvent: createSelector(
-            getUpdates,
-            getCurrentLoggerEvent
-        ),
-    },
+        getLoggerEvents,
+        getCurrentLoggerEvent
+    }
 };
 
-selectors.updates;
+export const selectors = combineSelectors<State, typeof selectorsMap>(
+    selectorsMap
+);

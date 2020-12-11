@@ -13,7 +13,7 @@ export interface UpdatesState {
 
 const initialState: UpdatesState = {
     eventsList: indexedList.init(),
-    currentEventID: null,
+    currentEventID: null
 };
 
 const slice = createSlice({
@@ -22,16 +22,16 @@ const slice = createSlice({
     reducers: {
         addLoggerEvent: (state, { payload }: PayloadAction<MonitorEvent>) => ({
             ...state,
-            eventsList: indexedList.push(state.eventsList, payload),
+            eventsList: indexedList.push(state.eventsList, payload)
         }),
         setCurrentEventID: (
             state,
             { payload }: PayloadAction<string | null>
         ) => ({
             ...state,
-            currentEventID: payload,
-        }),
-    },
+            currentEventID: payload
+        })
+    }
 });
 
 export const { reducer } = slice;
@@ -42,5 +42,8 @@ export const getLoggerEvents = (state: UpdatesState) =>
 
 export const getCurrentLoggerEvent = (state: UpdatesState) =>
     state.currentEventID
-        ? indexedList.get(state.eventsList, state.currentEventID)
+        ? indexedList.getByKey(state.eventsList, state.currentEventID)
         : null;
+
+export const getAllPIDs = (state: UpdatesState) =>
+    indexedList.getUniqueValues(state.eventsList, 'processData.pid');
