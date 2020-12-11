@@ -74,6 +74,9 @@ describe('IndexedList', () => {
                 foo: {
                     foo1: ['1'],
                     foo2: ['2']
+                },
+                pid: {
+                    undefined: ['1', '2']
                 }
             },
             itemsByKey: {
