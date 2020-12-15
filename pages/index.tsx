@@ -12,14 +12,16 @@ interface Props {
     loggerEvents: MonitorEvent[];
     setCurrentEventID: typeof setCurrentEventID;
     currentEvent: MonitorEvent | null;
+    pidsList: string[];
 }
 
 const IndexPage: NextPage<Props> = ({
     loggerEvents,
     setCurrentEventID,
     currentEvent,
+    pidsList
 }) => {
-    const handleItemSelect = useCallback((id) => setCurrentEventID(id), []);
+    const handleItemSelect = useCallback(id => setCurrentEventID(id), []);
     const handleItemDeselect = useCallback(() => setCurrentEventID(null), []);
 
     return (
@@ -28,6 +30,7 @@ const IndexPage: NextPage<Props> = ({
             currentItem={currentEvent}
             onItemSelect={handleItemSelect}
             onItemDeselect={handleItemDeselect}
+            pidsList={pidsList}
         />
     );
 };
@@ -36,11 +39,12 @@ export default connect(
     (state: State) => ({
         loggerEvents: selectors.updates.getLoggerEvents(state),
         currentEvent: selectors.updates.getCurrentLoggerEvent(state),
+        pidsList: selectors.updates.getAllPIDs(state)
     }),
-    (dispatch) =>
+    dispatch =>
         bindActionCreators(
             {
-                setCurrentEventID: setCurrentEventID,
+                setCurrentEventID: setCurrentEventID
             },
             dispatch
         )

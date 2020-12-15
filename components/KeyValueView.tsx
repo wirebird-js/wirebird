@@ -1,9 +1,19 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import React, { FC } from 'react';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         flexDirection: 'column',
+    },
+    row: {
+        wordBreak: 'break-all',
+        whiteSpace: 'pre-wrap',
+    },
+    rowKey: {
+        fontSize: 13,
+    },
+    rowValue: {
+        fontFamily: 'monospace', //TODO: add font
     },
 }));
 
@@ -21,8 +31,9 @@ export const KeyValueView: FC<IKeyValueViewProps> = ({ items }) => {
     return (
         <div className={classes.root}>
             {items.map((item, i) => (
-                <Typography key={i} variant="body2">
-                    <strong>{item.key}:</strong> <span>{item.value}</span>
+                <Typography key={i} variant="body2" className={classes.row}>
+                    <strong className={classes.rowKey}>{item.key}:</strong>{' '}
+                    <span className={classes.rowValue}>{item.value}</span>
                 </Typography>
             ))}
         </div>

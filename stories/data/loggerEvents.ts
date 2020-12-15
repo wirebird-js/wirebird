@@ -5,7 +5,7 @@ const items: Array<MonitorEvent> = [
         processData: {
             mainModule: '/app/index.js',
             pid: 100,
-            title: 'node',
+            title: 'node'
         },
         request: {
             body: null,
@@ -20,12 +20,12 @@ const items: Array<MonitorEvent> = [
                     'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'Accept-Encoding': 'gzip, deflate',
                 'Accept-Language':
-                    'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,uk;q=0.6,pt;q=0.5',
+                    'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,uk;q=0.6,pt;q=0.5'
             },
             id: 'id1',
             method: 'GET',
             timeStart: 1000,
-            url: 'https://example.com',
+            url: 'https://example.com'
         },
         response: {
             body: new Buffer('Hello world', 'utf8'),
@@ -41,60 +41,67 @@ const items: Array<MonitorEvent> = [
                 Server: 'ECS (dcb/7F18)',
                 Vary: 'Accept-Encoding',
                 'X-Cache': 'HIT',
-                'Content-Length': '648',
+                'Content-Length': '648'
             },
             status: 200,
-            timeStart: 1001,
+            timeStart: 1001
         },
-        error: null,
+        error: null
     },
     {
         processData: {
             mainModule: '/app/index.js',
             pid: 100,
-            title: 'node',
+            title: 'node'
         },
         request: {
             body: new Buffer('{"hello":"world"}', 'utf8'),
             headers: {
-                'content-type': 'application/json',
+                'content-type': 'application/json'
             },
             id: 'id2',
             method: 'POST',
             timeStart: 2000,
-            url: 'https://example.com',
+            url: 'https://example.com'
         },
         response: {
             body: new Buffer('Internal server error', 'utf8'),
             headers: {},
             status: 500,
-            timeStart: 2001,
+            timeStart: 2001
         },
-        error: null,
+        error: null
     },
     {
         processData: {
             mainModule: '/app/index.js',
             pid: 100,
-            title: 'node',
+            title: 'node'
         },
         request: {
             body: new Buffer('{"hello":"world"}', 'utf8'),
             headers: {
-                'content-type': 'application/json',
+                'content-type': 'application/json'
             },
             id: 'id3',
             method: 'POST',
             timeStart: 2000,
-            url: 'https://non-existing-asdhfsdiufhsd.com',
+            url: 'https://non-existing-asdhfsdiufhsd.com'
         },
         error: {
             code: 'E_LOOKUP',
             message: 'Could not find address non-existing-asdhfsdiufhsd.com',
-            stack: 'Lorem ipsum',
+            stack: 'Lorem ipsum'
         },
-        response: null,
-    },
+        response: null
+    }
 ];
+
+for (let i = 0; i < 100; i++) {
+    items.push({
+        ...items[0],
+        request: { ...items[0].request, id: `additional_${i}` }
+    });
+}
 
 export default items;
