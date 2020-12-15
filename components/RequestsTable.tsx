@@ -18,12 +18,12 @@ const RequestsTable: FC<IRequestsTableProps> = ({
     onRowClick,
     current,
 }) => {
-    const handleRowClick = useCallback((id) => onRowClick && onRowClick(id), [
+    const handleRowClick = useCallback(id => onRowClick && onRowClick(id), [
         onRowClick,
     ]);
 
     return (
-        <Table size="small">
+        <Table size="small" stickyHeader>
             <TableHead>
                 <TableRow>
                     <TableCell>Name</TableCell>
@@ -32,7 +32,7 @@ const RequestsTable: FC<IRequestsTableProps> = ({
                 </TableRow>
             </TableHead>
             <TableBody>
-                {items.map((item) => (
+                {items.map(item => (
                     <RequestsTableRow
                         item={item}
                         selected={item.request.id === current}

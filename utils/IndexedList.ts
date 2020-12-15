@@ -15,7 +15,9 @@ export interface IIndexedListStore<T> {
     readonly itemsKeys: string[];
     readonly itemsByKey: { [key: string]: T };
     readonly indices: {
-        [indexName: string]: { [indexValue: string]: string[] };
+        [indexName: string]: {
+            [indexValue: string]: string[];
+        };
     };
 }
 
@@ -35,7 +37,7 @@ export class IndexedList<T> {
             ...store,
             itemsKeys: [],
             itemsByKey: {},
-            indices: {}
+            indices: {},
         };
     }
     push(
@@ -49,8 +51,8 @@ export class IndexedList<T> {
             itemsKeys: [...store.itemsKeys, key],
             itemsByKey: {
                 ...store.itemsByKey,
-                [key]: item
-            }
+                [key]: item,
+            },
         };
 
         return this.addToIndices(store, key, item);

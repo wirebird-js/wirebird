@@ -1,10 +1,11 @@
-import { Grid, GridSize, makeStyles } from '@material-ui/core';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+import { makeStyles } from '@material-ui/core';
 import { MonitorEvent } from 'http-inspector';
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, useCallback } from 'react';
+import { Filters } from '../utils/Filters';
 import { EventDetailsView } from './EventDetailesView';
 import { MasterDetailsLayout } from './MasterDetailsLayout';
 import RequestsTable from './RequestsTable';
+import { ToolbarFilters } from './ToolbarFilters';
 
 const useStyles = makeStyles(theme => ({
     rightPanel: {
@@ -20,6 +21,7 @@ export interface IMasterDetailsViewProps {
     currentItem?: MonitorEvent | null;
     onItemSelect?: (rowId: string) => void;
     onItemDeselect?: () => void;
+    onFiltersChange?: (value: Filters) => void;
     pidsList?: string[];
 }
 
@@ -28,7 +30,8 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
     currentItem,
     onItemSelect,
     onItemDeselect,
-    pidsList,
+    pidsList = [],
+    onFiltersChange,
 }) => {
     const handleRowClick = useCallback(
         rowId => {
@@ -39,12 +42,23 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
     const handleDetailsClose = useCallback(() => {
         onItemDeselect && onItemDeselect();
     }, [onItemDeselect]);
+    const handleFiltersChange = useCallback(
+        filters => {
+            onFiltersChange && onFiltersChange(filters);
+        },
+        [onFiltersChange]
+    );
 
     const classes = useStyles();
 
     return (
         <MasterDetailsLayout
-            toolbar={'asd'}
+            toolbar={
+                <ToolbarFilters
+                    pids={pidsList}
+                    onChange={handleFiltersChange}
+                />
+            }
             left={
                 <RequestsTable
                     items={items}

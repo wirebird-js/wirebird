@@ -1,5 +1,7 @@
-import { reducer as updatesReducer } from './ducks/updates';
+import { slice as updatesSlice } from './ducks/updates';
+import { slice as filtersState } from './ducks/filters';
 
 export default {
-    updates: updatesReducer,
+    updates: updatesSlice.reducer,
+    filters: filtersState.reducer,
 };

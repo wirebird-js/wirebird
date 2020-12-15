@@ -2,10 +2,10 @@ import { MonitorEvent } from 'http-inspector';
 import { eventChannel, SagaIterator } from 'redux-saga';
 import { call, put, take } from 'redux-saga/effects';
 import UpdatesService from '../../services/updates';
-import { addLoggerEvent } from '../ducks/updates';
+import { slice as updatesSlice } from '../ducks/updates';
 
 function createUpdatesChannel(updatesService: UpdatesService) {
-    return eventChannel<MonitorEvent>((emitter) => {
+    return eventChannel<MonitorEvent>(emitter => {
         updatesService.on('LOGGER_EVENT', (e: MonitorEvent) => {
             emitter(e);
         });
@@ -20,7 +20,7 @@ export default function* updates(): SagaIterator {
     while (true) {
         const MonitorEvent = yield take(chan);
         if (MonitorEvent) {
-            yield put(addLoggerEvent(MonitorEvent));
+            yield put(updatesSlice.actions.addLoggerEvent(MonitorEvent));
         }
     }
 }

@@ -9,7 +9,7 @@ import { Headers } from '../utils/Headers';
 import { ContentView } from './ContentView';
 import { HeadersView } from './HeadersView';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     tabs: {
         minHeight: 'auto',
     },
@@ -21,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
     },
     tabPanel: {
         padding: 0,
+    },
+    header: {
+        position: 'sticky',
+        top: 0,
+        zIndex: 2,
+        backgroundColor: theme.palette.background.default,
     },
 }));
 
@@ -111,7 +117,7 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
 
     return (
         <TabContext value={tabs.currentTab}>
-            <div>
+            <div className={classes.header}>
                 <Grid container>
                     <Grid item>
                         <IconButton onClick={handleCloseClick} size="small">

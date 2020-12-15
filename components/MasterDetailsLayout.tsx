@@ -6,7 +6,7 @@ const DEBUG = false;
 
 const useStyles = makeStyles(
     theme => {
-        const toolbarHeight = theme.spacing(4);
+        const toolbarHeight = theme.spacing(8);
         return {
             isLeftWide: {},
 
