@@ -1,6 +1,6 @@
 import { MenuItem, TextField } from '@material-ui/core';
 import React, { FC, useCallback } from 'react';
-import { Filters } from '../utils/Filters';
+import { Filters, initialFilters } from '../utils/Filters';
 
 export interface IToolbarFiltersProps {
     pids: string[];
@@ -9,9 +9,7 @@ export interface IToolbarFiltersProps {
 }
 export const ToolbarFilters: FC<IToolbarFiltersProps> = ({
     pids,
-    value = {
-        pid: '',
-    },
+    value = initialFilters,
     onChange,
 }) => {
     const handlePIDChange = useCallback(({ target: { value: pid } }) => {

@@ -14,6 +14,7 @@ interface Props {
     loggerEvents: MonitorEvent[];
     setCurrentEventID: typeof updatesSlice.actions.setCurrentEventID;
     setFilters: typeof filtersSlice.actions.setFilters;
+    filters: Filters;
     currentEvent: MonitorEvent | null;
     pidsList: string[];
 }
@@ -24,6 +25,7 @@ const IndexPage: NextPage<Props> = ({
     setFilters,
     currentEvent,
     pidsList,
+    filters,
 }) => {
     const handleItemSelect = useCallback(id => setCurrentEventID(id), []);
     const handleItemDeselect = useCallback(() => setCurrentEventID(null), []);
@@ -36,6 +38,7 @@ const IndexPage: NextPage<Props> = ({
             onItemSelect={handleItemSelect}
             onItemDeselect={handleItemDeselect}
             pidsList={pidsList}
+            filters={filters}
             onFiltersChange={handleChangeFilters}
         />
     );

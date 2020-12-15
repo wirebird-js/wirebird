@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback } from 'react';
-import { Filters } from '../utils/Filters';
+import { Filters, initialFilters } from '../utils/Filters';
 import { EventDetailsView } from './EventDetailesView';
 import { MasterDetailsLayout } from './MasterDetailsLayout';
 import RequestsTable from './RequestsTable';
@@ -22,6 +22,7 @@ export interface IMasterDetailsViewProps {
     onItemSelect?: (rowId: string) => void;
     onItemDeselect?: () => void;
     onFiltersChange?: (value: Filters) => void;
+    filters?: Filters;
     pidsList?: string[];
 }
 
@@ -32,6 +33,7 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
     onItemDeselect,
     pidsList = [],
     onFiltersChange,
+    filters = initialFilters,
 }) => {
     const handleRowClick = useCallback(
         rowId => {
@@ -57,6 +59,7 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
                 <ToolbarFilters
                     pids={pidsList}
                     onChange={handleFiltersChange}
+                    value={filters}
                 />
             }
             left={
