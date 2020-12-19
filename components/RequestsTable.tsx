@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     table: {
         height: '100%',
         minHeight: 350,
+        fontFamily: theme.typography.fontFamily,
     },
 }));
 
