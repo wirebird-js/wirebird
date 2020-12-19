@@ -1,11 +1,14 @@
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core';
 import { MonitorEvent } from 'http-inspector';
-import React, { FC, useCallback } from 'react';
-import RequestsTableRow from './RequestTableRow';
+import React, { FC, useCallback, useMemo } from 'react';
+import DataGrid, { Column } from 'react-data-grid';
+import 'react-data-grid/dist/react-data-grid.css';
+
+const useStyles = makeStyles((theme) => ({
+    table: {
+        height: '100%',
+    },
+}));
 
 interface IRequestsTableProps {
     items: Array<MonitorEvent>;
@@ -13,35 +16,76 @@ interface IRequestsTableProps {
     onRowClick?: (rowId: string) => void;
 }
 
+interface RTRow {
+    id: string;
+    requestURL: string;
+    requestMethod: string;
+    responseStatus?: number;
+}
+
+const monitorEventToRow = (e: MonitorEvent): RTRow => {
+    return {
+        id: e.request.id,
+        requestURL: e.request.url,
+        requestMethod: e.request.method,
+        responseStatus: e.response?.status,
+    };
+};
+
+const columns: Column<RTRow>[] = [
+    {
+        key: 'requestURL',
+        name: 'URL',
+        resizable: true,
+        // sortable: true,
+    },
+    {
+        key: 'requestMethod',
+        name: 'Method',
+        resizable: true,
+        // sortable: true,
+    },
+    {
+        key: 'responseStatus',
+        name: 'Status',
+        resizable: true,
+        // sortable: true,
+    },
+];
+
+const rowKeyGetter = (row: RTRow): React.Key => {
+    return row.id;
+};
+
 const RequestsTable: FC<IRequestsTableProps> = ({
     items,
     onRowClick,
     current,
 }) => {
-    const handleRowClick = useCallback(id => onRowClick && onRowClick(id), [
-        onRowClick,
-    ]);
+    const classes = useStyles();
+
+    const rows = items.map(monitorEventToRow);
+    const handleRowClick = useCallback(
+        (idx: number, row: RTRow) => {
+            onRowClick && onRowClick(row.id);
+        },
+        [onRowClick]
+    );
+
+    const selectedRows: ReadonlySet<string> = useMemo(
+        () => (current ? new Set([current]) : new Set()),
+        [current]
+    );
 
     return (
-        <Table size="small" stickyHeader>
-            <TableHead>
-                <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Method</TableCell>
-                    <TableCell>Status</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {items.map(item => (
-                    <RequestsTableRow
-                        item={item}
-                        selected={item.request.id === current}
-                        key={item.request.id}
-                        onClick={handleRowClick}
-                    />
-                ))}
-            </TableBody>
-        </Table>
+        <DataGrid
+            className={classes.table}
+            columns={columns}
+            rows={rows}
+            rowKeyGetter={rowKeyGetter}
+            onRowClick={handleRowClick}
+            selectedRows={selectedRows}
+        />
     );
 };
 
