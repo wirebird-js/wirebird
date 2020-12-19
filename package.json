@@ -69,6 +69,7 @@
         "axios": "^0.21.0",
         "babel-jest": "^26.6.3",
         "babel-loader": "^8.0.6",
+        "babel-preset-react-app": "^10.0.0",
         "jest": "^26.6.3",
         "lorem-ipsum": "^2.0.3",
         "nodemon": "^1.19.1",

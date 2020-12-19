@@ -7,6 +7,7 @@ import 'react-data-grid/dist/react-data-grid.css';
 const useStyles = makeStyles((theme) => ({
     table: {
         height: '100%',
+        minHeight: 350,
     },
 }));
 
