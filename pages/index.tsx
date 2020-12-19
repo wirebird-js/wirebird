@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MasterDetailsView } from '../components/MasterDetailsView';
 import { slice as filtersSlice } from '../redux/ducks/filters';
-import { slice as updatesSlice } from '../redux/ducks/updates';
-import { selectors } from '../redux/selectors';
+import { Lookups, slice as updatesSlice } from '../redux/ducks/updates';
+import { sliceSelectors, globalSelectors } from '../redux/selectors';
 import { State } from '../redux/store';
 import { Filters } from '../utils/Filters';
 
@@ -16,7 +16,8 @@ interface Props {
     setFilters: typeof filtersSlice.actions.setFilters;
     filters: Filters;
     currentEvent: MonitorEvent | null;
-    pidsList: string[];
+    pidsList: { [key: string]: number };
+    lookups: Lookups;
 }
 
 const IndexPage: NextPage<Props> = ({
@@ -24,7 +25,7 @@ const IndexPage: NextPage<Props> = ({
     setCurrentEventID,
     setFilters,
     currentEvent,
-    pidsList,
+    lookups,
     filters,
 }) => {
     const handleItemSelect = useCallback(id => setCurrentEventID(id), []);
@@ -37,7 +38,7 @@ const IndexPage: NextPage<Props> = ({
             currentItem={currentEvent}
             onItemSelect={handleItemSelect}
             onItemDeselect={handleItemDeselect}
-            pidsList={pidsList}
+            lookups={lookups}
             filters={filters}
             onFiltersChange={handleChangeFilters}
         />
@@ -46,10 +47,11 @@ const IndexPage: NextPage<Props> = ({
 
 export default connect(
     (state: State) => ({
-        loggerEvents: selectors.updates.getLoggerEvents(state),
-        currentEvent: selectors.updates.getCurrentLoggerEvent(state),
-        pidsList: selectors.updates.getAllPIDs(state),
-        filters: selectors.filters.getFilters(state),
+        loggerEvents: globalSelectors.getFilteredLoggerEvents(state),
+        currentEvent: sliceSelectors.updates.getCurrentLoggerEvent(state),
+        pidsList: sliceSelectors.updates.getAllPIDs(state),
+        filters: sliceSelectors.filters.getFilters(state),
+        lookups: sliceSelectors.updates.getLookups(state),
     }),
     dispatch =>
         bindActionCreators(

@@ -8,11 +8,11 @@ export default {
 
 export const main = () => {
     const [filters, setFilters] = useState<Filters>({
-        pid: '',
+        pid: 2,
     });
     return (
         <ToolbarFilters
-            pids={['1', '2', '3']}
+            lookups={{ pid: { '1': 1, '2': 2, '3': 3 } }}
             value={filters}
             onChange={setFilters}
         />

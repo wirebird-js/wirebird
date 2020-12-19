@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback } from 'react';
+import { Lookups } from '../redux/ducks/updates';
 import { Filters, initialFilters } from '../utils/Filters';
 import { EventDetailsView } from './EventDetailesView';
 import { MasterDetailsLayout } from './MasterDetailsLayout';
@@ -23,7 +24,7 @@ export interface IMasterDetailsViewProps {
     onItemDeselect?: () => void;
     onFiltersChange?: (value: Filters) => void;
     filters?: Filters;
-    pidsList?: string[];
+    lookups: Lookups;
 }
 
 export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
@@ -31,7 +32,7 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
     currentItem,
     onItemSelect,
     onItemDeselect,
-    pidsList = [],
+    lookups,
     onFiltersChange,
     filters = initialFilters,
 }) => {
@@ -57,7 +58,7 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
         <MasterDetailsLayout
             toolbar={
                 <ToolbarFilters
-                    pids={pidsList}
+                    lookups={lookups}
                     onChange={handleFiltersChange}
                     value={filters}
                 />

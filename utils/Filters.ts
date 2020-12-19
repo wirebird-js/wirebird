@@ -1,7 +1,7 @@
 export interface Filters {
-    pid: string;
+    pid?: number;
 }
 
 export const initialFilters: Filters = {
-    pid: '',
+    pid: undefined,
 };

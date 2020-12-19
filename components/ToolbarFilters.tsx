@@ -1,18 +1,22 @@
 import { MenuItem, TextField } from '@material-ui/core';
 import React, { FC, useCallback } from 'react';
+import { Lookups } from '../redux/ducks/updates';
 import { Filters, initialFilters } from '../utils/Filters';
 
 export interface IToolbarFiltersProps {
-    pids: string[];
+    lookups: Lookups;
     value?: Filters;
     onChange?: (value: Filters) => void;
 }
 export const ToolbarFilters: FC<IToolbarFiltersProps> = ({
-    pids,
+    lookups,
     value = initialFilters,
     onChange,
 }) => {
     const handlePIDChange = useCallback(({ target: { value: pid } }) => {
+        if (pid === '') {
+            pid = undefined;
+        }
         onChange && onChange({ ...value, pid });
     }, []);
     return (
@@ -20,14 +24,14 @@ export const ToolbarFilters: FC<IToolbarFiltersProps> = ({
             <TextField
                 select
                 onChange={handlePIDChange}
-                value={value.pid}
+                value={value.pid === undefined ? '' : value.pid}
                 label="PID"
             >
                 <MenuItem value="">All</MenuItem>
 
-                {pids.map(pid => (
-                    <MenuItem key={pid} value={pid}>
-                        {pid}
+                {Object.entries(lookups.pid).map(([key, value]) => (
+                    <MenuItem key={value} value={value}>
+                        {key}
                     </MenuItem>
                 ))}
             </TextField>

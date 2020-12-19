@@ -1,4 +1,4 @@
-import { LoggerError, MonitorEvent } from 'http-inspector/lib/src/SharedTypes';
+import { MonitorEvent } from 'http-inspector/lib/src/SharedTypes';
 import React, { useState } from 'react';
 import { MasterDetailsView } from '../components/MasterDetailsView';
 import loggerEvents from './data/loggerEvents';
@@ -12,12 +12,11 @@ export const main = () => {
     const [current, setCurrent] = useState<MonitorEvent | null>(null);
     return (
         <MasterDetailsView
+            lookups={{ pid: {} }}
             items={loggerEvents}
             currentItem={current}
-            onItemSelect={(id) =>
-                setCurrent(
-                    loggerEvents.find((e) => e.request.id === id) || null
-                )
+            onItemSelect={id =>
+                setCurrent(loggerEvents.find(e => e.request.id === id) || null)
             }
             onItemDeselect={() => setCurrent(null)}
         />
