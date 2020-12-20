@@ -106,12 +106,10 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
     const normalizedResponseHeaders = event.response
         ? new Headers(event.response.headers)
         : null;
-    const responseContentType = normalizedResponseHeaders
-        ? normalizedResponseHeaders.get('content-type')
-        : null;
-    const requestContentType = normalizedRequestHeaders
-        ? normalizedRequestHeaders.get('content-type')
-        : null;
+    const responseContentType =
+        normalizedResponseHeaders?.get('content-type')?.toString() ?? null;
+    const requestContentType =
+        normalizedRequestHeaders?.get('content-type')?.toString() ?? null;
 
     const tabs = createTabs(event, classes, currentTab);
 

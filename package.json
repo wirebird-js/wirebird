@@ -2,6 +2,8 @@
     "name": "http-inspector-ui",
     "version": "0.0.3",
     "description": "",
+    "license": "ISC",
+    "author": "",
     "main": "index.js",
     "bin": {
         "http-inspector-ui": "./bin/http-inspector-ui.js"
@@ -12,19 +14,18 @@
         "bin"
     ],
     "scripts": {
-        "dev": "nodemon --inspect",
         "build": "npm run build:server && npm run build:next",
+        "build-storybook": "build-storybook",
         "build:next": "next build",
         "build:server": "tsc --project tsconfig.server.json",
+        "dev": "nodemon --inspect",
+        "lint": "eslint .",
+        "prepublish": "npm run build",
         "start": "NODE_ENV=production node server-dist",
         "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook",
-        "tester": "HTTP_INSPECTOR=1 HTTP_INSPECTOR_FORMAT=monitor node tester.js",
         "test": "jest",
-        "lint": "eslint ."
+        "tester": "HTTP_INSPECTOR=1 HTTP_INSPECTOR_FORMAT=monitor node tester.js"
     },
-    "author": "",
-    "license": "ISC",
     "dependencies": {
         "@material-ui/core": "^4.11.1",
         "@material-ui/icons": "^4.9.1",
@@ -37,7 +38,7 @@
         "@types/ws": "^6.0.3",
         "classnames": "^2.2.6",
         "comsel": "0.0.5",
-        "http-inspector": "0.0.12",
+        "http-inspector": "0.0.14",
         "immer": "^8.0.0",
         "lodash": "^4.17.20",
         "material-table": "^1.50.0",
