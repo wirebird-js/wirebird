@@ -1,5 +1,5 @@
 import { LoremIpsum } from 'lorem-ipsum';
-import React from 'react';
+import React, { FC } from 'react';
 import { MasterDetailsLayout } from '../components/MasterDetailsLayout';
 
 export default {
@@ -22,6 +22,6 @@ const right = lorem.generateParagraphs(10);
 // const right = null;
 const toolbar = lorem.generateSentences(2);
 
-export const main = () => {
+export const main: FC = () => {
     return <MasterDetailsLayout left={left} right={right} toolbar={toolbar} />;
 };

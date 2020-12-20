@@ -13,7 +13,7 @@ const post = (req: NextApiRequest & ContextedRequest, res: NextApiResponse) => {
 export default (
     req: NextApiRequest & ContextedRequest,
     res: NextApiResponse
-) => {
+): void => {
     if (req.method === 'POST') {
         post(req, res);
     } else {

@@ -16,7 +16,8 @@ interface IncomingSocketMessage {
     payload: any;
 }
 
-export default class UpdatesService extends EventEmitter
+export default class UpdatesService
+    extends EventEmitter
     implements UpdatesServiceEvents {
     private sock: WebSocket;
 
@@ -62,7 +63,7 @@ export default class UpdatesService extends EventEmitter
         this.sock = new WebSocket(`ws://${location.host}/api/updates`);
     }
 
-    start() {
+    start(): void {
         this.sock.addEventListener('message', (messageEvent) => {
             try {
                 const messageData = JSON.parse(

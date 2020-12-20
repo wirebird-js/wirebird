@@ -69,7 +69,7 @@ const RequestsTable: FC<IRequestsTableProps> = ({
     const rows = items.map(monitorEventToRow);
     const handleRowClick = useCallback(
         (idx: number, row: RTRow) => {
-            onRowClick && onRowClick(row.id);
+            onRowClick?.(row.id);
         },
         [onRowClick]
     );

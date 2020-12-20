@@ -4,7 +4,6 @@ export class Headers {
         return name.toLowerCase();
     }
     constructor(private rawHeaders: { [k: string]: string }) {
-        debugger;
         this.normalizedHeaders = Object.entries(this.rawHeaders).reduce<{
             [k: string]: string;
         }>(

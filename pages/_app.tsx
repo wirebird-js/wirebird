@@ -18,7 +18,7 @@ class MyApp extends App {
     //   return { ...appProps }
     // }
 
-    render() {
+    render(): JSX.Element {
         const { Component, pageProps } = this.props;
         return (
             <NoSSR onSSR={<SplashScreen />}>

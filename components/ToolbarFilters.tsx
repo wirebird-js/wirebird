@@ -17,7 +17,7 @@ export const ToolbarFilters: FC<IToolbarFiltersProps> = ({
         if (pid === '') {
             pid = undefined;
         }
-        onChange && onChange({ ...value, pid });
+        onChange?.({ ...value, pid });
     }, []);
     return (
         <div>

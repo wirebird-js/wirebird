@@ -1,7 +1,7 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import React, { FC } from 'react';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         flexDirection: 'column',
     },

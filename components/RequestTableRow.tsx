@@ -71,7 +71,7 @@ const RequestsTableRow: FC<IRequestsTableRowProps> = ({
 
     return (
         <TableRow
-            onClick={() => onClick && onClick(item.request.id)}
+            onClick={() => onClick?.(item.request.id)}
             className={rowClasses}
         >
             <TableCell>{item.request.url}</TableCell>

@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { FC } from 'react';
 import { EventDetailsView } from '../components/EventDetailesView';
-import { MasterDetailsView } from '../components/MasterDetailsView';
 import loggerEvents from './data/loggerEvents';
 
 export default {
     title: 'Event Details View',
 };
 
-export const main = () => {
+export const main: FC = () => {
     return <EventDetailsView event={loggerEvents[0]} />;
 };

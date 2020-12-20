@@ -32,7 +32,7 @@ export default class SocketServer {
         this.subscribe();
     }
 
-    broadcastLoggerEvent(event: MonitorEvent) {
+    broadcastLoggerEvent(event: MonitorEvent): void {
         this.broadcast({
             type: 'LOGGER_EVENT',
             payload: event,

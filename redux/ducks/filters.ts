@@ -20,6 +20,6 @@ export const slice = createSlice({
     },
 });
 
-export const getFilters = (state: FiltersState) => {
+export const getFilters = (state: FiltersState): Filters => {
     return state.filters;
 };

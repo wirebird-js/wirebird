@@ -8,7 +8,7 @@ import { MasterDetailsLayout } from './MasterDetailsLayout';
 import RequestsTable from './RequestsTable';
 import { ToolbarFilters } from './ToolbarFilters';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     rightPanel: {
         height: '100%',
         borderLeftWidth: 1,
@@ -37,17 +37,17 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
     filters = initialFilters,
 }) => {
     const handleRowClick = useCallback(
-        rowId => {
-            onItemSelect && onItemSelect(rowId);
+        (rowId) => {
+            onItemSelect?.(rowId);
         },
         [onItemSelect]
     );
     const handleDetailsClose = useCallback(() => {
-        onItemDeselect && onItemDeselect();
+        onItemDeselect?.();
     }, [onItemDeselect]);
     const handleFiltersChange = useCallback(
-        filters => {
-            onFiltersChange && onFiltersChange(filters);
+        (filters) => {
+            onFiltersChange?.(filters);
         },
         [onFiltersChange]
     );

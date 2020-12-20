@@ -1,20 +1,18 @@
 import { combineSelectors } from 'comsel';
+import { createSelector } from 'reselect';
+import { getFilters } from './ducks/filters';
 import {
     getCurrentLoggerEvent,
     getLoggerEvents,
-    getAllPIDs,
     getLookups,
 } from './ducks/updates';
-import { getFilters } from './ducks/filters';
-import { State } from './store';
-import { createSelector } from 'reselect';
 import { getFilteredLoggerEvents } from './selectors/getFilteredLoggerEvents';
+import { State } from './store';
 
 const selectorsMap = {
     updates: {
         getLoggerEvents,
         getCurrentLoggerEvent,
-        getAllPIDs,
         getLookups,
     },
     filters: {

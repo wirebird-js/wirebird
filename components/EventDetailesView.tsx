@@ -9,7 +9,7 @@ import { Headers } from '../utils/Headers';
 import { ContentView } from './ContentView';
 import { HeadersView } from './HeadersView';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     tabs: {
         minHeight: 'auto',
     },
@@ -50,7 +50,7 @@ const createTabs = (
             ),
         },
         request: {
-            condition: !!(event.request && event.request.body),
+            condition: !!event.request?.body,
             tab: (
                 <Tab
                     key="request"
@@ -61,7 +61,7 @@ const createTabs = (
             ),
         },
         response: {
-            condition: !!(event.response && event.response.body),
+            condition: !!event.response?.body,
             tab: (
                 <Tab
                     key="response"
@@ -95,7 +95,7 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
     event,
     onClose,
 }) => {
-    const handleCloseClick = useCallback(() => onClose && onClose(), [onClose]);
+    const handleCloseClick = useCallback(() => onClose?.(), [onClose]);
     const classes = useStyles();
     const [currentTab, setCurrentTab] = useState<TabID>('headers');
     const handleTabsChange = useCallback(
@@ -140,7 +140,7 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
                 <HeadersView event={event} />
             </TabPanel>
             <TabPanel value="request" className={classes.tabPanel}>
-                {event.request && event.request.body && (
+                {event.request?.body && (
                     <ContentView
                         contentType={requestContentType}
                         data={event.request.body}
@@ -148,7 +148,7 @@ export const EventDetailsView: FC<IEventDetailsViewProps> = ({
                 )}
             </TabPanel>
             <TabPanel value="response" className={classes.tabPanel}>
-                {event.response && event.response.body && (
+                {event.response?.body && (
                     <ContentView
                         contentType={responseContentType}
                         data={event.response.body}

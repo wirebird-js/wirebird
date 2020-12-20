@@ -6,7 +6,11 @@ import { ContextedRequest } from './ContextedRequest';
 
 const PORT = 4380;
 
-export default async function main({ production }: { production: boolean }) {
+export default async function main({
+    production,
+}: {
+    production: boolean;
+}): Promise<void> {
     const dev = !production;
     const app = next({ dev });
     const handle = app.getRequestHandler();
@@ -15,16 +19,18 @@ export default async function main({ production }: { production: boolean }) {
         req: IncomingMessage & ContextedRequest,
         res
     ) => {
-        const parsedUrl = parse(req.url!, true);
+        if (!req.url) {
+            throw new Error('No req.url');
+        }
+        const parsedUrl = parse(req.url, true);
         req.context = {
-            socketServer
+            socketServer,
         };
         handle(req, res, parsedUrl);
     }) as RequestListener).listen(PORT);
 
     const socketServer = new SocketServer({ server });
 
-    // tslint:disable-next-line:no-console
     console.log(`> Server listening at http://localhost:${PORT}`);
 }
 

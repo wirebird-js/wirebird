@@ -5,10 +5,11 @@ import UpdatesService from '../../services/updates';
 import { slice as updatesSlice } from '../ducks/updates';
 
 function createUpdatesChannel(updatesService: UpdatesService) {
-    return eventChannel<MonitorEvent>(emitter => {
+    return eventChannel<MonitorEvent>((emitter) => {
         updatesService.on('LOGGER_EVENT', (e: MonitorEvent) => {
             emitter(e);
         });
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         return () => {};
     });
 }

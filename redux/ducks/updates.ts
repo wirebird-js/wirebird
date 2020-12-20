@@ -17,6 +17,8 @@ const lookupExtractor = (item: MonitorEvent) => {
     };
 };
 
+export type Lookups = Required<LookupStore<ReturnType<typeof lookupExtractor>>>;
+
 export const lookupManager = new LookupManager(lookupExtractor);
 
 export interface UpdatesState {
@@ -50,19 +52,16 @@ export const slice = createSlice({
     },
 });
 
-export const getLoggerEvents = (state: UpdatesState) =>
+export const getLoggerEvents = (state: UpdatesState): MonitorEvent[] =>
     indexedList.getAll(state.eventsList);
 
-export const getCurrentLoggerEvent = (state: UpdatesState) =>
+export const getCurrentLoggerEvent = (
+    state: UpdatesState
+): MonitorEvent | null =>
     state.currentEventID
         ? indexedList.getByKey(state.eventsList, state.currentEventID)
         : null;
 
-export const getAllPIDs = (state: UpdatesState) =>
-    lookupManager.getLookups(state.lookups, 'pid');
-
-export const getLookups = (state: UpdatesState) => ({
+export const getLookups = (state: UpdatesState): Lookups => ({
     pid: lookupManager.getLookups(state.lookups, 'pid'),
 });
-
-export type Lookups = ReturnType<typeof getLookups>;

@@ -1,5 +1,4 @@
 import { Draft } from '@reduxjs/toolkit';
-import _ from 'lodash';
 
 type KeyExtractorFn<T> = (item: T) => string;
 
@@ -51,7 +50,7 @@ export class IndexedList<T> {
     }
     getAll(store: IIndexedListStore<T>): T[] {
         return store.itemsKeys
-            .map(k => this.getByKey(store, k))
+            .map((k) => this.getByKey(store, k))
             .filter(isNotNull);
     }
 }

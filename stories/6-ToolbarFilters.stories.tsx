@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ToolbarFilters } from '../components/ToolbarFilters';
 import { Filters } from '../utils/Filters';
 
@@ -6,7 +6,7 @@ export default {
     title: 'Toolbar Filters View',
 };
 
-export const main = () => {
+export const main: FC = () => {
     const [filters, setFilters] = useState<Filters>({
         pid: 2,
     });

@@ -16,7 +16,6 @@ interface Props {
     setFilters: typeof filtersSlice.actions.setFilters;
     filters: Filters;
     currentEvent: MonitorEvent | null;
-    pidsList: { [key: string]: number };
     lookups: Lookups;
 }
 
@@ -28,9 +27,12 @@ const IndexPage: NextPage<Props> = ({
     lookups,
     filters,
 }) => {
-    const handleItemSelect = useCallback(id => setCurrentEventID(id), []);
+    const handleItemSelect = useCallback((id) => setCurrentEventID(id), []);
     const handleItemDeselect = useCallback(() => setCurrentEventID(null), []);
-    const handleChangeFilters = useCallback(filters => setFilters(filters), []);
+    const handleChangeFilters = useCallback(
+        (filters) => setFilters(filters),
+        []
+    );
 
     return (
         <MasterDetailsView
@@ -49,11 +51,10 @@ export default connect(
     (state: State) => ({
         loggerEvents: globalSelectors.getFilteredLoggerEvents(state),
         currentEvent: sliceSelectors.updates.getCurrentLoggerEvent(state),
-        pidsList: sliceSelectors.updates.getAllPIDs(state),
         filters: sliceSelectors.filters.getFilters(state),
         lookups: sliceSelectors.updates.getLookups(state),
     }),
-    dispatch =>
+    (dispatch) =>
         bindActionCreators(
             {
                 setCurrentEventID: updatesSlice.actions.setCurrentEventID,
