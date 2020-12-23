@@ -3,6 +3,7 @@ import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback, useMemo } from 'react';
 import DataGrid, { Column } from 'react-data-grid';
 import 'react-data-grid/dist/react-data-grid.css';
+import { shortenURL } from '../utils/shortenURL';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -20,6 +21,7 @@ interface IRequestsTableProps {
 
 interface RTRow {
     id: string;
+    name: string;
     requestURL: string;
     requestMethod: string;
     responseStatus?: number;
@@ -28,6 +30,7 @@ interface RTRow {
 const monitorEventToRow = (e: MonitorEvent): RTRow => {
     return {
         id: e.request.id,
+        name: shortenURL(e.request.url),
         requestURL: e.request.url,
         requestMethod: e.request.method,
         responseStatus: e.response?.status,
@@ -36,22 +39,29 @@ const monitorEventToRow = (e: MonitorEvent): RTRow => {
 
 const columns: Column<RTRow>[] = [
     {
-        key: 'requestURL',
-        name: 'URL',
+        key: 'name',
+        name: 'Name',
         resizable: true,
-        // sortable: true,
+        formatter: ({ row, column: { key } }) => {
+            return (
+                <span title={row.requestURL}>{row[key as keyof RTRow]}</span>
+            );
+        },
     },
+    // {
+    //     key: 'requestURL',
+    //     name: 'URL',
+    //     resizable: true,
+    // },
     {
         key: 'requestMethod',
         name: 'Method',
         resizable: true,
-        // sortable: true,
     },
     {
         key: 'responseStatus',
         name: 'Status',
         resizable: true,
-        // sortable: true,
     },
 ];
 
