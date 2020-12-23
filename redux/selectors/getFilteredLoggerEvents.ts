@@ -1,27 +1,36 @@
+import { parse } from 'url';
 import { MonitorEvent } from 'http-inspector';
 import { Filters } from '../../utils/Filters';
 
 const filterFns: {
-    [FName in keyof Filters]: (
-        filter: Filters[FName],
+    [FName in keyof Required<Filters>]: (
+        filterValue: Filters[FName],
         event: MonitorEvent
     ) => boolean;
 } = {
     pid: (pid, event) => {
         return pid === undefined || event.processData.pid === pid;
     },
+    domain: (domain, event) => {
+        return domain === undefined || parse(event.request.url).host === domain;
+    },
 };
 
 export const getFilteredLoggerEvents = (
-    filters: Filters,
+    filterValues: Filters,
     events: MonitorEvent[]
 ): MonitorEvent[] =>
-    events.filter(e => {
-        for (const [filterProp, filterFn] of Object.entries(filterFns)) {
-            if (!filterFn) {
-                continue;
-            }
-            if (!filterFn(filters[filterProp as keyof Filters], e)) {
+    events.filter((e) => {
+        for (const filterProp of Object.keys(filterFns)) {
+            const tsFilterProp = filterProp as keyof typeof filterFns;
+            const tsValue =
+                filterValues[filterProp as keyof typeof filterValues];
+            if (
+                !(filterFns[tsFilterProp] as (
+                    f: typeof tsValue,
+                    e: MonitorEvent
+                ) => boolean)(tsValue, e)
+            ) {
                 return false;
             }
         }

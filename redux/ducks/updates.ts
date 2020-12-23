@@ -1,3 +1,4 @@
+import { parse as parseURL } from 'url';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MonitorEvent } from 'http-inspector';
 import { IndexedList, IIndexedListStore } from '../../utils/IndexedList';
@@ -9,10 +10,16 @@ export const indexedList = new IndexedList<MonitorEvent>(
 
 const lookupExtractor = (item: MonitorEvent) => {
     const pid = item.processData.pid;
+    const u = parseURL(item.request.url);
+    const domain = u.host;
     return {
         pid: {
             key: `${pid}`,
             value: pid,
+        },
+        domain: {
+            key: `${domain}`,
+            value: domain,
         },
     };
 };
@@ -64,4 +71,5 @@ export const getCurrentLoggerEvent = (
 
 export const getLookups = (state: UpdatesState): Lookups => ({
     pid: lookupManager.getLookups(state.lookups, 'pid'),
+    domain: lookupManager.getLookups(state.lookups, 'domain'),
 });

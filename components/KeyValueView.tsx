@@ -44,9 +44,11 @@ export const KeyValueView: FC<IKeyValueViewProps> = ({ items }) => {
         <div className={classes.root}>
             {items.map((item, i) =>
                 Array.isArray(item.value) ? (
-                    item.value.map((v) => <Pair k={item.key} v={v} />)
+                    item.value.map((v, j) => (
+                        <Pair key={`${i}:${j}`} k={item.key} v={v} />
+                    ))
                 ) : (
-                    <Pair k={item.key} v={item.value} />
+                    <Pair key={i} k={item.key} v={item.value} />
                 )
             )}
         </div>

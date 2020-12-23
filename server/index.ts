@@ -12,6 +12,7 @@ export default async function main({
 }: {
     production: boolean;
 }): Promise<void> {
+    process.title = 'http-inspector-ui';
     const dev = !production;
     const app = next({ dev, dir: join(__dirname, '..') });
     const handle = app.getRequestHandler();
