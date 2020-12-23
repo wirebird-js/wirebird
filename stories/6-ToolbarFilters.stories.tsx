@@ -12,7 +12,10 @@ export const main: FC = () => {
     });
     return (
         <ToolbarFilters
-            lookups={{ pid: { '1': 1, '2': 2, '3': 3 } }}
+            lookups={{
+                pid: { '1': 1, '2': 2, '3': 3 },
+                domain: { 'foo.com': 'foo.com' },
+            }}
             value={filters}
             onChange={setFilters}
         />

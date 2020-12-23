@@ -11,7 +11,7 @@ export const main: FC = () => {
     const [current, setCurrent] = useState<MonitorEvent | null>(null);
     return (
         <MasterDetailsView
-            lookups={{ pid: {} }}
+            lookups={{ pid: {}, domain: {} }}
             items={loggerEvents}
             currentItem={current}
             onItemSelect={(id) =>
