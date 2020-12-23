@@ -9,7 +9,7 @@ export const indexedList = new IndexedList<MonitorEvent>(
 );
 
 const lookupExtractor = (item: MonitorEvent) => {
-    const pid = item.processData.pid;
+    const { pid } = item.processData;
     const u = parseURL(item.request.url);
     const domain = u.host;
     return {
