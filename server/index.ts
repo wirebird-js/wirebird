@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { createServer, IncomingMessage, RequestListener } from 'http';
 import { parse } from 'url';
 import next from 'next';
@@ -12,7 +13,7 @@ export default async function main({
     production: boolean;
 }): Promise<void> {
     const dev = !production;
-    const app = next({ dev });
+    const app = next({ dev, dir: join(__dirname, '..') });
     const handle = app.getRequestHandler();
     await app.prepare();
     const server = createServer(((
@@ -31,7 +32,7 @@ export default async function main({
 
     const socketServer = new SocketServer({ server });
 
-    console.log(`> Server listening at http://localhost:${PORT}`);
+    console.log(`Server listening at http://localhost:${PORT}`);
 }
 
 if (require.main === module) {

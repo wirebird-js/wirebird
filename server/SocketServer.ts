@@ -19,10 +19,7 @@ export default class SocketServer {
 
     private subscribe() {
         this.wss.on('connection', function connection(ws) {
-            // ws.on('message', function incoming(message) {
-            //     console.log('received: %s', message);
-            // });
-            console.log('connected');
+            console.log('Socket client connected');
             ws.send(JSON.stringify({ type: 'ONLINE' }));
         });
     }
