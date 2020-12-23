@@ -3,6 +3,7 @@ const Axios = require('axios');
 
 const requests = [
     ['get', 'https://example.com'],
+    ['get', 'https://httpbin.org/xml'],
     [
         'get',
         'https://httpbin.org/get',

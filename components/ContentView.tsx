@@ -4,6 +4,7 @@ import { detectType } from './content-view/detectType';
 import { ImageView } from './content-view/ImageView';
 import { JSONView } from './content-view/JSONView';
 import { TextView } from './content-view/TextView';
+import { XMLView } from './content-view/XMLView';
 
 const useStyles = makeStyles((theme) => ({
     contentArea: {
@@ -15,6 +16,7 @@ const viewModes = {
     plain: 'Plain Text',
     image: 'Image',
     json: 'JSON',
+    xml: 'XML',
 };
 type ViewMode = keyof typeof viewModes;
 
@@ -24,9 +26,10 @@ export interface IContentViewProps {
 }
 
 export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
-    const [viewMode, setViewMode] = useState<ViewMode>(detectType(contentType));
+    const detected = detectType(contentType);
+    const [viewMode, setViewMode] = useState<ViewMode>(detected.viewType);
     useEffect(() => {
-        setViewMode(detectType(contentType));
+        setViewMode(detected.viewType);
     }, [contentType]);
     const classes = useStyles();
 
@@ -58,6 +61,9 @@ export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
                 {viewMode === 'json' && <JSONView data={data} />}
                 {viewMode === 'image' && contentType && (
                     <ImageView contentType={contentType} data={data} />
+                )}
+                {viewMode === 'xml' && contentType && (
+                    <XMLView contentType={detected.pureType} data={data} />
                 )}
             </Grid>
         </Grid>

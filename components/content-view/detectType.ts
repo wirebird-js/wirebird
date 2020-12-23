@@ -1,14 +1,27 @@
+const domParserTypes = [
+    'application/xhtml+xml',
+    'application/xml',
+    'image/svg+xml',
+    'text/html',
+    'text/xml',
+];
+
 export function detectType(
     contentType: string | null
-): 'plain' | 'image' | 'json' {
-    if (contentType === null) {
-        return 'plain';
+): { pureType: string; viewType: 'plain' | 'image' | 'json' | 'xml' } {
+    const [pureType] = contentType?.split(';') ?? [];
+
+    if (!pureType || !contentType) {
+        return { pureType, viewType: 'plain' };
     }
     if (contentType.startsWith('image/')) {
-        return 'image';
+        return { pureType, viewType: 'image' };
     }
-    if (contentType.startsWith('application/json')) {
-        return 'json';
+    if (pureType === 'application/json') {
+        return { pureType, viewType: 'json' };
     }
-    return 'plain';
+    if (domParserTypes.includes(pureType)) {
+        return { pureType, viewType: 'xml' };
+    }
+    return { pureType, viewType: 'plain' };
 }
