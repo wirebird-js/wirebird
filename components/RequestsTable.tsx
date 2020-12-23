@@ -6,16 +6,19 @@ import 'react-data-grid/dist/react-data-grid.css';
 import { shortenURL } from '../utils/shortenURL';
 import classnames from 'classnames';
 
-const useStyles = makeStyles((theme) => ({
-    table: {
-        height: '100%',
-        minHeight: 350,
-        fontFamily: theme.typography.fontFamily,
-    },
-    rowError: {
-        color: theme.palette.error.main,
-    },
-}));
+const useStyles = makeStyles(
+    (theme) => ({
+        table: {
+            height: '100%',
+            minHeight: 350,
+            fontFamily: theme.typography.fontFamily,
+        },
+        rowError: {
+            color: theme.palette.error.main,
+        },
+    }),
+    { name: 'RequestsTable' }
+);
 
 interface IRequestsTableProps {
     items: Array<MonitorEvent>;
