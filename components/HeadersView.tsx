@@ -9,7 +9,7 @@ import { KeyValue, KeyValueView } from './KeyValueView';
 const headersToKeyValue = (headers: LoggerHeaders): KeyValue[] =>
     Object.entries(headers).map(([key, value]) => ({
         key,
-        value: value?.toString() ?? '',
+        value,
     }));
 
 const getGeneralInfo = (event: MonitorEvent): KeyValue[] => {

@@ -17,25 +17,38 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+type Value = string | number | undefined;
+
 export interface KeyValue {
     key: string;
-    value: string;
+    value: Value | Value[];
 }
 
 export interface IKeyValueViewProps {
     items: KeyValue[];
 }
 
+const Pair: FC<{ k: string; v: Value }> = ({ k, v }) => {
+    const classes = useStyles();
+    return (
+        <Typography variant="body2" className={classes.row}>
+            <strong className={classes.rowKey}>{k}:</strong>{' '}
+            <span className={classes.rowValue}>{v}</span>
+        </Typography>
+    );
+};
+
 export const KeyValueView: FC<IKeyValueViewProps> = ({ items }) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            {items.map((item, i) => (
-                <Typography key={i} variant="body2" className={classes.row}>
-                    <strong className={classes.rowKey}>{item.key}:</strong>{' '}
-                    <span className={classes.rowValue}>{item.value}</span>
-                </Typography>
-            ))}
+            {items.map((item, i) =>
+                Array.isArray(item.value) ? (
+                    item.value.map((v) => <Pair k={item.key} v={v} />)
+                ) : (
+                    <Pair k={item.key} v={item.value} />
+                )
+            )}
         </div>
     );
 };
