@@ -4,7 +4,7 @@ import { MonitorEvent } from 'http-inspector';
 
 const post = (req: NextApiRequest & ContextedRequest, res: NextApiResponse) => {
     //TODO: validate using JSON schema
-    const socketServer = req.context.socketServer;
+    const { socketServer } = req.context;
     const body = req.body as MonitorEvent;
     socketServer.broadcastLoggerEvent(body);
     res.status(201).send(null);

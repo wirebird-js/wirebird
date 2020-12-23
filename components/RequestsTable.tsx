@@ -4,12 +4,16 @@ import React, { FC, useCallback, useMemo } from 'react';
 import DataGrid, { Column } from 'react-data-grid';
 import 'react-data-grid/dist/react-data-grid.css';
 import { shortenURL } from '../utils/shortenURL';
+import classnames from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
     table: {
         height: '100%',
         minHeight: 350,
         fontFamily: theme.typography.fontFamily,
+    },
+    rowError: {
+        color: theme.palette.error.main,
     },
 }));
 
@@ -25,15 +29,22 @@ interface RTRow {
     requestURL: string;
     requestMethod: string;
     responseStatus?: number;
+    kind: 'normal' | 'error';
 }
 
 const monitorEventToRow = (e: MonitorEvent): RTRow => {
+    let kind: RTRow['kind'] = 'normal';
+    if (e.error || e.response.status >= 400) {
+        kind = 'error';
+    }
+
     return {
         id: e.request.id,
         name: shortenURL(e.request.url),
         requestURL: e.request.url,
         requestMethod: e.request.method,
         responseStatus: e.response?.status,
+        kind,
     };
 };
 
@@ -89,6 +100,11 @@ const RequestsTable: FC<IRequestsTableProps> = ({
         [current]
     );
 
+    const rowClass = useCallback(
+        (row) => classnames({ [classes.rowError]: row.kind === 'error' }),
+        []
+    );
+
     return (
         <DataGrid
             className={classes.table}
@@ -97,6 +113,7 @@ const RequestsTable: FC<IRequestsTableProps> = ({
             rowKeyGetter={rowKeyGetter}
             onRowClick={handleRowClick}
             selectedRows={selectedRows}
+            rowClass={rowClass}
         />
     );
 };

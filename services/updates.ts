@@ -59,7 +59,7 @@ export default class UpdatesService
 
     constructor() {
         super();
-        const location = document.location;
+        const { location } = document;
         this.sock = new WebSocket(`ws://${location.host}/api/updates`);
     }
 
