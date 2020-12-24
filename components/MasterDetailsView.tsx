@@ -3,7 +3,7 @@ import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback } from 'react';
 import { Lookups } from '../redux/ducks/updates';
 import { Filters, initialFilters } from '../utils/Filters';
-import { EventDetailsView } from './EventDetailesView';
+import { EventDetailsView } from './EventDetailsView';
 import { MasterDetailsLayout } from './MasterDetailsLayout';
 import RequestsTable from './RequestsTable';
 import { ToolbarFilters } from './ToolbarFilters';

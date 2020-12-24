@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { EventDetailsView } from '../components/EventDetailesView';
+import { EventDetailsView } from '../components/EventDetailsView';
 import loggerEvents from './data/loggerEvents';
 
 export default {

@@ -1,4 +1,4 @@
-import { SerializedLoggerEvent, MonitorEvent } from 'http-inspector';
+import { SerializedLoggerEvent, MonitorEvent, validate } from 'http-inspector';
 import { EventEmitter } from 'events';
 
 export interface UpdatesServiceEvents {
@@ -26,6 +26,9 @@ export default class UpdatesService
             return null;
         }
         return Buffer.from(input, 'base64');
+    }
+    private validateLoggerEvent(event: SerializedLoggerEvent): boolean {
+        return validate(event).valid;
     }
     private unserialiseLoggerEvent(event: SerializedLoggerEvent): MonitorEvent {
         if (event.response) {
@@ -73,6 +76,9 @@ export default class UpdatesService
                     this.emit('ONLINE');
                 }
                 if (messageData.type === 'LOGGER_EVENT') {
+                    if (!this.validateLoggerEvent(messageData.payload)) {
+                        console.error('Invalid data');
+                    }
                     this.emit(
                         'LOGGER_EVENT',
                         this.unserialiseLoggerEvent(messageData.payload)
