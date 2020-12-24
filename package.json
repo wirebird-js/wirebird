@@ -37,7 +37,7 @@
         "start": "NODE_ENV=production node server-dist",
         "storybook": "start-storybook -p 6006",
         "test": "jest",
-        "tester": "HTTP_INSPECTOR=1 HTTP_INSPECTOR_FORMAT=monitor node tester.js"
+        "tester": "HTTP_INSPECTOR=ui node tester.js"
     },
     "dependencies": {
         "@material-ui/core": "^4.11.1",
@@ -52,7 +52,7 @@
         "chalk": "^4.1.0",
         "classnames": "^2.2.6",
         "comsel": "0.0.5",
-        "http-inspector": "0.0.14",
+        "http-inspector": "^0.1.1",
         "immer": "^8.0.0",
         "ip": "^1.1.5",
         "lodash": "^4.17.20",
