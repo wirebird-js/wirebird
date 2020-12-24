@@ -6,9 +6,11 @@ const domParserTypes = [
     'text/xml',
 ];
 
+type ViewType = 'plain' | 'image' | 'json' | 'xml' | 'form';
+
 export function detectType(
     contentType: string | null
-): { pureType: string; viewType: 'plain' | 'image' | 'json' | 'xml' } {
+): { pureType: string; viewType: ViewType } {
     const [pureType] = contentType?.split(';') ?? [];
 
     if (!pureType || !contentType) {
@@ -22,6 +24,9 @@ export function detectType(
     }
     if (domParserTypes.includes(pureType)) {
         return { pureType, viewType: 'xml' };
+    }
+    if (pureType === 'application/x-www-form-urlencoded') {
+        return { pureType, viewType: 'form' };
     }
     return { pureType, viewType: 'plain' };
 }

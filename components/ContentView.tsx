@@ -1,6 +1,7 @@
 import { Grid, makeStyles, MenuItem, TextField } from '@material-ui/core';
 import { FC, useEffect, useState } from 'react';
 import { detectType } from './content-view/detectType';
+import { FormView } from './content-view/FormView';
 import { ImageView } from './content-view/ImageView';
 import { JSONView } from './content-view/JSONView';
 import { TextView } from './content-view/TextView';
@@ -17,6 +18,7 @@ const viewModes = {
     image: 'Image',
     json: 'JSON',
     xml: 'XML',
+    form: 'Form',
 };
 type ViewMode = keyof typeof viewModes;
 
@@ -65,6 +67,7 @@ export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
                 {viewMode === 'xml' && contentType && (
                     <XMLView contentType={detected.pureType} data={data} />
                 )}
+                {viewMode === 'form' && contentType && <FormView data={data} />}
             </Grid>
         </Grid>
     );

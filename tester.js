@@ -1,5 +1,6 @@
 require('http-inspector/inject');
 const Axios = require('axios');
+const qs = require('querystring');
 
 const requests = [
     ['get', 'https://example.com'],
@@ -14,6 +15,16 @@ const requests = [
         },
     ],
     ['post', 'https://example.com', {}],
+    [
+        'post',
+        'https://example.com/form',
+        qs.stringify({ foo: 'bar', items: [1, 2, 3] }),
+        {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        },
+    ],
     ['get', 'https://example.com/does-not-exist'],
     ['get', 'https://iueugfroiruthgi-does-not-exist.com'],
     ['get', 'https://www.fillmurray.com/250/250'],
