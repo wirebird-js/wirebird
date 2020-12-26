@@ -1,9 +1,11 @@
+import { eventToCurl } from 'http-inspector';
 import {
     MonitorEvent,
     LoggerHeaders,
 } from 'http-inspector/lib/src/SharedTypes';
 import React, { FC } from 'react';
 import { Collapsible } from './Collapsible';
+import { TextView } from './content-view/TextView';
 import { KeyValue, KeyValueView } from './KeyValueView';
 
 const headersToKeyValue = (headers: LoggerHeaders): KeyValue[] =>
@@ -75,6 +77,9 @@ export const HeadersView: FC<IHeadersViewProps> = ({
                         { key: 'Title', value: `${processData.title}` },
                     ]}
                 ></KeyValueView>
+            </Collapsible>
+            <Collapsible title="Export To Curl">
+                <TextView data={eventToCurl(event)} />
             </Collapsible>
         </div>
     );

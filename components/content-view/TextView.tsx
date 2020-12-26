@@ -12,10 +12,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface ITextViewProps {
-    data: Buffer;
+    data: Buffer | string;
 }
 
 export const TextView: FC<ITextViewProps> = ({ data }) => {
     const classes = useStyles();
-    return <div className={classes.pre}>{data.toString('utf8')}</div>;
+    const strData = typeof data === 'string' ? data : data.toString('utf8');
+    return <div className={classes.pre}>{strData}</div>;
 };
