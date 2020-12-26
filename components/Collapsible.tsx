@@ -5,8 +5,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import React, { FC } from 'react';
 
 const useStyles = makeStyles(
-    (theme) => {
-        const summaryColor = 'rgb(200,200,200)';
+    () => {
         return {
             force: {},
             root: {

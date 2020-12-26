@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Lookups } from '../redux/ducks/updates';
 import { Filters, initialFilters } from '../utils/Filters';
 import { LookupFilterField } from './filter-controls/LookupFilterField';
