@@ -1,53 +1,18 @@
-import { makeStyles, MenuItem, TextField } from '@material-ui/core';
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { Lookups } from '../redux/ducks/updates';
 import { Filters, initialFilters } from '../utils/Filters';
+import { LookupFilterField } from './filter-controls/LookupFilterField';
+import { TextFilterField } from './filter-controls/TextFilterField';
 
-type LookupValue = string | number | undefined;
-
-const useStyles = makeStyles((theme) => ({
-    lookupSelect: {
-        minWidth: theme.spacing(10),
-        maxWidth: theme.spacing(20),
-        marginLeft: theme.spacing(1),
-    },
-}));
-
-interface ILookupSelectProps {
-    onChange: (value: LookupValue) => void;
-    value: LookupValue;
-    label: string;
-    lookup: { [key: string]: LookupValue };
-}
-
-const LookupSelect: FC<ILookupSelectProps> = ({
-    onChange,
-    value,
-    label,
-    lookup,
-}) => {
-    const handleChange = useCallback(
-        ({ target: { value } }) => onChange(value),
-        [onChange]
-    );
-    const classes = useStyles();
-    return (
-        <TextField
-            className={classes.lookupSelect}
-            select
-            onChange={handleChange}
-            value={value === undefined ? '' : value}
-            label={label}
-        >
-            <MenuItem value="">All</MenuItem>
-
-            {Object.entries(lookup).map(([key, value]) => (
-                <MenuItem key={value} value={value}>
-                    {key}
-                </MenuItem>
-            ))}
-        </TextField>
-    );
+const createFieldUpdater = (
+    fieldName: keyof Filters,
+    value: IToolbarFiltersProps['value'],
+    onChange: IToolbarFiltersProps['onChange']
+) => (fieldValue: string | number | undefined) => {
+    if (fieldValue === '') {
+        fieldValue = undefined;
+    }
+    onChange?.({ ...value, [fieldName]: fieldValue });
 };
 
 export interface IToolbarFiltersProps {
@@ -55,43 +20,40 @@ export interface IToolbarFiltersProps {
     value?: Filters;
     onChange?: (value: Filters) => void;
 }
-export const ToolbarFilters: FC<IToolbarFiltersProps> = ({
-    lookups,
-    value = initialFilters,
-    onChange,
-}) => {
-    const handlePIDChange = useCallback(
-        (pid) => {
-            if (pid === '') {
-                pid = undefined;
-            }
-            onChange?.({ ...value, pid });
-        },
-        [onChange, value]
-    );
-    const handleDomainChange = useCallback(
-        (domain) => {
-            if (domain === '') {
-                domain = undefined;
-            }
-            onChange?.({ ...value, domain });
-        },
-        [onChange, value]
-    );
-    return (
-        <div>
-            <LookupSelect
-                label="pid"
-                lookup={lookups.pid}
-                onChange={handlePIDChange}
-                value={value.pid}
-            />
-            <LookupSelect
-                label="domain"
-                lookup={lookups.domain}
-                onChange={handleDomainChange}
-                value={value.domain}
-            />
-        </div>
-    );
-};
+export const ToolbarFilters: FC<IToolbarFiltersProps> = React.memo(
+    ({ lookups, value = initialFilters, onChange }) => {
+        const handlePIDChange = useMemo(
+            () => createFieldUpdater('pid', value, onChange),
+            [onChange, value]
+        );
+        const handleSearchChange = useMemo(
+            () => createFieldUpdater('search', value, onChange),
+            [onChange, value]
+        );
+        const handleDomainChange = useMemo(
+            () => createFieldUpdater('domain', value, onChange),
+            [onChange, value]
+        );
+        return (
+            <div>
+                <LookupFilterField
+                    label="pid"
+                    lookup={lookups.pid}
+                    onChange={handlePIDChange}
+                    value={value.pid}
+                />
+                <LookupFilterField
+                    label="domain"
+                    lookup={lookups.domain}
+                    onChange={handleDomainChange}
+                    value={value.domain}
+                />
+                <TextFilterField
+                    label="search"
+                    onChange={handleSearchChange}
+                    value={value.search}
+                />
+            </div>
+        );
+    }
+);

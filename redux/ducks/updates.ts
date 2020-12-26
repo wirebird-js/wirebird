@@ -1,5 +1,6 @@
 import { parse as parseURL } from 'url';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
 import { MonitorEvent } from 'http-inspector';
 import { IndexedList, IIndexedListStore } from '../../utils/IndexedList';
 import { LookupManager, LookupStore } from '../../utils/LookupManager';
@@ -69,7 +70,10 @@ export const getCurrentLoggerEvent = (
         ? indexedList.getByKey(state.eventsList, state.currentEventID)
         : null;
 
-export const getLookups = (state: UpdatesState): Lookups => ({
-    pid: lookupManager.getLookups(state.lookups, 'pid'),
-    domain: lookupManager.getLookups(state.lookups, 'domain'),
-});
+export const getLookups = createSelector(
+    (state: UpdatesState) => state.lookups,
+    (lookups: UpdatesState['lookups']): Lookups => ({
+        pid: lookupManager.getLookups(lookups, 'pid'),
+        domain: lookupManager.getLookups(lookups, 'domain'),
+    })
+);
