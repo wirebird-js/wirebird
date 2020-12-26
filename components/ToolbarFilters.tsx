@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     lookupSelect: {
         minWidth: theme.spacing(10),
         maxWidth: theme.spacing(20),
+        marginLeft: theme.spacing(1),
     },
 }));
 

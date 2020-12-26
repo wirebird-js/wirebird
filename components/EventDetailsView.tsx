@@ -12,6 +12,7 @@ import { HeadersView } from './HeadersView';
 const useStyles = makeStyles((theme) => ({
     tabs: {
         minHeight: 'auto',
+        color: theme.palette.getContrastText(theme.palette.background.default),
     },
     tab: {
         minWidth: 'auto',

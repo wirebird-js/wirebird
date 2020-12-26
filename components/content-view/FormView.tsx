@@ -1,6 +1,7 @@
+import qs from 'querystring';
 import { FC } from 'react';
 import { ObjectInspector } from 'react-inspector';
-import qs from 'querystring';
+import { useReactInspectorTheme } from '../../utils/useReactInspectorTheme';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const tryParseForm = (buf: Buffer): any => {
@@ -17,5 +18,6 @@ export interface IFormViewProps {
 }
 
 export const FormView: FC<IFormViewProps> = ({ data }) => {
-    return <ObjectInspector data={tryParseForm(data)} />;
+    const theme = useReactInspectorTheme();
+    return <ObjectInspector theme={theme} data={tryParseForm(data)} />;
 };

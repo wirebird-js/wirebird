@@ -6,11 +6,12 @@ import NoSSR from 'react-no-ssr';
 import SplashScreen from '../components/SplashScreen';
 import { Theme } from '../components/Theme';
 import { makeStyles } from '@material-ui/core';
+import '../css/all.css';
 
 const useStyles = makeStyles(
     (theme) => ({
         root: {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: theme.palette.background.paper,
         },
     }),
     { name: 'Background' }

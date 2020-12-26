@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { ObjectInspector } from 'react-inspector';
+import { useReactInspectorTheme } from '../../utils/useReactInspectorTheme';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const tryParseJSON = (buf: Buffer): any => {
@@ -16,5 +17,6 @@ export interface IJSONViewProps {
 }
 
 export const JSONView: FC<IJSONViewProps> = ({ data }) => {
-    return <ObjectInspector data={tryParseJSON(data)} />;
+    const theme = useReactInspectorTheme();
+    return <ObjectInspector theme={theme} data={tryParseJSON(data)} />;
 };

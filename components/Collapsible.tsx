@@ -1,11 +1,11 @@
-import { makeStyles, Typography } from '@material-ui/core';
+import { fade, makeStyles, Typography } from '@material-ui/core';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import React, { FC } from 'react';
 
 const useStyles = makeStyles(
-    () => {
+    (theme) => {
         const summaryColor = 'rgb(200,200,200)';
         return {
             force: {},
@@ -13,12 +13,13 @@ const useStyles = makeStyles(
                 '&$force': {
                     margin: 0,
                 },
+                boxShadow: 'none',
             },
             summary: {
                 '$force &': {
                     minHeight: 33,
                 },
-                backgroundColor: summaryColor,
+                backgroundColor: fade('rgb(0,0,0)', 0.07),
             },
             summaryContent: {
                 '$force &': {

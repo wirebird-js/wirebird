@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { DOMInspector } from 'react-inspector';
+import { useReactInspectorTheme } from '../../utils/useReactInspectorTheme';
 
 const tryParseXML = (
     data: Buffer,
@@ -19,6 +20,7 @@ export interface IXMLViewProps {
 }
 
 export const XMLView: FC<IXMLViewProps> = ({ data, contentType }) => {
+    const theme = useReactInspectorTheme();
     const doc = tryParseXML(data, contentType as DOMParserSupportedType);
-    return doc ? <DOMInspector data={doc} /> : null;
+    return doc ? <DOMInspector theme={theme} data={doc} /> : null;
 };
