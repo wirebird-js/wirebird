@@ -16,6 +16,7 @@ rules:
     indent:
         - error
         - 4
+        - { flatTernaryExpressions: true }
     linebreak-style:
         - error
         - unix

@@ -2,6 +2,13 @@ import { parse } from 'url';
 import { MonitorEvent } from 'http-inspector';
 import { Filters } from '../../utils/Filters';
 
+const searchMatch = (event: MonitorEvent, search: string): boolean => {
+    if (event.request.url.includes(search)) {
+        return true;
+    }
+    return false;
+};
+
 const filterFns: {
     [FName in keyof Required<Filters>]: (
         filterValue: Filters[FName],
@@ -13,6 +20,9 @@ const filterFns: {
     },
     domain: (domain, event) => {
         return domain === undefined || parse(event.request.url).host === domain;
+    },
+    search: (search, event) => {
+        return search === undefined || searchMatch(event, search);
     },
 };
 
