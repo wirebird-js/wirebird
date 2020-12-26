@@ -15,11 +15,11 @@ const lookupExtractor = (item: MonitorEvent) => {
     const domain = u.host;
     return {
         pid: {
-            key: `${pid}`,
+            key  : `${pid}`,
             value: pid,
         },
         domain: {
-            key: `${domain}`,
+            key  : `${domain}`,
             value: domain,
         },
     };
@@ -36,19 +36,19 @@ export interface UpdatesState {
 }
 
 const initialState: UpdatesState = {
-    lookups: lookupManager.init(),
-    eventsList: indexedList.init(),
+    lookups       : lookupManager.init(),
+    eventsList    : indexedList.init(),
     currentEventID: null,
 };
 
 export const slice = createSlice({
-    name: 'updates',
+    name    : 'updates',
     initialState,
     reducers: {
         addLoggerEvent: (state, { payload }: PayloadAction<MonitorEvent>) => ({
             ...state,
             eventsList: indexedList.push(state.eventsList, payload),
-            lookups: lookupManager.push(state.lookups, payload),
+            lookups   : lookupManager.push(state.lookups, payload),
         }),
         setCurrentEventID: (
             state,
@@ -73,7 +73,7 @@ export const getCurrentLoggerEvent = (
 export const getLookups = createSelector(
     (state: UpdatesState) => state.lookups,
     (lookups: UpdatesState['lookups']): Lookups => ({
-        pid: lookupManager.getLookups(lookups, 'pid'),
+        pid   : lookupManager.getLookups(lookups, 'pid'),
         domain: lookupManager.getLookups(lookups, 'domain'),
     })
 );

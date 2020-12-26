@@ -15,16 +15,16 @@ const headersToKeyValue = (headers: LoggerHeaders): KeyValue[] =>
 const getGeneralInfo = (event: MonitorEvent): KeyValue[] => {
     const info: KeyValue[] = [];
     info.push({
-        key: 'URL',
+        key  : 'URL',
         value: event.request.url,
     });
     info.push({
-        key: 'Request Method',
+        key  : 'Request Method',
         value: event.request.method,
     });
     if (event.response) {
         info.push({
-            key: 'Status Code',
+            key  : 'Status Code',
             value: `${event.response.status}`,
         });
     }

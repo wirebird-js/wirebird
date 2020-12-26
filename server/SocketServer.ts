@@ -31,7 +31,7 @@ export default class SocketServer {
 
     broadcastLoggerEvent(event: MonitorEvent): void {
         this.broadcast({
-            type: 'LOGGER_EVENT',
+            type   : 'LOGGER_EVENT',
             payload: event,
         });
     }

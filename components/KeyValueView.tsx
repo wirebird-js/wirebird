@@ -6,7 +6,7 @@ const useStyles = makeStyles(() => ({
         flexDirection: 'column',
     },
     row: {
-        wordBreak: 'break-all',
+        wordBreak : 'break-all',
         whiteSpace: 'pre-wrap',
     },
     rowKey: {

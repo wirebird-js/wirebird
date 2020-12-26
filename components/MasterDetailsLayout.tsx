@@ -5,41 +5,41 @@ import classnames from 'classnames';
 const DEBUG = false;
 
 const useStyles = makeStyles(
-    theme => {
+    (theme) => {
         const toolbarHeight = theme.spacing(8);
         return {
             isLeftWide: {},
 
             root: {
-                height: 'calc(100vh - 20px)',
-                display: 'flex',
+                height       : 'calc(100vh - 20px)',
+                display      : 'flex',
                 flexDirection: 'column',
             },
             head: {
                 backgroundColor: DEBUG ? 'rgb(92.1%, 78.2%, 49.2%)' : 'none',
-                minHeight: toolbarHeight,
+                minHeight      : toolbarHeight,
             },
             content: {
-                display: 'flex',
+                display      : 'flex',
                 flexDirection: 'row',
-                overflowY: 'hidden',
-                flexGrow: 1,
+                overflowY    : 'hidden',
+                flexGrow     : 1,
             },
             left: {
                 backgroundColor: DEBUG ? 'rgb(49.2%, 92.1%, 67%)' : 'none',
-                overflow: 'auto',
-                maxWidth: '25%',
-                width: '25%',
-                '&$isLeftWide': {
+                overflow       : 'auto',
+                maxWidth       : '25%',
+                width          : '25%',
+                '&$isLeftWide' : {
                     maxWidth: '100%',
-                    width: '100%',
+                    width   : '100%',
                 },
             },
             right: {
                 backgroundColor: DEBUG ? 'rgb(90.6%, 49.2%, 92.1%)' : 'none',
-                overflow: 'auto',
-                maxWidth: '75%',
-                width: '75%',
+                overflow       : 'auto',
+                maxWidth       : '75%',
+                width          : '75%',
             },
         };
     },

@@ -10,7 +10,7 @@ import { ToolbarFilters } from './ToolbarFilters';
 
 const useStyles = makeStyles((theme) => ({
     rightPanel: {
-        height: '100%',
+        height         : '100%',
         borderLeftWidth: 1,
         borderLeftStyle: 'solid',
         borderLeftColor: theme.palette.divider,

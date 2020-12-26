@@ -8,7 +8,7 @@ const useStyles = makeStyles(
     () => {
         return {
             force: {},
-            root: {
+            root : {
                 '&$force': {
                     margin: 0,
                 },
@@ -46,7 +46,7 @@ export const Collapsible: FC<ICollapsibleProps> = ({ title, children }) => {
         >
             <AccordionSummary
                 classes={{
-                    root: classes.summary,
+                    root   : classes.summary,
                     content: classes.summaryContent,
                 }}
             >

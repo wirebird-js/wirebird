@@ -12,12 +12,12 @@ const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers(reducersMap);
 
 const store = configureStore({
-    reducer: rootReducer,
+    reducer   : rootReducer,
     middleware: [
         ...getDefaultMiddleware({
             serializableCheck: false,
-            immutableCheck: false,
-            thunk: false,
+            immutableCheck   : false,
+            thunk            : false,
         }),
         sagaMiddleware,
     ],

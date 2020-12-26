@@ -12,7 +12,7 @@ describe('IndexedList', () => {
         const store = simpleList.init();
         expect(store).toEqual({
             itemsByKey: {},
-            itemsKeys: [],
+            itemsKeys : [],
         });
     });
 

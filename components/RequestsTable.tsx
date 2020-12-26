@@ -9,8 +9,8 @@ import classnames from 'classnames';
 const useStyles = makeStyles(
     (theme) => ({
         table: {
-            height: '100%',
-            minHeight: 350,
+            height    : '100%',
+            minHeight : 350,
             fontFamily: theme.typography.fontFamily,
         },
         rowError: {
@@ -42,10 +42,10 @@ const monitorEventToRow = (e: MonitorEvent): RTRow => {
     }
 
     return {
-        id: e.request.id,
-        name: shortenURL(e.request.url),
-        requestURL: e.request.url,
-        requestMethod: e.request.method,
+        id            : e.request.id,
+        name          : shortenURL(e.request.url),
+        requestURL    : e.request.url,
+        requestMethod : e.request.method,
         responseStatus: e.response?.status,
         kind,
     };
@@ -53,8 +53,8 @@ const monitorEventToRow = (e: MonitorEvent): RTRow => {
 
 const columns: Column<RTRow>[] = [
     {
-        key: 'name',
-        name: 'Name',
+        key      : 'name',
+        name     : 'Name',
         resizable: true,
         formatter: ({ row, column: { key } }) => {
             return (
@@ -68,13 +68,13 @@ const columns: Column<RTRow>[] = [
     //     resizable: true,
     // },
     {
-        key: 'requestMethod',
-        name: 'Method',
+        key      : 'requestMethod',
+        name     : 'Method',
         resizable: true,
     },
     {
-        key: 'responseStatus',
-        name: 'Status',
+        key      : 'responseStatus',
+        name     : 'Status',
         resizable: true,
     },
 ];

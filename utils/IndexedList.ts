@@ -24,7 +24,7 @@ export class IndexedList<T> {
     ): IIndexedListStore<T> {
         return {
             ...store,
-            itemsKeys: [],
+            itemsKeys : [],
             itemsByKey: {},
         };
     }
@@ -36,7 +36,7 @@ export class IndexedList<T> {
         store = undraft(store);
         return {
             ...store,
-            itemsKeys: [...store.itemsKeys, key],
+            itemsKeys : [...store.itemsKeys, key],
             itemsByKey: {
                 ...store.itemsByKey,
                 [key]: item,

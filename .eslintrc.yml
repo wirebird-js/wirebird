@@ -13,6 +13,9 @@ extends:
     - 'plugin:@typescript-eslint/recommended'
 
 rules:
+    key-spacing:
+        - warn
+        - align: colon
     indent:
         - error
         - 4

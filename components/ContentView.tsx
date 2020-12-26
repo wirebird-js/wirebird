@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
 const viewModes = {
     plain: 'Plain Text',
     image: 'Image',
-    json: 'JSON',
-    xml: 'XML',
-    form: 'Form',
+    json : 'JSON',
+    xml  : 'XML',
+    form : 'Form',
 };
 type ViewMode = keyof typeof viewModes;
 

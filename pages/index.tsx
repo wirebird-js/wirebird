@@ -51,14 +51,14 @@ export default connect(
     (state: State) => ({
         loggerEvents: globalSelectors.getFilteredLoggerEvents(state),
         currentEvent: sliceSelectors.updates.getCurrentLoggerEvent(state),
-        filters: sliceSelectors.filters.getFilters(state),
-        lookups: sliceSelectors.updates.getLookups(state),
+        filters     : sliceSelectors.filters.getFilters(state),
+        lookups     : sliceSelectors.updates.getLookups(state),
     }),
     (dispatch) =>
         bindActionCreators(
             {
                 setCurrentEventID: updatesSlice.actions.setCurrentEventID,
-                setFilters: filtersSlice.actions.setFilters,
+                setFilters       : filtersSlice.actions.setFilters,
             },
             dispatch
         )

@@ -3,11 +3,11 @@ import { FC } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     pre: {
-        wordBreak: 'break-all',
+        wordBreak : 'break-all',
         whiteSpace: 'pre-wrap',
         fontFamily: 'monospace', //TODO: add font
-        fontSize: 13,
-        color: theme.palette.getContrastText(theme.palette.background.paper),
+        fontSize  : 13,
+        color     : theme.palette.getContrastText(theme.palette.background.paper),
     },
 }));
 

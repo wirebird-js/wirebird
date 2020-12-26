@@ -12,8 +12,8 @@ export const useReactInspectorTheme = (): InspectorThemeDefinition => {
         const theme = isDarkTheme ? chromeDark : chromeLight;
         return {
             ...theme,
-            BASE_FONT_SIZE: '14px',
-            TREENODE_FONT_SIZE: '14px',
+            BASE_FONT_SIZE       : '14px',
+            TREENODE_FONT_SIZE   : '14px',
             BASE_BACKGROUND_COLOR: 'inherit',
         };
     }, [isDarkTheme]);

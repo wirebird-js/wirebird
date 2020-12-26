@@ -41,7 +41,7 @@ export default class UpdatesService
                     ...event.response,
                     body: this.unserializeBase64(event.response.body),
                 },
-                error: null,
+                error      : null,
                 processData: event.processData,
             };
         }
@@ -52,8 +52,8 @@ export default class UpdatesService
                     ...event.request,
                     body: this.unserializeBase64(event.request.body),
                 },
-                response: null,
-                error: event.error,
+                response   : null,
+                error      : event.error,
                 processData: event.processData,
             };
         }

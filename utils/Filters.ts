@@ -5,7 +5,7 @@ export interface Filters {
 }
 
 export const initialFilters: Filters = {
-    pid: undefined,
+    pid   : undefined,
     domain: undefined,
     search: undefined,
 };

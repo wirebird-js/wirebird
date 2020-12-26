@@ -12,21 +12,21 @@ import { HeadersView } from './HeadersView';
 const useStyles = makeStyles((theme) => ({
     tabs: {
         minHeight: 'auto',
-        color: theme.palette.getContrastText(theme.palette.background.default),
+        color    : theme.palette.getContrastText(theme.palette.background.default),
     },
     tab: {
-        minWidth: 'auto',
-        minHeight: 35,
-        paddingTop: 0,
+        minWidth     : 'auto',
+        minHeight    : 35,
+        paddingTop   : 0,
         paddingBottom: 0,
     },
     tabPanel: {
         padding: 0,
     },
     header: {
-        position: 'sticky',
-        top: 0,
-        zIndex: 2,
+        position       : 'sticky',
+        top            : 0,
+        zIndex         : 2,
         backgroundColor: theme.palette.background.default,
     },
 }));
@@ -41,7 +41,7 @@ const createTabs = (
     const tabDefs = {
         headers: {
             condition: true,
-            tab: (
+            tab      : (
                 <Tab
                     key="headers"
                     value="headers"
@@ -52,7 +52,7 @@ const createTabs = (
         },
         request: {
             condition: !!event.request?.body,
-            tab: (
+            tab      : (
                 <Tab
                     key="request"
                     value="request"
@@ -63,7 +63,7 @@ const createTabs = (
         },
         response: {
             condition: !!event.response?.body,
-            tab: (
+            tab      : (
                 <Tab
                     key="response"
                     value="response"
