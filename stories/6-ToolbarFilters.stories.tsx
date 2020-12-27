@@ -15,6 +15,7 @@ export const main: FC = () => {
             lookups={{
                 pid   : { '1': 1, '2': 2, '3': 3 },
                 domain: { 'foo.com': 'foo.com' },
+                method: { GET: 'GET', POST: 'POST' },
             }}
             value={filters}
             onChange={setFilters}
