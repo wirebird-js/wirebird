@@ -30,6 +30,12 @@ const getGeneralInfo = (event: MonitorEvent): KeyValue[] => {
             value: `${event.response.status}`,
         });
     }
+    if (event.request.remoteAddress) {
+        info.push({
+            key  : 'Remote Address',
+            value: `${event.request.remoteAddress}`,
+        });
+    }
     return info;
 };
 

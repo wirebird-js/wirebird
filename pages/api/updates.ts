@@ -1,13 +1,18 @@
+import { SerializedLoggerEvent, validate } from 'http-inspector';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ContextedRequest } from '../../server/ContextedRequest';
-import { MonitorEvent } from 'http-inspector';
 
 const post = (req: NextApiRequest & ContextedRequest, res: NextApiResponse) => {
-    //TODO: validate using JSON schema
     const { socketServer } = req.context;
-    const body = req.body as MonitorEvent;
-    socketServer.broadcastLoggerEvent(body);
-    res.status(201).send(null);
+    const body = req.body as SerializedLoggerEvent;
+    const validationResult = validate(body);
+    if (validationResult.valid) {
+        socketServer.broadcastLoggerEvent(body);
+        res.status(201).send(null);
+    } else {
+        console.log('Invalid payload');
+        res.status(400).send({ error: validationResult.errors });
+    }
 };
 
 export default (

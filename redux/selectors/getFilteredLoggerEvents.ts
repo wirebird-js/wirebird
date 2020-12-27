@@ -24,6 +24,12 @@ const filterFns: {
     search: (search, event) => {
         return search === undefined || searchMatch(event, search);
     },
+    method: (method, event) => {
+        return (
+            method === undefined ||
+            event.request.method.toUpperCase() === method
+        );
+    },
 };
 
 export const getFilteredLoggerEvents = (

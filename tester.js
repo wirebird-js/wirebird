@@ -1,6 +1,7 @@
 require('http-inspector/inject');
 const Axios = require('axios');
 const qs = require('querystring');
+const sleep = require('sleep-promise');
 
 const requests = [
     ['get', 'https://example.com'],
@@ -34,15 +35,22 @@ const requests = [
 
 let currentRequest = 0;
 
-function ping() {
+async function ping() {
     currentRequest++;
     currentRequest = currentRequest % requests.length;
     const [method, url, params] = requests[currentRequest];
-    Axios[method](url, params);
+    try {
+        await Axios[method](url, params);
+    } catch (e) {
+        console.log(`Error: ${e.message}`);
+    }
 }
 
-function main() {
-    setInterval(ping, 1000);
+async function main() {
+    for (;;) {
+        await ping();
+        await sleep(1000);
+    }
 }
 
 main();

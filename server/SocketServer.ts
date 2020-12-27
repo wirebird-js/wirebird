@@ -1,6 +1,6 @@
 import { Server } from 'http';
 import WebSocket from 'ws';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent, SerializedLoggerEvent } from 'http-inspector';
 
 export interface SocketServerOptions {
     server: Server;
@@ -29,7 +29,7 @@ export default class SocketServer {
         this.subscribe();
     }
 
-    broadcastLoggerEvent(event: MonitorEvent): void {
+    broadcastLoggerEvent(event: SerializedLoggerEvent): void {
         this.broadcast({
             type   : 'LOGGER_EVENT',
             payload: event,

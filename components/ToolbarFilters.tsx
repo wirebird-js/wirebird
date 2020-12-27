@@ -34,6 +34,10 @@ export const ToolbarFilters: FC<IToolbarFiltersProps> = React.memo(
             () => createFieldUpdater('domain', value, onChange),
             [onChange, value]
         );
+        const handleMethodChange = useMemo(
+            () => createFieldUpdater('method', value, onChange),
+            [onChange, value]
+        );
         return (
             <div>
                 <LookupFilterField
@@ -47,6 +51,12 @@ export const ToolbarFilters: FC<IToolbarFiltersProps> = React.memo(
                     lookup={lookups.domain}
                     onChange={handleDomainChange}
                     value={value.domain}
+                />
+                <LookupFilterField
+                    label="method"
+                    lookup={lookups.method}
+                    onChange={handleMethodChange}
+                    value={value.method}
                 />
                 <TextFilterField
                     label="search"

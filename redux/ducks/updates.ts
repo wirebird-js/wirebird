@@ -11,8 +11,10 @@ export const indexedList = new IndexedList<MonitorEvent>(
 
 const lookupExtractor = (item: MonitorEvent) => {
     const { pid } = item.processData;
+    const method = item.request.method.toUpperCase();
     const u = parseURL(item.request.url);
     const domain = u.host;
+
     return {
         pid: {
             key  : `${pid}`,
@@ -21,6 +23,10 @@ const lookupExtractor = (item: MonitorEvent) => {
         domain: {
             key  : `${domain}`,
             value: domain,
+        },
+        method: {
+            key  : `${method}`,
+            value: method,
         },
     };
 };
@@ -75,5 +81,6 @@ export const getLookups = createSelector(
     (lookups: UpdatesState['lookups']): Lookups => ({
         pid   : lookupManager.getLookups(lookups, 'pid'),
         domain: lookupManager.getLookups(lookups, 'domain'),
+        method: lookupManager.getLookups(lookups, 'method'),
     })
 );
