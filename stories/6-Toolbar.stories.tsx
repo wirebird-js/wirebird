@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
-import { ToolbarFilters } from '../components/ToolbarFilters';
+import { Toolbar } from '../components/Toolbar';
 import { Filters } from '../utils/Filters';
 
 export default {
-    title: 'Toolbar Filters View',
+    title: 'Toolbar View',
 };
 
 export const main: FC = () => {
@@ -11,13 +11,13 @@ export const main: FC = () => {
         pid: 2,
     });
     return (
-        <ToolbarFilters
+        <Toolbar
             lookups={{
                 pid   : { '1': 1, '2': 2, '3': 3 },
                 domain: { 'foo.com': 'foo.com' },
                 method: { GET: 'GET', POST: 'POST' },
             }}
-            value={filters}
+            filters={filters}
             onChange={setFilters}
         />
     );

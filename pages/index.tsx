@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MasterDetailsView } from '../components/MasterDetailsView';
+import { ToolbarContext } from '../components/toolbar/ToolbarContext';
 import { slice as filtersSlice } from '../redux/ducks/filters';
 import { Lookups, slice as updatesSlice } from '../redux/ducks/updates';
 import { sliceSelectors, globalSelectors } from '../redux/selectors';
@@ -33,17 +34,21 @@ const IndexPage: NextPage<Props> = ({
         (filters) => setFilters(filters),
         []
     );
+    const toolbarContextProps = {
+        lookups,
+        filters,
+        onChange: handleChangeFilters,
+    };
 
     return (
-        <MasterDetailsView
-            items={loggerEvents}
-            currentItem={currentEvent}
-            onItemSelect={handleItemSelect}
-            onItemDeselect={handleItemDeselect}
-            lookups={lookups}
-            filters={filters}
-            onFiltersChange={handleChangeFilters}
-        />
+        <ToolbarContext.Provider value={toolbarContextProps}>
+            <MasterDetailsView
+                items={loggerEvents}
+                currentItem={currentEvent}
+                onItemSelect={handleItemSelect}
+                onItemDeselect={handleItemDeselect}
+            />
+        </ToolbarContext.Provider>
     );
 };
 

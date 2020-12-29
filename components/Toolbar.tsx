@@ -1,13 +1,16 @@
-import React, { FC, useMemo } from 'react';
+import React, { createContext, FC, useMemo } from 'react';
 import { Lookups } from '../redux/ducks/updates';
+import { emptyObject } from '../utils/emptyObject';
 import { Filters, initialFilters } from '../utils/Filters';
 import { LookupFilterField } from './filter-controls/LookupFilterField';
 import { TextFilterField } from './filter-controls/TextFilterField';
 
+
+
 const createFieldUpdater = (
     fieldName: keyof Filters,
-    value: IToolbarFiltersProps['value'],
-    onChange: IToolbarFiltersProps['onChange']
+    value: IToolbarProps['filters'],
+    onChange: IToolbarProps['onChange']
 ) => (fieldValue: string | number | undefined) => {
     if (fieldValue === '') {
         fieldValue = undefined;
@@ -15,13 +18,17 @@ const createFieldUpdater = (
     onChange?.({ ...value, [fieldName]: fieldValue });
 };
 
-export interface IToolbarFiltersProps {
-    lookups: Lookups;
-    value?: Filters;
+export interface IToolbarProps {
+    lookups?: Partial<Lookups>;
+    filters?: Filters;
     onChange?: (value: Filters) => void;
 }
-export const ToolbarFilters: FC<IToolbarFiltersProps> = React.memo(
-    ({ lookups, value = initialFilters, onChange }) => {
+export const Toolbar: FC<IToolbarProps> = React.memo(
+    ({
+        lookups = emptyObject as Partial<Lookups>,
+        filters: value = initialFilters,
+        onChange,
+    }) => {
         const handlePIDChange = useMemo(
             () => createFieldUpdater('pid', value, onChange),
             [onChange, value]
@@ -42,19 +49,19 @@ export const ToolbarFilters: FC<IToolbarFiltersProps> = React.memo(
             <div>
                 <LookupFilterField
                     label="pid"
-                    lookup={lookups.pid}
+                    lookup={lookups.pid ?? emptyObject}
                     onChange={handlePIDChange}
                     value={value.pid}
                 />
                 <LookupFilterField
                     label="domain"
-                    lookup={lookups.domain}
+                    lookup={lookups.domain ?? emptyObject}
                     onChange={handleDomainChange}
                     value={value.domain}
                 />
                 <LookupFilterField
                     label="method"
-                    lookup={lookups.method}
+                    lookup={lookups.method ?? emptyObject}
                     onChange={handleMethodChange}
                     value={value.method}
                 />
