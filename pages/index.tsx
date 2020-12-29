@@ -4,20 +4,27 @@ import { useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MasterDetailsView } from '../components/MasterDetailsView';
-import { ToolbarContext } from '../components/toolbar/ToolbarContext';
+import {
+    IToolbarContextProps,
+    ToolbarContext,
+} from '../components/toolbar/ToolbarContext';
+import { slice as columnsSlice } from '../redux/ducks/columns';
 import { slice as filtersSlice } from '../redux/ducks/filters';
 import { Lookups, slice as updatesSlice } from '../redux/ducks/updates';
-import { sliceSelectors, globalSelectors } from '../redux/selectors';
+import { globalSelectors, sliceSelectors } from '../redux/selectors';
 import { State } from '../redux/store';
+import { ColumnsSelection } from '../utils/Columns';
 import { Filters } from '../utils/Filters';
 
 interface Props {
     loggerEvents: MonitorEvent[];
     setCurrentEventID: typeof updatesSlice.actions.setCurrentEventID;
     setFilters: typeof filtersSlice.actions.setFilters;
+    setColumnsSelection: typeof columnsSlice.actions.setColumnsSelection;
     filters: Filters;
     currentEvent: MonitorEvent | null;
     lookups: Lookups;
+    columnsSelection: ColumnsSelection;
 }
 
 const IndexPage: NextPage<Props> = ({
@@ -27,6 +34,8 @@ const IndexPage: NextPage<Props> = ({
     currentEvent,
     lookups,
     filters,
+    columnsSelection,
+    setColumnsSelection,
 }) => {
     const handleItemSelect = useCallback((id) => setCurrentEventID(id), []);
     const handleItemDeselect = useCallback(() => setCurrentEventID(null), []);
@@ -34,10 +43,12 @@ const IndexPage: NextPage<Props> = ({
         (filters) => setFilters(filters),
         []
     );
-    const toolbarContextProps = {
+    const toolbarContextProps: IToolbarContextProps = {
         lookups,
         filters,
-        onChange: handleChangeFilters,
+        columnsSelection,
+        onChangeFilters: handleChangeFilters,
+        onChangeColumns: setColumnsSelection,
     };
 
     return (
@@ -47,6 +58,7 @@ const IndexPage: NextPage<Props> = ({
                 currentItem={currentEvent}
                 onItemSelect={handleItemSelect}
                 onItemDeselect={handleItemDeselect}
+                selectedColumns={columnsSelection}
             />
         </ToolbarContext.Provider>
     );
@@ -54,16 +66,18 @@ const IndexPage: NextPage<Props> = ({
 
 export default connect(
     (state: State) => ({
-        loggerEvents: globalSelectors.getFilteredLoggerEvents(state),
-        currentEvent: sliceSelectors.updates.getCurrentLoggerEvent(state),
-        filters     : sliceSelectors.filters.getFilters(state),
-        lookups     : sliceSelectors.updates.getLookups(state),
+        loggerEvents    : globalSelectors.getFilteredLoggerEvents(state),
+        currentEvent    : sliceSelectors.updates.getCurrentLoggerEvent(state),
+        filters         : sliceSelectors.filters.getFilters(state),
+        lookups         : sliceSelectors.updates.getLookups(state),
+        columnsSelection: sliceSelectors.columns.getColumnsSelection(state),
     }),
     (dispatch) =>
         bindActionCreators(
             {
-                setCurrentEventID: updatesSlice.actions.setCurrentEventID,
-                setFilters       : filtersSlice.actions.setFilters,
+                setCurrentEventID  : updatesSlice.actions.setCurrentEventID,
+                setFilters         : filtersSlice.actions.setFilters,
+                setColumnsSelection: columnsSlice.actions.setColumnsSelection,
             },
             dispatch
         )

@@ -18,7 +18,7 @@ export const main: FC = () => {
                 method: { GET: 'GET', POST: 'POST' },
             }}
             filters={filters}
-            onChange={setFilters}
+            onChangeFilters={setFilters}
         />
     );
 };

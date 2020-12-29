@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/core';
 import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback } from 'react';
+import { ColumnsSelection } from '../utils/Columns';
+import { emptyObject } from '../utils/emptyObject';
 import { EventDetailsView } from './EventDetailsView';
 import { MasterDetailsLayout } from './MasterDetailsLayout';
 import RequestsTable from './RequestsTable';
@@ -17,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface IMasterDetailsViewProps {
+    selectedColumns?: ColumnsSelection;
     items: Array<MonitorEvent>;
     currentItem?: MonitorEvent | null;
     onItemSelect?: (rowId: string) => void;
@@ -28,6 +31,7 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
     currentItem,
     onItemSelect,
     onItemDeselect,
+    selectedColumns = emptyObject,
 }) => {
     const handleRowClick = useCallback(
         (rowId) => {
@@ -47,6 +51,7 @@ export const MasterDetailsView: FC<IMasterDetailsViewProps> = ({
             toolbar={<Toolbar {...toolbar} />}
             left={
                 <RequestsTable
+                    selectedColumns={selectedColumns}
                     items={items}
                     current={currentItem ? currentItem.request.id : null}
                     onRowClick={handleRowClick}

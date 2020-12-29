@@ -1,10 +1,12 @@
 import { makeStyles } from '@material-ui/core';
+import classnames from 'classnames';
 import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback, useMemo } from 'react';
 import DataGrid, { Column } from 'react-data-grid';
 import 'react-data-grid/dist/react-data-grid.css';
+import { ColumnsSelection } from '../utils/Columns';
+import { emptyObject } from '../utils/emptyObject';
 import { shortenURL } from '../utils/shortenURL';
-import classnames from 'classnames';
 
 const useStyles = makeStyles(
     (theme) => ({
@@ -24,6 +26,7 @@ interface IRequestsTableProps {
     items: Array<MonitorEvent>;
     current?: string | null;
     onRowClick?: (rowId: string) => void;
+    selectedColumns?: ColumnsSelection;
 }
 
 interface RTRow {
@@ -51,42 +54,55 @@ const monitorEventToRow = (e: MonitorEvent): RTRow => {
     };
 };
 
-const columns: Column<RTRow>[] = [
-    {
-        key      : 'name',
-        name     : 'Name',
-        resizable: true,
-        formatter: ({ row, column: { key } }) => {
-            return (
-                <span title={row.requestURL}>{row[key as keyof RTRow]}</span>
-            );
-        },
-    },
-    // {
-    //     key: 'requestURL',
-    //     name: 'URL',
-    //     resizable: true,
-    // },
-    {
-        key      : 'requestMethod',
-        name     : 'Method',
-        resizable: true,
-    },
-    {
-        key      : 'responseStatus',
-        name     : 'Status',
-        resizable: true,
-    },
-];
-
 const rowKeyGetter = (row: RTRow): React.Key => {
     return row.id;
+};
+
+const useColumns = (selectedColumns: ColumnsSelection): Column<RTRow>[] => {
+    const columns: Column<RTRow>[] = [
+        {
+            key      : 'name',
+            name     : 'Name',
+            resizable: true,
+            formatter: ({ row, column: { key } }) => {
+                return (
+                    <span title={row.requestURL}>
+                        {row[key as keyof RTRow]}
+                    </span>
+                );
+            },
+        },
+        {
+            key      : 'requestURL',
+            name     : 'URL',
+            resizable: true,
+        },
+        {
+            key      : 'requestMethod',
+            name     : 'Method',
+            resizable: true,
+        },
+        {
+            key      : 'responseStatus',
+            name     : 'Status',
+            resizable: true,
+        },
+    ];
+
+    return useMemo(
+        () =>
+            columns.filter(
+                ({ key }) => selectedColumns[key as keyof ColumnsSelection]
+            ),
+        [selectedColumns]
+    );
 };
 
 const RequestsTable: FC<IRequestsTableProps> = ({
     items,
     onRowClick,
     current,
+    selectedColumns = emptyObject,
 }) => {
     const classes = useStyles();
 
@@ -107,6 +123,8 @@ const RequestsTable: FC<IRequestsTableProps> = ({
         (row) => classnames({ [classes.rowError]: row.kind === 'error' }),
         []
     );
+
+    const columns = useColumns(selectedColumns);
 
     return (
         <DataGrid

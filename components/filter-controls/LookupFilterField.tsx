@@ -3,9 +3,8 @@ import React, { FC, useCallback } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        minWidth  : theme.spacing(10),
-        maxWidth  : theme.spacing(20),
-        marginLeft: theme.spacing(1),
+        minWidth: theme.spacing(10),
+        maxWidth: theme.spacing(20),
     },
 }));
 

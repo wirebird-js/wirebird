@@ -1,26 +1,16 @@
 import { MenuItem, TextField } from '@material-ui/core';
-import { FC, useCallback, useMemo } from 'react';
-
-enum Columns {
-    name = 'Name',
-    requestMethod = 'Method',
-    responseStatus = 'Status',
-    requestURL = 'URL',
-}
-
-type ColumnName = keyof typeof Columns;
-
-export type ColumnsSelection = {
-    [CName in ColumnName]?: boolean;
-};
+import { FC, ReactNode, useCallback, useMemo } from 'react';
+import { ColumnName, Columns, ColumnsSelection } from '../utils/Columns';
 
 interface IColumnsSelectProps {
     value: ColumnsSelection;
     onChange?: (value: ColumnsSelection) => void;
+    label?: ReactNode;
 }
 
 export const ColumnsSelect: FC<IColumnsSelectProps> = ({
     onChange,
+    label,
     value = {},
 }) => {
     const valueList = useMemo(
@@ -51,6 +41,7 @@ export const ColumnsSelect: FC<IColumnsSelectProps> = ({
             value={valueList}
             onChange={handleChange}
             SelectProps={{ multiple: true, renderValue }}
+            label={label}
         >
             {Object.entries(Columns).map(([key, label], i) => (
                 <MenuItem key={i} value={key}>

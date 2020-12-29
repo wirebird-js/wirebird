@@ -1,5 +1,6 @@
 import { combineSelectors } from 'comsel';
 import { createSelector } from 'reselect';
+import { getColumnsSelection } from './ducks/columns';
 import { getFilters } from './ducks/filters';
 import {
     getCurrentLoggerEvent,
@@ -17,6 +18,9 @@ const selectorsMap = {
     },
     filters: {
         getFilters,
+    },
+    columns: {
+        getColumnsSelection,
     },
 };
 
