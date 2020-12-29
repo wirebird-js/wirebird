@@ -8,8 +8,9 @@ const items: Array<MonitorEvent> = [
             title     : 'node',
         },
         request: {
-            body   : null,
-            headers: {
+            remoteAddress: '1.2.3.4',
+            body         : null,
+            headers      : {
                 Connection                 : 'keep-alive',
                 Pragma                     : 'no-cache',
                 'Cache-Control'            : 'no-cache',
@@ -81,8 +82,9 @@ const items: Array<MonitorEvent> = [
             title     : 'node',
         },
         request: {
-            body   : new Buffer('{"hello":"world"}', 'utf8'),
-            headers: {
+            remoteAddress: '1.2.3.4',
+            body         : new Buffer('{"hello":"world"}', 'utf8'),
+            headers      : {
                 'content-type': 'application/json',
             },
             id       : 'id2',
@@ -106,8 +108,9 @@ const items: Array<MonitorEvent> = [
             title     : 'node',
         },
         request: {
-            body   : new Buffer('{"hello":"world"}', 'utf8'),
-            headers: {
+            remoteAddress: '1.2.3.4',
+            body         : new Buffer('{"hello":"world"}', 'utf8'),
+            headers      : {
                 'content-type': 'application/json',
             },
             id       : 'id3',

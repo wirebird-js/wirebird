@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
-import { ColumnsSelect, ColumnsSelection } from '../components/ColumnsSelect';
+import { ColumnsSelect } from '../components/ColumnsSelect';
+import { ColumnsSelection } from '../utils/Columns';
 
 export default {
     title: 'ColumnsSelect',
