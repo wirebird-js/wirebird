@@ -32,15 +32,17 @@ export const ColumnsSelect: FC<IColumnsSelectProps> = ({
         [onChange]
     );
 
-    const renderValue = (value: unknown) =>
-        Array.isArray(value) ? `Columns(${value.length})` : '';
+    const renderValue = (value: unknown) => {
+        return Array.isArray(value) ? `${value.length || 'None'} selected` : '';
+    };
 
     return (
         <TextField
             select
+            InputLabelProps={{shrink:true}}
             value={valueList}
             onChange={handleChange}
-            SelectProps={{ multiple: true, renderValue }}
+            SelectProps={{ multiple: true, renderValue, displayEmpty: true }}
             label={label}
         >
             {Object.entries(Columns).map(([key, label], i) => (
