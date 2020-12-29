@@ -39,7 +39,7 @@ export const ColumnsSelect: FC<IColumnsSelectProps> = ({
     return (
         <TextField
             select
-            InputLabelProps={{shrink:true}}
+            InputLabelProps={{ shrink: true }}
             value={valueList}
             onChange={handleChange}
             SelectProps={{ multiple: true, renderValue, displayEmpty: true }}
