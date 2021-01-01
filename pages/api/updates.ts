@@ -7,12 +7,22 @@ const post = (req: NextApiRequest & ContextedRequest, res: NextApiResponse) => {
     const body = req.body as SerializedLoggerEvent;
     const validationResult = validate(body);
     if (validationResult.valid) {
-        socketServer.broadcastLoggerEvent(body);
         res.status(201).send(null);
     } else {
-        console.log('Invalid payload');
-        res.status(400).send({ error: validationResult.errors });
+        console.warn('An event of invalid format is received');
+        console.warn(
+            validationResult.errors
+                .map(
+                    ({ path, message }, i) =>
+                        `${i}) "${
+                            path.length ? path.join('.') : '<root>'
+                        }": ${message}`
+                )
+                .join('\n')
+        );
+        res.status(201).send({ warning: validationResult.errors });
     }
+    socketServer.broadcastLoggerEvent(body);
 };
 
 export default (

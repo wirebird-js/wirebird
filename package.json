@@ -52,7 +52,7 @@
         "chalk": "^4.1.0",
         "classnames": "^2.2.6",
         "comsel": "0.0.5",
-        "http-inspector": "^0.1.7",
+        "http-inspector": "^0.1.8",
         "immer": "^8.0.0",
         "ip": "^1.1.5",
         "lodash": "^4.17.20",
