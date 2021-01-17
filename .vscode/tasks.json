@@ -4,20 +4,16 @@
         {
             "type": "npm",
             "script": "lint",
-            "problemMatcher": [
-                "$eslint-stylish"
-            ],
+            "problemMatcher": ["$eslint-stylish"],
             "label": "npm: lint",
             "detail": "eslint ."
         },
         {
             "type": "npm",
-            "script": "dev",
-            "problemMatcher": [
-                "$tsc-watch"
-            ],
-            "label": "npm: dev",
-            "detail": "concurrently npm:watch:client npm:serve:client npm:watch:server",
+            "script": "dev:watch",
+            "problemMatcher": ["$tsc-watch"],
+            "label": "npm-dev-watch",
+            "detail": "Compile everything in a watch mode",
             "isBackground": true
         }
     ]

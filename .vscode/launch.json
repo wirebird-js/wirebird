@@ -8,8 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/server/index.ts",
-            "preLaunchTask": "tsc: build - tsconfig.server.json",
+            "program": "${workspaceFolder}/server-dist/index.js",
+            "preLaunchTask": "npm-dev-watch",
             "outFiles": ["${workspaceFolder}/server-dist/**/*.js"],
             "console": "integratedTerminal"
         }

@@ -1,12 +1,19 @@
 import chalk from 'chalk';
 import F from 'fastify';
+import { MonitorEvent } from 'http-inspector';
 import { address as getMyIP } from 'ip';
 import { argv } from './argv';
-import fastifyStatic from 'fastify-static';
-import { join, resolve } from 'path';
+import { configureServer } from './configureServer';
+import { PubSub } from './PubSub';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const qrterm = require('qrcode-terminal');
+
+declare module 'fastify' {
+    interface FastifyInstance {
+        updateEvents: PubSub<MonitorEvent>;
+    }
+}
 
 async function main() {
     const fastify = F({ logger: true });
@@ -22,14 +29,7 @@ async function main() {
     console.log(chalk`Open on your machine: {bold ${localURL}}`);
     console.log(chalk`Open from your LAN  : {bold ${externalURL}}`);
 
-    fastify.register(fastifyStatic, {
-        root : resolve(join(__dirname, '..', 'client-dist')),
-        index: ['main.html'],
-    });
-    fastify.get('/status', (req, res) => {
-        res.send({ status: 'ok' });
-    });
-
+    configureServer(fastify);
     await fastify.listen(port, '0.0.0.0');
 }
 
