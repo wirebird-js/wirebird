@@ -21,19 +21,28 @@
     "bin": {
         "http-inspector-ui": "./bin/http-inspector-ui.js"
     },
-    "files": [],
+    "files": [
+        "server-dist",
+        "client-dist",
+        "bin"
+    ],
     "scripts": {
-        "watch:client": "parcel watch client/main.html -d client-dist",
-        "watch:server": "tsc -watch -p tsconfig.server.json",
-        "run:server": "nodemon ./server-dist/index.js",
+        "build": "concurrently npm:build:client npm:build:server",
+        "build:client": "parcel build client/main.html -d client-dist",
+        "build:server": "tsc -p tsconfig.server.json",
+        "build:storybook": "build-storybook",
+        "clean": "rm -Rf client-dist server-dist",
         "dev": "concurrently npm:watch:client npm:watch:server npm:run:server",
         "dev:watch": "concurrently npm:watch:client npm:watch:server",
-        "build-storybook": "build-storybook",
         "lint": "eslint .",
         "prepublishOnly": "npm run build",
+        "run:server": "nodemon ./server-dist/index.js",
+        "start": "node bin/http-inspector-ui.js",
         "storybook": "start-storybook -p 6006",
         "test": "jest",
-        "tester": "HTTP_INSPECTOR=ui node tester.js"
+        "tester": "HTTP_INSPECTOR=ui node tester.js",
+        "watch:client": "parcel watch client/main.html -d client-dist",
+        "watch:server": "tsc -watch -p tsconfig.server.json"
     },
     "dependencies": {
         "@material-ui/core": "^4.11.1",

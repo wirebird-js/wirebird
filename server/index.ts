@@ -1,11 +1,11 @@
 import chalk from 'chalk';
-import F from 'fastify';
+import Fastify from 'fastify';
 import { MonitorEvent } from 'http-inspector';
 import { address as getMyIP } from 'ip';
+import openURI from 'opener';
 import { argv } from './argv';
 import { configureServer } from './configureServer';
 import { PubSub } from './PubSub';
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const qrterm = require('qrcode-terminal');
 
@@ -15,8 +15,8 @@ declare module 'fastify' {
     }
 }
 
-async function main() {
-    const fastify = F({ logger: true });
+export async function main(): Promise<void> {
+    const fastify = Fastify({ logger: true });
     const { headless, port } = argv();
     const ip = getMyIP('public');
     const listenURL = `http://0.0.0.0:${port}`;
@@ -31,6 +31,9 @@ async function main() {
 
     configureServer(fastify);
     await fastify.listen(port, '0.0.0.0');
+    if (!headless) {
+        openURI(localURL);
+    }
 }
 
 if (require.main === module) {
