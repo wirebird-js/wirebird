@@ -1,3 +1,4 @@
+import React from 'react';
 import { Grid, makeStyles, MenuItem, TextField } from '@material-ui/core';
 import { FC, useEffect, useState } from 'react';
 import { detectType } from './content-view/detectType';

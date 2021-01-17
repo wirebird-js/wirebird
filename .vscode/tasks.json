@@ -4,9 +4,21 @@
         {
             "type": "npm",
             "script": "lint",
-            "problemMatcher": ["$eslint-stylish"],
+            "problemMatcher": [
+                "$eslint-stylish"
+            ],
             "label": "npm: lint",
             "detail": "eslint ."
+        },
+        {
+            "type": "npm",
+            "script": "dev",
+            "problemMatcher": [
+                "$tsc-watch"
+            ],
+            "label": "npm: dev",
+            "detail": "concurrently npm:watch:client npm:serve:client npm:watch:server",
+            "isBackground": true
         }
     ]
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import { MenuItem, TextField } from '@material-ui/core';
 import { FC, ReactNode, useCallback, useMemo } from 'react';
 import { ColumnName, Columns, ColumnsSelection } from '../utils/Columns';

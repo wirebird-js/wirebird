@@ -1,6 +1,5 @@
 import { MonitorEvent } from 'http-inspector';
-import { NextPage } from 'next';
-import { useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MasterDetailsView } from '../components/MasterDetailsView';
@@ -27,7 +26,7 @@ interface Props {
     columnsSelection: ColumnsSelection;
 }
 
-const IndexPage: NextPage<Props> = ({
+const IndexPage: FC<Props> = ({
     loggerEvents,
     setCurrentEventID,
     setFilters,

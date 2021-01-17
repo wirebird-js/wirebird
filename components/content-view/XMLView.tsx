@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { DOMInspector } from 'react-inspector';
 import { useReactInspectorTheme } from '../../utils/useReactInspectorTheme';
 
