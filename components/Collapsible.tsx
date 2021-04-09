@@ -1,4 +1,6 @@
-import { fade, makeStyles, Typography } from '@material-ui/core';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Typography from '@material-ui/core/Typography/Typography';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';

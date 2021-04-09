@@ -1,6 +1,8 @@
-import React from 'react';
-import { Grid, makeStyles, MenuItem, TextField } from '@material-ui/core';
-import { FC, useEffect, useState } from 'react';
+import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import TextField from '@material-ui/core/TextField';
+import React, { FC, useEffect, useState } from 'react';
 import { detectType } from './content-view/detectType';
 import { FormView } from './content-view/FormView';
 import { ImageView } from './content-view/ImageView';
