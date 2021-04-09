@@ -27,7 +27,7 @@
         "bin"
     ],
     "scripts": {
-        "build": "concurrently npm:build:client npm:build:server",
+        "build": "NODE_ENV=production concurrently npm:build:client npm:build:server",
         "build:client": "parcel build client/main.html -d client-dist",
         "build:server": "tsc -d -p tsconfig.server.json",
         "build:storybook": "build-storybook",
