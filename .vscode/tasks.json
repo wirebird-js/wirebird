@@ -7,6 +7,14 @@
             "problemMatcher": ["$eslint-stylish"],
             "label": "npm: lint",
             "detail": "eslint ."
+        },
+        {
+            "type": "npm",
+            "script": "dev:watch",
+            "problemMatcher": ["$tsc-watch"],
+            "label": "npm-dev-watch",
+            "detail": "Compile everything in a watch mode",
+            "isBackground": true
         }
     ]
 }

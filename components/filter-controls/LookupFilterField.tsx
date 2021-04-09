@@ -1,4 +1,6 @@
-import { makeStyles, MenuItem, TextField } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import TextField from '@material-ui/core/TextField';
 import React, { FC, useCallback } from 'react';
 
 const useStyles = makeStyles((theme) => ({

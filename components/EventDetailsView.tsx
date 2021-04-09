@@ -1,4 +1,7 @@
-import { Grid, IconButton, makeStyles, Tab } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Tab from '@material-ui/core/Tab';
 import CloseIcon from '@material-ui/icons/Close';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';

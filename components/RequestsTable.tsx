@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
 import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback, useMemo } from 'react';

@@ -1,5 +1,6 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { FC, useMemo } from 'react';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import React, { FC, useMemo } from 'react';
 import { useDarkTheme } from '../utils/useDarkTheme';
 
 export const Theme: FC = ({ children }) => {

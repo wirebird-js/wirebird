@@ -1,3 +1,4 @@
+import React from 'react';
 import qs from 'querystring';
 import { FC } from 'react';
 import { ObjectInspector } from 'react-inspector';

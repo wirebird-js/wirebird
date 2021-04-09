@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback } from 'react';
 import { ColumnsSelection } from '../utils/Columns';

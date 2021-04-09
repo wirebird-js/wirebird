@@ -1,3 +1,4 @@
+import React from 'react';
 import { FC } from 'react';
 import { ObjectInspector } from 'react-inspector';
 import { useReactInspectorTheme } from '../../utils/useReactInspectorTheme';

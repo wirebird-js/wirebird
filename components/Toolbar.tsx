@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import React, { FC, useMemo } from 'react';
 import { Lookups } from '../redux/ducks/updates';
 import { emptyObject } from '../utils/emptyObject';

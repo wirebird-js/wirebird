@@ -1,49 +1,27 @@
 import chalk from 'chalk';
-import { createServer, IncomingMessage, RequestListener } from 'http';
+import Fastify from 'fastify';
+import { MonitorEvent } from 'http-inspector';
 import { address as getMyIP } from 'ip';
-import next from 'next';
-import opener from 'opener';
-import { join } from 'path';
-import { parse } from 'url';
+import openURI from 'opener';
 import { argv } from './argv';
-import { ContextedRequest } from './ContextedRequest';
-import SocketServer from './SocketServer';
+import { configureServer } from './configureServer';
+import { PubSub } from './PubSub';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const qrterm = require('qrcode-terminal');
 
-export default async function main({
-    production,
-}: {
-    production: boolean;
-}): Promise<void> {
+declare module 'fastify' {
+    interface FastifyInstance {
+        updateEvents: PubSub<MonitorEvent>;
+    }
+}
+
+export async function main(): Promise<void> {
+    const fastify = Fastify({ logger: true });
     const { headless, port } = argv();
-
-    process.title = 'http-inspector-ui';
-    const dev = !production;
-    const app = next({ dev, dir: join(__dirname, '..') });
-    const handle = app.getRequestHandler();
-    await app.prepare();
-    const server = createServer(((
-        req: IncomingMessage & ContextedRequest,
-        res
-    ) => {
-        if (!req.url) {
-            throw new Error('No req.url');
-        }
-        const parsedUrl = parse(req.url, true);
-        req.context = {
-            socketServer,
-        };
-        handle(req, res, parsedUrl);
-    }) as RequestListener).listen(port);
-
-    const socketServer = new SocketServer({ server });
     const ip = getMyIP('public');
-
     const listenURL = `http://0.0.0.0:${port}`;
     const externalURL = `http://${ip}:${port}`;
     const localURL = `http://localhost:${port}`;
-
     qrterm.generate(externalURL);
     console.log('Use this QR-code to open on a mobile device\n');
 
@@ -51,11 +29,16 @@ export default async function main({
     console.log(chalk`Open on your machine: {bold ${localURL}}`);
     console.log(chalk`Open from your LAN  : {bold ${externalURL}}`);
 
+    configureServer(fastify);
+    await fastify.listen(port, '0.0.0.0');
     if (!headless) {
-        opener(localURL);
+        openURI(localURL);
     }
 }
 
 if (require.main === module) {
-    main({ production: false });
+    main().catch((e) => {
+        console.error(e.stack || e);
+        process.exit(1);
+    });
 }
