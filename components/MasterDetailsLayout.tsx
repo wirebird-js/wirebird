@@ -1,6 +1,7 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import React, { FC } from 'react';
-import classnames from 'classnames';
+import SplitterLayout from 'react-splitter-layout';
+import 'react-splitter-layout/lib/index.css';
 
 const DEBUG = false;
 
@@ -8,38 +9,26 @@ const useStyles = makeStyles(
     (theme) => {
         const toolbarHeight = theme.spacing(8);
         return {
-            isLeftWide: {},
-
             root: {
                 height       : 'calc(100vh - 20px)',
                 display      : 'flex',
                 flexDirection: 'column',
             },
             head: {
-                backgroundColor: DEBUG ? 'rgb(92.1%, 78.2%, 49.2%)' : 'none',
+                backgroundColor: DEBUG ? 'rgb(92.1%, 78.2%, 49.2%)' : undefined,
                 minHeight      : toolbarHeight,
             },
             content: {
-                display      : 'flex',
-                flexDirection: 'row',
-                overflowY    : 'hidden',
-                flexGrow     : 1,
+                position: 'relative',
+                flexGrow: 1,
             },
             left: {
-                backgroundColor: DEBUG ? 'rgb(49.2%, 92.1%, 67%)' : 'none',
-                overflow       : 'auto',
-                maxWidth       : '25%',
-                width          : '25%',
-                '&$isLeftWide' : {
-                    maxWidth: '100%',
-                    width   : '100%',
-                },
+                backgroundColor: DEBUG ? 'rgb(49.2%, 92.1%, 67%)' : undefined,
+                height         : '100%',
             },
             right: {
-                backgroundColor: DEBUG ? 'rgb(90.6%, 49.2%, 92.1%)' : 'none',
-                overflow       : 'auto',
-                maxWidth       : '75%',
-                width          : '75%',
+                backgroundColor: DEBUG ? 'rgb(90.6%, 49.2%, 92.1%)' : undefined,
+                // overflow       : 'auto',
             },
         };
     },
@@ -58,19 +47,15 @@ export const MasterDetailsLayout: FC<IMasterDetailsLayoutProps> = ({
     toolbar,
 }) => {
     const classes = useStyles();
-    const leftClasses = classnames(
-        {
-            [classes.isLeftWide]: !right,
-        },
-        classes.left
-    );
 
     return (
         <div className={classes.root}>
             <div className={classes.head}>{toolbar}</div>
             <div className={classes.content}>
-                <div className={leftClasses}>{left}</div>
-                {right && <div className={classes.right}>{right}</div>}
+                <SplitterLayout>
+                    <div className={classes.left}>{left}</div>
+                    {right && <div className={classes.right}>{right}</div>}
+                </SplitterLayout>
             </div>
         </div>
     );

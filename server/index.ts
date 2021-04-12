@@ -16,7 +16,7 @@ declare module 'fastify' {
 }
 
 export async function main(): Promise<void> {
-    const fastify = Fastify({ logger: true });
+    const fastify = Fastify({});
     const { headless, port } = argv();
     const ip = getMyIP('public');
     const listenURL = `http://0.0.0.0:${port}`;
