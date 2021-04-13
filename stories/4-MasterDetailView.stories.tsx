@@ -1,10 +1,18 @@
 import { MonitorEvent } from 'http-inspector/lib/src/SharedTypes';
 import React, { FC, useState } from 'react';
 import { MasterDetailsView } from '../components/MasterDetailsView';
+import { ColumnsSelection } from '../utils/Columns';
 import loggerEvents from './data/loggerEvents';
 
 export default {
     title: 'Master-Detail View',
+};
+
+const selectedColumns: ColumnsSelection = {
+    name          : true,
+    requestMethod : true,
+    requestURL    : true,
+    responseStatus: true,
 };
 
 export const main: FC = () => {
@@ -19,6 +27,7 @@ export const main: FC = () => {
                 )
             }
             onItemDeselect={() => setCurrent(null)}
+            selectedColumns={selectedColumns}
         />
     );
 };
