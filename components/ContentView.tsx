@@ -1,13 +1,13 @@
 import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import TextField from '@material-ui/core/TextField';
 import React, { FC, useEffect, useState } from 'react';
 import { detectType } from './content-view/detectType';
 import { FormView } from './content-view/FormView';
 import { ImageView } from './content-view/ImageView';
 import { JSONView } from './content-view/JSONView';
 import { TextView } from './content-view/TextView';
+import { ViewMode } from './content-view/viewModes';
+import { ViewModeSelect } from './content-view/ViewModeSelect';
 import { XMLView } from './content-view/XMLView';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,15 +15,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
 }));
-
-const viewModes = {
-    plain: 'Plain Text',
-    image: 'Image',
-    json : 'JSON',
-    xml  : 'XML',
-    form : 'Form',
-};
-type ViewMode = keyof typeof viewModes;
 
 export interface IContentViewProps {
     contentType: string | null;
@@ -41,24 +32,8 @@ export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
     return (
         <Grid container>
             <Grid item xs={12}>
-                <Grid container justify="flex-end">
-                    <Grid item xs={6} lg={2}>
-                        <TextField
-                            fullWidth
-                            select
-                            value={viewMode}
-                            label="View as"
-                            onChange={(e) => {
-                                setViewMode(e.target.value as ViewMode);
-                            }}
-                        >
-                            {Object.entries(viewModes).map(([key, label]) => (
-                                <MenuItem key={key} value={key}>
-                                    {label}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    </Grid>
+                <Grid container justify="center">
+                    <ViewModeSelect value={viewMode} onChange={setViewMode} />
                 </Grid>
             </Grid>
             <Grid item xs={12} className={classes.contentArea}>
