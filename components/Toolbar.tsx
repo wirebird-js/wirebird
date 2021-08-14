@@ -1,5 +1,8 @@
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import React, { FC, useMemo } from 'react';
+import Clear from '@material-ui/icons/Clear';
+import React, { FC, useCallback, useMemo } from 'react';
 import { Lookups } from '../redux/ducks/updates';
 import { emptyObject } from '../utils/emptyObject';
 import { Filters, initialFilters } from '../utils/Filters';
@@ -23,7 +26,9 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
     ({
         lookups = emptyObject as Partial<Lookups>,
         filters: value = initialFilters,
+        showResetFilters,
         columnsSelection = emptyObject,
+        onResetFilters,
         onChangeFilters,
         onChangeColumns,
     }) => {
@@ -43,6 +48,9 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
             () => createFieldUpdater('method', value, onChangeFilters),
             [onChangeFilters, value]
         );
+        const handleReset = useCallback(() => {
+            onResetFilters?.();
+        }, [onResetFilters]);
         return (
             <Grid container spacing={1}>
                 <Grid item>
@@ -83,6 +91,15 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
                         onChange={onChangeColumns}
                     />
                 </Grid>
+                {showResetFilters && (
+                    <Grid item>
+                        <Box height="100%" display="flex">
+                            <Button variant="outlined" onClick={handleReset}>
+                                <Clear />
+                            </Button>
+                        </Box>
+                    </Grid>
+                )}
             </Grid>
         );
     }

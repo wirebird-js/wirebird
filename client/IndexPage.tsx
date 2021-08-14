@@ -8,7 +8,10 @@ import {
     ToolbarContext,
 } from '../components/toolbar/ToolbarContext';
 import { slice as columnsSlice } from '../redux/ducks/columns';
-import { slice as filtersSlice } from '../redux/ducks/filters';
+import {
+    isAnyFilterSelected,
+    slice as filtersSlice,
+} from '../redux/ducks/filters';
 import { Lookups, slice as updatesSlice } from '../redux/ducks/updates';
 import { globalSelectors, sliceSelectors } from '../redux/selectors';
 import { State } from '../redux/store';
@@ -19,8 +22,10 @@ interface Props {
     loggerEvents: MonitorEvent[];
     setCurrentEventID: typeof updatesSlice.actions.setCurrentEventID;
     setFilters: typeof filtersSlice.actions.setFilters;
+    resetFilters: typeof filtersSlice.actions.resetFilters;
     setColumnsSelection: typeof columnsSlice.actions.setColumnsSelection;
     filters: Filters;
+    isAnyFilterSelected: boolean;
     currentEvent: MonitorEvent | null;
     lookups: Lookups;
     columnsSelection: ColumnsSelection;
@@ -33,8 +38,10 @@ const IndexPage: FC<Props> = ({
     currentEvent,
     lookups,
     filters,
+    isAnyFilterSelected,
     columnsSelection,
     setColumnsSelection,
+    resetFilters,
 }) => {
     const handleItemSelect = useCallback((id) => setCurrentEventID(id), []);
     const handleItemDeselect = useCallback(() => setCurrentEventID(null), []);
@@ -45,9 +52,11 @@ const IndexPage: FC<Props> = ({
     const toolbarContextProps: IToolbarContextProps = {
         lookups,
         filters,
+        showResetFilters: isAnyFilterSelected,
         columnsSelection,
-        onChangeFilters: handleChangeFilters,
-        onChangeColumns: setColumnsSelection,
+        onChangeFilters : handleChangeFilters,
+        onChangeColumns : setColumnsSelection,
+        onResetFilters  : resetFilters,
     };
 
     return (
@@ -65,17 +74,19 @@ const IndexPage: FC<Props> = ({
 
 export default connect(
     (state: State) => ({
-        loggerEvents    : globalSelectors.getFilteredLoggerEvents(state),
-        currentEvent    : sliceSelectors.updates.getCurrentLoggerEvent(state),
-        filters         : sliceSelectors.filters.getFilters(state),
-        lookups         : sliceSelectors.updates.getLookups(state),
-        columnsSelection: sliceSelectors.columns.getColumnsSelection(state),
+        loggerEvents       : globalSelectors.getFilteredLoggerEvents(state),
+        currentEvent       : sliceSelectors.updates.getCurrentLoggerEvent(state),
+        filters            : sliceSelectors.filters.getFilters(state),
+        isAnyFilterSelected: sliceSelectors.filters.isAnyFilterSelected(state),
+        lookups            : sliceSelectors.updates.getLookups(state),
+        columnsSelection   : sliceSelectors.columns.getColumnsSelection(state),
     }),
     (dispatch) =>
         bindActionCreators(
             {
                 setCurrentEventID  : updatesSlice.actions.setCurrentEventID,
                 setFilters         : filtersSlice.actions.setFilters,
+                resetFilters       : filtersSlice.actions.resetFilters,
                 setColumnsSelection: columnsSlice.actions.setColumnsSelection,
             },
             dispatch
