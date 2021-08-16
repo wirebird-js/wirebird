@@ -1,4 +1,3 @@
-import React from 'react';
 import { createContext, useContext } from 'react';
 import { Filters } from 'react-data-grid';
 import { Lookups } from '../../redux/ducks/updates';
@@ -8,7 +7,9 @@ import { emptyObject } from '../../utils/emptyObject';
 export interface IToolbarContextProps {
     lookups?: Partial<Lookups>;
     filters?: Filters;
+    showResetFilters?: boolean;
     columnsSelection?: ColumnsSelection;
+    onResetFilters?: () => void;
     onChangeFilters?: (value: Filters) => void;
     onChangeColumns?: (value: ColumnsSelection) => void;
 }
