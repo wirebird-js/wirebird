@@ -15,7 +15,10 @@ export default (storage: FiltersStorage) =>
         yield put(filtersSlice.actions.restoreFilters(restoredFilters));
 
         yield takeLatest(
-            filtersSlice.actions.setFilters,
+            [
+                filtersSlice.actions.setFilters,
+                filtersSlice.actions.resetFilters,
+            ],
             function* (action: PayloadAction<Filters>) {
                 yield call([storage, storage.save], action.payload);
             }

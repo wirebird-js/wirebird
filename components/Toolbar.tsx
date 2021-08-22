@@ -1,7 +1,7 @@
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Clear from '@material-ui/icons/Clear';
+import IconButton from '@material-ui/core/IconButton';
+import BlockIcon from '@material-ui/icons/Block';
 import React, { FC, useCallback, useMemo } from 'react';
 import { Lookups } from '../redux/ducks/updates';
 import { emptyObject } from '../utils/emptyObject';
@@ -93,10 +93,14 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
                 </Grid>
                 {showResetFilters && (
                     <Grid item>
-                        <Box height="100%" display="flex">
-                            <Button variant="outlined" onClick={handleReset}>
-                                <Clear />
-                            </Button>
+                        <Box height="100%" display="flex" alignItems="flex-end">
+                            <IconButton
+                                title="Clear all filters"
+                                onClick={handleReset}
+                                size="small"
+                            >
+                                <BlockIcon />
+                            </IconButton>
                         </Box>
                     </Grid>
                 )}
