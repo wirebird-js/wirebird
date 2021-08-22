@@ -29,11 +29,17 @@ export interface FiltersStorage {
 }
 
 export class FiltersStorageImpl implements FiltersStorage {
-    save(filters: Filters): void {
-        localStorage.setItem(FILTERS_STORAGE_PREFIX, JSON.stringify(filters));
+    save(filters?: Filters): void {
+        if (filters === undefined) {
+            sessionStorage.removeItem(FILTERS_STORAGE_PREFIX);
+            return;
+        }
+        sessionStorage.setItem(FILTERS_STORAGE_PREFIX, JSON.stringify(filters));
     }
     load(): Filters {
-        const serializedFilters = localStorage.getItem(FILTERS_STORAGE_PREFIX);
+        const serializedFilters = sessionStorage.getItem(
+            FILTERS_STORAGE_PREFIX
+        );
         if (!serializedFilters) {
             return initialFilters;
         }
