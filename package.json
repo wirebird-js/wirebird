@@ -60,7 +60,7 @@
         "fastify": "^3.10.1",
         "fastify-static": "^3.4.0",
         "fastify-websocket": "^2.1.0",
-        "http-inspector": "^0.1.9",
+        "http-inspector": "^0.1.11",
         "immer": "^8.0.0",
         "ip": "^1.1.5",
         "lodash": "^4.17.20",
