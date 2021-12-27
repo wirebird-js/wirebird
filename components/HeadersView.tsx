@@ -85,7 +85,7 @@ export const HeadersView: FC<IHeadersViewProps> = ({
                 ></KeyValueView>
             </Collapsible>
             <Collapsible title="Export To Curl">
-                <TextView data={eventToCurl(event)} />
+                <TextView data={eventToCurl(event, { prettyPrint: true })} />
             </Collapsible>
         </div>
     );
