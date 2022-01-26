@@ -66,6 +66,7 @@
         "lodash": "^4.17.20",
         "opener": "^1.5.2",
         "react": "^16.9.0",
+        "react-autocomplete-input": "^1.0.18",
         "react-data-grid": "^7.0.0-canary.30",
         "react-dom": "^16.9.0",
         "react-inspector": "^5.1.0",

@@ -2,7 +2,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import BlockIcon from '@material-ui/icons/Block';
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { Lookups } from '../redux/ducks/updates';
 import { emptyObject } from '../utils/emptyObject';
 import { Filters, initialFilters } from '../utils/Filters';
@@ -10,6 +10,11 @@ import { ColumnsSelect } from './ColumnsSelect';
 import { LookupFilterField } from './filter-controls/LookupFilterField';
 import { TextFilterField } from './filter-controls/TextFilterField';
 import { IToolbarContextProps } from './toolbar/ToolbarContext';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+//import AutocompleteInput from 'react-autocomplete-input';
+//import 'react-autocomplete-input/dist/bundle.css';
 
 const createFieldUpdater = (
     fieldName: keyof Filters,
@@ -25,6 +30,7 @@ const createFieldUpdater = (
 export const Toolbar: FC<IToolbarContextProps> = React.memo(
     ({
         lookups = emptyObject as Partial<Lookups>,
+        smartSearchOptions = [],
         filters: value = initialFilters,
         showResetFilters,
         columnsSelection = emptyObject,
@@ -51,6 +57,11 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
         const handleReset = useCallback(() => {
             onResetFilters?.();
         }, [onResetFilters]);
+
+        useEffect(() => {
+            console.log('smartSearchOptions:', smartSearchOptions);
+        }, [smartSearchOptions]);
+
         return (
             <Grid container spacing={1}>
                 <Grid item>
@@ -83,6 +94,9 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
                         onChange={handleSearchChange}
                         value={value.search}
                     />
+                </Grid>
+                <Grid item>
+                    {/* <AutocompleteInput options={smartSearchOptions} /> */}
                 </Grid>
                 <Grid item>
                     <ColumnsSelect

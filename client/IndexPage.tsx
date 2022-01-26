@@ -8,10 +8,7 @@ import {
     ToolbarContext,
 } from '../components/toolbar/ToolbarContext';
 import { slice as columnsSlice } from '../redux/ducks/columns';
-import {
-    isAnyFilterSelected,
-    slice as filtersSlice,
-} from '../redux/ducks/filters';
+import { slice as filtersSlice } from '../redux/ducks/filters';
 import { Lookups, slice as updatesSlice } from '../redux/ducks/updates';
 import { globalSelectors, sliceSelectors } from '../redux/selectors';
 import { State } from '../redux/store';
@@ -28,6 +25,7 @@ interface Props {
     isAnyFilterSelected: boolean;
     currentEvent: MonitorEvent | null;
     lookups: Lookups;
+    smartSearchOptions: string[];
     columnsSelection: ColumnsSelection;
 }
 
@@ -37,6 +35,7 @@ const IndexPage: FC<Props> = ({
     setFilters,
     currentEvent,
     lookups,
+    smartSearchOptions,
     filters,
     isAnyFilterSelected,
     columnsSelection,
@@ -51,6 +50,7 @@ const IndexPage: FC<Props> = ({
     );
     const toolbarContextProps: IToolbarContextProps = {
         lookups,
+        smartSearchOptions,
         filters,
         showResetFilters: isAnyFilterSelected,
         columnsSelection,
@@ -79,6 +79,7 @@ export default connect(
         filters            : sliceSelectors.filters.getFilters(state),
         isAnyFilterSelected: sliceSelectors.filters.isAnyFilterSelected(state),
         lookups            : sliceSelectors.updates.getLookups(state),
+        smartSearchOptions : sliceSelectors.updates.getSmartSearchOptions(state),
         columnsSelection   : sliceSelectors.columns.getColumnsSelection(state),
     }),
     (dispatch) =>

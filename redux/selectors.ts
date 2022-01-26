@@ -6,6 +6,7 @@ import {
     getCurrentLoggerEvent,
     getLoggerEvents,
     getLookups,
+    getSmartSearchOptions,
 } from './ducks/updates';
 import { getFilteredLoggerEvents } from './selectors/getFilteredLoggerEvents';
 import { State } from './store';
@@ -15,6 +16,7 @@ const selectorsMap = {
         getLoggerEvents,
         getCurrentLoggerEvent,
         getLookups,
+        getSmartSearchOptions,
     },
     filters: {
         getFilters,
