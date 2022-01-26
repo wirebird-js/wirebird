@@ -88,7 +88,7 @@ export const getLookups = createSelector(
 const recordToOptions = (
     prefix: string,
     rec: Record<string, unknown>
-): string[] => Object.keys(rec).map((key) => `@${prefix}:${key}`);
+): string[] => Object.keys(rec).map((key) => `${prefix}:${key}`);
 
 export const getSmartSearchOptions = createSelector(
     getLookups,

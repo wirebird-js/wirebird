@@ -13,8 +13,8 @@ import { IToolbarContextProps } from './toolbar/ToolbarContext';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-//import AutocompleteInput from 'react-autocomplete-input';
-//import 'react-autocomplete-input/dist/bundle.css';
+import AutocompleteInput from 'react-autocomplete-input';
+import 'react-autocomplete-input/dist/bundle.css';
 
 const createFieldUpdater = (
     fieldName: keyof Filters,
@@ -96,7 +96,7 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
                     />
                 </Grid>
                 <Grid item>
-                    {/* <AutocompleteInput options={smartSearchOptions} /> */}
+                    <AutocompleteInput options={smartSearchOptions} />
                 </Grid>
                 <Grid item>
                     <ColumnsSelect
