@@ -1,5 +1,5 @@
 {
-    "name": "http-inspector-ui",
+    "name": "wirebird",
     "version": "0.1.8",
     "description": "Web UI for http-inspector. Debug Node.js outgoing HTTP[S] requests",
     "keywords": [
@@ -19,7 +19,8 @@
     "author": "corporateanon <corporateanon@gmail.com>",
     "main": "index.js",
     "bin": {
-        "http-inspector-ui": "./bin/http-inspector-ui.js"
+        "wirebird": "./bin/wirebird.js",
+        "http-inspector-ui": "./bin/wirebird.js"
     },
     "files": [
         "server-dist",
@@ -36,7 +37,7 @@
         "lint": "eslint .",
         "prepublishOnly": "npm run build",
         "run:server": "nodemon ./server-dist/index.js",
-        "start": "node bin/http-inspector-ui.js",
+        "start": "node bin/wirebird.js",
         "test": "jest",
         "tester": "HTTP_INSPECTOR=ui node tester.js",
         "watch:client": "parcel watch client/main.html -d client-dist",

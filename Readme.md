@@ -1,37 +1,37 @@
-# http-inspector-ui
+# Wirebird
 
-Web frontend for `http-inspector`.
+HTTP requests debugger for Node.js
 
 ## Installation
 
-Before using http-inspector-ui, [find out more about **http-inspector**](https://npmjs.com/http-inspector).
+Before using Wirebird, [find out more about **wirebird-client**](https://npmjs.com/wirebird-client).
 
 To install, run the following:
 
 ```sh
-npm i -g http-inspector-ui
+npm i -g wirebird
 ```
 
 ## Usage
 
-To start `http-inspector-ui`, run:
+To start Wirebird, run:
 
 ```sh
-http-inspector-ui
+wirebird
 ```
 
 You can change the default port:
 
 ```sh
-http-inspector-ui --port 3000
+wirebird --port 3000
 # or:
-http-inspector-ui -p 3000
+wirebird -p 3000
 ```
 
 Also if you dont need to start browser automatically, you can disable it:
 
 ```sh
-http-inspector-ui --headless
+wirebird --headless
 # or:
-http-inspector-ui -H
+wirebird -H
 ```
