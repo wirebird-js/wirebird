@@ -1,4 +1,4 @@
-import { LoggerEvent } from 'http-inspector';
+import { LoggerEvent } from 'wirebird-client';
 
 type HeaderDict = LoggerEvent['request']['headers'];
 type HeaderVal = HeaderDict[string];

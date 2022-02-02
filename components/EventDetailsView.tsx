@@ -6,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import React, { FC, useCallback, useState } from 'react';
 import { Headers } from '../utils/Headers';
 import { ContentView } from './ContentView';

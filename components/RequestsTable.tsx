@@ -1,9 +1,8 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import React, { FC, useCallback, useMemo } from 'react';
 import DataGrid, { Column } from 'react-data-grid';
-import 'react-data-grid/dist/react-data-grid.css';
 import { ColumnsSelection } from '../utils/Columns';
 import { emptyObject } from '../utils/emptyObject';
 import { shortenURL } from '../utils/shortenURL';

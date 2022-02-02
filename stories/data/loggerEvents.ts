@@ -1,4 +1,4 @@
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 
 const items: Array<MonitorEvent> = [
     {

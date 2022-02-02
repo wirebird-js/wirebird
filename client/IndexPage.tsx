@@ -1,17 +1,14 @@
-import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { MonitorEvent } from 'wirebird-client';
 import { MasterDetailsView } from '../components/MasterDetailsView';
 import {
     IToolbarContextProps,
     ToolbarContext,
 } from '../components/toolbar/ToolbarContext';
 import { slice as columnsSlice } from '../redux/ducks/columns';
-import {
-    isAnyFilterSelected,
-    slice as filtersSlice,
-} from '../redux/ducks/filters';
+import { slice as filtersSlice } from '../redux/ducks/filters';
 import { Lookups, slice as updatesSlice } from '../redux/ducks/updates';
 import { globalSelectors, sliceSelectors } from '../redux/selectors';
 import { State } from '../redux/store';

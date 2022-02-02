@@ -1,4 +1,4 @@
-import { SerializedLoggerEvent, MonitorEvent, validate } from 'http-inspector';
+import { SerializedLoggerEvent, MonitorEvent, validate } from 'wirebird-client';
 import { EventEmitter } from 'events';
 
 export interface UpdatesServiceEvents {

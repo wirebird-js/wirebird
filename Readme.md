@@ -1,37 +1,62 @@
-# http-inspector-ui
+# Wirebird
 
-Web frontend for `http-inspector`.
+HTTP requests debugger for Node.js.
+Use Wirebird to inspect requests your Node.js application makes.
+
+It's very similar to Chrome DevTools, but for Node.js.
 
 ## Installation
 
-Before using http-inspector-ui, [find out more about **http-inspector**](https://npmjs.com/http-inspector).
+In order to sniff outgoing HTTP traffic from your Node.js application,
+you have to install `wirebird-client` and attach it to the inspected process.
 
-To install, run the following:
+In order to view the requests you need to install `wirebird` globally and run it.
+
+### Install Wirebird globally
 
 ```sh
-npm i -g http-inspector-ui
+npm i -g wirebid
+```
+
+### Add wirebird-client to your project
+
+```sh
+npm i -D wirebird-client
+```
+
+Now it's time to attach `wirebird-client`.
+For example, if your project used to be run by the following command:
+
+```
+npm run dev
+```
+
+, now you need to replace it with:
+
+```
+NODE_OPTIONS="-r wirebird-client/inject" WIREBIRD=ui npm run dev
 ```
 
 ## Usage
 
-To start `http-inspector-ui`, run:
+To start Wirebird, run:
 
 ```sh
-http-inspector-ui
+wirebird
 ```
 
 You can change the default port:
 
 ```sh
-http-inspector-ui --port 3000
+wirebird --port 3000
 # or:
-http-inspector-ui -p 3000
+wirebird -p 3000
 ```
 
 Also if you dont need to start browser automatically, you can disable it:
 
 ```sh
-http-inspector-ui --headless
+wirebird --headless
 # or:
-http-inspector-ui -H
+wirebird -H
 ```
