@@ -15,7 +15,7 @@ In order to view the requests you need to install `wirebird` globally and run it
 ### Install Wirebird globally
 
 ```sh
-npm i -g wirebid
+npm i -g wirebird
 ```
 
 ### Add wirebird-client to your project
