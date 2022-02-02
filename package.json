@@ -41,7 +41,7 @@
         "start": "node bin/wirebird.js",
         "storybook": "start-storybook -p 6006",
         "test": "jest",
-        "tester": "HTTP_INSPECTOR=ui node tester.js",
+        "tester": "NODE_OPTIONS='-r wirebird-client/inject' HTTP_INSPECTOR=ui node tester.js",
         "watch:client": "parcel watch client/main.html -d client-dist",
         "watch:server": "tsc -d -watch -p tsconfig.server.json"
     },
@@ -51,11 +51,11 @@
         "fastify": "^3.10.1",
         "fastify-static": "^3.4.0",
         "fastify-websocket": "^2.1.0",
-        "http-inspector": "^0.1.11",
         "ip": "^1.1.5",
         "lodash": "^4.17.20",
         "opener": "^1.5.2",
         "regenerator-runtime": "^0.13.7",
+        "wirebird-client": "^0.2.0",
         "ws": "^7.1.2",
         "yargs": "^16.2.0"
     },

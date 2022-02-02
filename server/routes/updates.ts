@@ -1,5 +1,5 @@
 import { RouteHandlerMethod } from 'fastify';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 
 export const updatesHandler: RouteHandlerMethod = function (req, res) {
     this.updateEvents.pub(req.body as MonitorEvent);

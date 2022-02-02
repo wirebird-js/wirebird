@@ -1,4 +1,4 @@
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import React, { FC, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

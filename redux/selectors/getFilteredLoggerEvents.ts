@@ -1,5 +1,5 @@
 import { parse } from 'url';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import { Filters } from '../../utils/Filters';
 
 const searchMatch = (event: MonitorEvent, search: string): boolean => {

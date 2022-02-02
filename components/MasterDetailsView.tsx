@@ -1,5 +1,5 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import React, { FC, useCallback } from 'react';
 import { ColumnsSelection } from '../utils/Columns';
 import { emptyObject } from '../utils/emptyObject';

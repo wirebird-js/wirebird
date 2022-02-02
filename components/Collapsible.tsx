@@ -1,4 +1,4 @@
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles/colorManipulator';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography/Typography';
 import Accordion from '@material-ui/core/Accordion';
@@ -20,7 +20,7 @@ const useStyles = makeStyles(
                 '$force &': {
                     minHeight: 33,
                 },
-                backgroundColor: fade('rgb(0,0,0)', 0.07),
+                backgroundColor: alpha('rgb(0,0,0)', 0.07),
             },
             summaryContent: {
                 '$force &': {

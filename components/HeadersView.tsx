@@ -1,4 +1,4 @@
-import { eventToCurl } from 'http-inspector';
+import { eventToCurl } from 'wirebird-client';
 import {
     MonitorEvent,
     LoggerHeaders,

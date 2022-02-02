@@ -1,4 +1,4 @@
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import { createTheme } from '@material-ui/core/styles';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import React, { FC, useMemo } from 'react';
 import { useDarkTheme } from '../utils/useDarkTheme';
@@ -7,7 +7,7 @@ export const Theme: FC = ({ children }) => {
     const isDarkTheme = useDarkTheme();
     const theme = useMemo(
         () =>
-            createMuiTheme({
+            createTheme({
                 palette: {
                     type: isDarkTheme ? 'dark' : 'light',
                 },
