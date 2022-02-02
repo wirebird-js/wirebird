@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
-import NoSSR from 'react-no-ssr';
-import SplashScreen from '../components/SplashScreen';
 import { Theme } from '../components/Theme';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import IndexPage from './IndexPage';
@@ -24,11 +22,9 @@ const Background: FC = ({ children }) => {
 const App: FC = () => (
     <Theme>
         <Background>
-            <NoSSR onSSR={<SplashScreen />}>
-                <Provider store={store}>
-                    <IndexPage />
-                </Provider>
-            </NoSSR>
+            <Provider store={store}>
+                <IndexPage />
+            </Provider>
         </Background>
     </Theme>
 );
