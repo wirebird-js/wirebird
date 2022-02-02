@@ -1,7 +1,7 @@
 {
     "name": "wirebird",
     "version": "0.2.1",
-    "description": "Web UI for http-inspector. Debug Node.js outgoing HTTP[S] requests",
+    "description": "DevTools / Network for Node.js",
     "keywords": [
         "http-inspector",
         "mitm",
@@ -15,6 +15,10 @@
         "debugger",
         "network debugger"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wirebird-js/wirebird"
+    },
     "license": "WTFPL",
     "author": "corporateanon <corporateanon@gmail.com>",
     "main": "index.js",
