@@ -1,6 +1,6 @@
 {
     "name": "wirebird",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Web UI for http-inspector. Debug Node.js outgoing HTTP[S] requests",
     "keywords": [
         "http-inspector",
