@@ -59,7 +59,7 @@
         "lodash": "^4.17.20",
         "opener": "^1.5.2",
         "regenerator-runtime": "^0.13.7",
-        "wirebird-client": "^0.2.3",
+        "wirebird-client": "^0.2.4",
         "ws": "^7.1.2",
         "yargs": "^16.2.0"
     },
