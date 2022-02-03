@@ -34,7 +34,7 @@ npm run dev
 , now you need to replace it with:
 
 ```
-NODE_OPTIONS="-r wirebird-client/inject" WIREBIRD=ui npm run dev
+npx wbenv ui npm run dev
 ```
 
 ## Usage

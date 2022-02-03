@@ -45,7 +45,7 @@
         "start": "node bin/wirebird.js",
         "storybook": "start-storybook -p 6006",
         "test": "jest",
-        "tester": "NODE_OPTIONS='-r wirebird-client/inject' HTTP_INSPECTOR=ui node tester.js",
+        "tester": "wbenv node tester.js",
         "watch:client": "parcel watch client/main.html -d client-dist",
         "watch:server": "tsc -d -watch -p tsconfig.server.json"
     },
@@ -59,7 +59,7 @@
         "lodash": "^4.17.20",
         "opener": "^1.5.2",
         "regenerator-runtime": "^0.13.7",
-        "wirebird-client": "^0.2.0",
+        "wirebird-client": "^0.2.3",
         "ws": "^7.1.2",
         "yargs": "^16.2.0"
     },

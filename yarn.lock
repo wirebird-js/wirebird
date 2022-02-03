@@ -14098,13 +14098,15 @@ widest-line@^3.1.0:
   dependencies:
     string-width "^4.0.0"
 
-wirebird-client@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/wirebird-client/-/wirebird-client-0.2.0.tgz#b4e1eb6ac39beec798d1f13b8307f78b7fcc6429"
-  integrity sha512-ZgA+rkOi7KVQoH0MU3owNdZcB3RwTwB7QbAFaSLSgBL7XSJYiU5mTX8H67iLwNNa7KlZEhxRXsheXzdXZCV6Hw==
+wirebird-client@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/wirebird-client/-/wirebird-client-0.2.3.tgz#7f6cf14c9e347eef41c095d5af0af17f59293d26"
+  integrity sha512-ayrnF+WsyPvNBCNMyT/OgulOkq6JYsveKEflmoTTcOzQHkumB2JkEhDByNr1Kve03K/IOl+jFe1dan4gmJ/thg==
   dependencies:
+    dedent "^0.7.0"
     hyperid "^3.0.0"
     jsonschema "^1.4.0"
+    minimist "^1.2.5"
     shell-escape "^0.2.0"
     zlib "^1.0.5"
 
