@@ -16,16 +16,18 @@ import { IToolbarContextProps } from './toolbar/ToolbarContext';
 import AutocompleteInput from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
 
-const createFieldUpdater = (
-    fieldName: keyof Filters,
-    value: IToolbarContextProps['filters'],
-    onChange: IToolbarContextProps['onChangeFilters']
-) => (fieldValue: string | number | undefined) => {
-    if (fieldValue === '') {
-        fieldValue = undefined;
-    }
-    onChange?.({ ...value, [fieldName]: fieldValue });
-};
+const createFieldUpdater =
+    (
+        fieldName: keyof Filters,
+        value: IToolbarContextProps['filters'],
+        onChange: IToolbarContextProps['onChangeFilters']
+    ) =>
+        (fieldValue: string | number | undefined) => {
+            if (fieldValue === '') {
+                fieldValue = undefined;
+            }
+            onChange?.({ ...value, [fieldName]: fieldValue });
+        };
 
 export const Toolbar: FC<IToolbarContextProps> = React.memo(
     ({
@@ -96,7 +98,10 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
                     />
                 </Grid>
                 <Grid item>
-                    <AutocompleteInput trigger="" options={smartSearchOptions} />
+                    <AutocompleteInput
+                        trigger=""
+                        options={smartSearchOptions}
+                    />
                 </Grid>
                 <Grid item>
                     <ColumnsSelect
