@@ -96,7 +96,7 @@ export const Toolbar: FC<IToolbarContextProps> = React.memo(
                     />
                 </Grid>
                 <Grid item>
-                    <AutocompleteInput options={smartSearchOptions} />
+                    <AutocompleteInput trigger="" options={smartSearchOptions} />
                 </Grid>
                 <Grid item>
                     <ColumnsSelect
