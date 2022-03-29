@@ -6,6 +6,7 @@ import { emptyObject } from '../../utils/emptyObject';
 
 export interface IToolbarContextProps {
     lookups?: Partial<Lookups>;
+    smartSearchOptions?: string[];
     filters?: Filters;
     showResetFilters?: boolean;
     columnsSelection?: ColumnsSelection;

@@ -84,3 +84,19 @@ export const getLookups = createSelector(
         method: lookupManager.getLookups(lookups, 'method'),
     })
 );
+
+const recordToOptions = (
+    prefix: string,
+    rec: Record<string, unknown>
+): string[] => Object.keys(rec).map((key) => `${prefix}:${key}`);
+
+export const getSmartSearchOptions = createSelector(
+    getLookups,
+    (lookups: Lookups) => {
+        return [
+            ...recordToOptions('method', lookups.method),
+            ...recordToOptions('domain', lookups.domain),
+            ...recordToOptions('pid', lookups.pid),
+        ];
+    }
+);

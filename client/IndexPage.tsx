@@ -25,6 +25,7 @@ interface Props {
     isAnyFilterSelected: boolean;
     currentEvent: MonitorEvent | null;
     lookups: Lookups;
+    smartSearchOptions: string[];
     columnsSelection: ColumnsSelection;
 }
 
@@ -34,6 +35,7 @@ const IndexPage: FC<Props> = ({
     setFilters,
     currentEvent,
     lookups,
+    smartSearchOptions,
     filters,
     isAnyFilterSelected,
     columnsSelection,
@@ -48,6 +50,7 @@ const IndexPage: FC<Props> = ({
     );
     const toolbarContextProps: IToolbarContextProps = {
         lookups,
+        smartSearchOptions,
         filters,
         showResetFilters: isAnyFilterSelected,
         columnsSelection,
@@ -76,6 +79,7 @@ export default connect(
         filters            : sliceSelectors.filters.getFilters(state),
         isAnyFilterSelected: sliceSelectors.filters.isAnyFilterSelected(state),
         lookups            : sliceSelectors.updates.getLookups(state),
+        smartSearchOptions : sliceSelectors.updates.getSmartSearchOptions(state),
         columnsSelection   : sliceSelectors.columns.getColumnsSelection(state),
     }),
     (dispatch) =>
