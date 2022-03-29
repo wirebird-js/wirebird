@@ -1,4 +1,3 @@
-import { ok } from 'assert';
 //Parses an advanced search string into an object.
 //Full text search strings are interpreted as-is.
 //Tagged search entities, when recognized, are parsed into special search conditions.
