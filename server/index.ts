@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import Fastify from 'fastify';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import { address as getMyIP } from 'ip';
 import openURI from 'opener';
 import { argv } from './argv';

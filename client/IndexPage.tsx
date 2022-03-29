@@ -1,7 +1,7 @@
-import { MonitorEvent } from 'http-inspector';
 import React, { FC, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { MonitorEvent } from 'wirebird-client';
 import { MasterDetailsView } from '../components/MasterDetailsView';
 import {
     IToolbarContextProps,

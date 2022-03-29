@@ -1,4 +1,3 @@
-require('http-inspector/inject');
 const Axios = require('axios');
 const qs = require('querystring');
 const sleep = require('sleep-promise');

@@ -1,7 +1,7 @@
 import { parse as parseURL } from 'url';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import { IndexedList, IIndexedListStore } from '../../utils/IndexedList';
 import { LookupManager, LookupStore } from '../../utils/LookupManager';
 

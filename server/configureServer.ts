@@ -1,13 +1,13 @@
 import fastifyStatic from 'fastify-static';
 import fastifyWebsocket from 'fastify-websocket';
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import { join, resolve } from 'path';
 import { PubSub } from './PubSub';
 import { statusHandler } from './routes/status';
 import { updatesHandler } from './routes/updates';
 import { wsUpdatesHandler } from './routes/wsUpdates';
 import { FastifyInstance } from 'fastify';
-import { schema } from 'http-inspector';
+import { schema } from 'wirebird-client';
 
 export const configureServer = (fastify: FastifyInstance): void => {
     fastify.decorate('updateEvents', new PubSub<MonitorEvent>());

@@ -1,4 +1,4 @@
-import { MonitorEvent } from 'http-inspector';
+import { MonitorEvent } from 'wirebird-client';
 import { eventChannel, SagaIterator } from 'redux-saga';
 import { call, put, take } from 'redux-saga/effects';
 import UpdatesService from '../../services/updates';
