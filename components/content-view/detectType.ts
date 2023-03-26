@@ -10,9 +10,10 @@ type ViewType = 'plain' | 'image' | 'json' | 'xml' | 'form';
 
 const plusSuffixRegex = /\+(\w+)/g;
 
-export function detectType(
-    contentType: string | null
-): { pureType: string; viewType: ViewType } {
+export function detectType(contentType: string | null): {
+    pureType: string;
+    viewType: ViewType;
+} {
     const [pureType] = contentType?.split(';') ?? [];
 
     // https://trac.tools.ietf.org/html/draft-ietf-appsawg-media-type-suffix-regs-02
