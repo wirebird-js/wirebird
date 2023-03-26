@@ -6,11 +6,11 @@ import { useErrorBoundary, withErrorBoundary } from 'react-use-error-boundary';
 
 const useErrorBoundaryStyles = makeStyles((_theme) => ({
     errorContainer: {
-        display: 'flex',
-        flexDirection: 'column',
+        display       : 'flex',
+        flexDirection : 'column',
         justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
+        alignItems    : 'center',
+        height        : '100%',
     },
     errorMessage: {
         textAlign: 'center',
