@@ -1,6 +1,6 @@
 {
     "name": "wirebird",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "DevTools / Network for Node.js",
     "keywords": [
         "http-inspector",
