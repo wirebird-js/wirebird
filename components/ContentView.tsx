@@ -9,7 +9,6 @@ import { TextView } from './content-view/TextView';
 import { ViewMode } from './content-view/viewModes';
 import { ViewModeSelect } from './content-view/ViewModeSelect';
 import { XMLView } from './content-view/XMLView';
-import { withUiErrorBoundary } from '../utils/withUiErrorBoundary';
 
 const useStyles = makeStyles((theme) => ({
     contentArea: {
@@ -22,7 +21,7 @@ export interface IContentViewProps {
     data: Buffer;
 }
 
-const ContentViewInner: FC<IContentViewProps> = ({ contentType, data }) => {
+export const ContentView: FC<IContentViewProps> = ({ contentType, data }) => {
     const detected = detectType(contentType);
     const [viewMode, setViewMode] = useState<ViewMode>(detected.viewType);
     useEffect(() => {
@@ -51,5 +50,3 @@ const ContentViewInner: FC<IContentViewProps> = ({ contentType, data }) => {
         </Grid>
     );
 };
-
-export const ContentView = withUiErrorBoundary(ContentViewInner);
