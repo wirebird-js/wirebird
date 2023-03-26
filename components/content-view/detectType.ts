@@ -14,7 +14,7 @@ export function detectType(contentType: string | null): {
     pureType: string;
     viewType: ViewType;
 } {
-    const [pureType] = contentType?.split(';') ?? [];
+    const [pureType] = contentType?.split(';') ?? [''];
 
     // https://trac.tools.ietf.org/html/draft-ietf-appsawg-media-type-suffix-regs-02
     const plusSuffices = new Set(
